@@ -1,0 +1,45 @@
+<html>
+    <%- include('./partials/head.ejs') %>
+
+    <body>
+        <div class="details">
+        <h1><%= project.title %></h1>
+        <div class="content">
+
+            <h2><%= project.method %></h2>
+            <h2><%= project.modelPath %></h2>
+
+            
+
+        </div>
+        <!-- <a class="delete" data-doc="<%= project._id %>" >delete</a> -->
+        </div>
+
+
+
+
+
+        <!-- <script>
+            const trashcan = document.querySelector("a.delete");
+            trashcan.addEventListener("click", (e)=>{
+                // output project id variable
+                const endpoint = `/projects/${trashcan/dataset.doc}`
+
+                // send delete request to server 
+                fetch(endpoint,{
+                    method:"DELETE"
+                }).then((response)=>{response.json()})
+                .then((data)=>{window.location.href = data.redirect})
+                .catch((err)=>{
+                    console.log(err)
+                })
+            })
+
+
+
+        </script> -->
+
+    </body>
+
+
+</html>

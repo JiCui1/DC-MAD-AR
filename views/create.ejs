@@ -1,0 +1,27 @@
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+<body>
+
+
+    <div class="create-blog content">
+        <form action = '/projects' method="POST">
+            <label for="title">Project title:</label>
+            <input type="text" id="title" name="title" required>
+            <label for="method">Project method:</label>
+            <select id="method" name="method">
+                <option value="image">Image Tracking</option>
+                <option value="gps">GPS Tracking</option>
+                <option value="marker">Marker Tracking</option>
+            </select>
+            <!-- <input type="text" id="method" name="method" required> -->
+            <label for="modelPath">Model Path:</label>
+            <input type="text" id="modelPath" name="modelPath"required></input>
+            <label for="modelFile">Upload File</label>
+            <input type="file" name="filetoupload" name="modelFile">
+            <button>Submit</button>
+        </form>
+    </div>
+
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>
