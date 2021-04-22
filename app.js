@@ -85,16 +85,17 @@ app.get('/projects/:id',(req,res)=>{
     })
 })
 
-// app.delete('/blogs/:id',(req,res)=>{
-//     const id =req.params.id
+app.delete('/projects/:id',(req,res)=>{
 
-//     Project.findById(id)
-//     .then((result)=>{
-//         res.json({redirect:'/blogs'})
-//     }).catch((err)=>{
-//         console.log(err)
-//     })
-// })
+    const id =req.params.id
+
+    Project.findByIdAndDelete(id)
+    .then(result=>{
+        res.json({redirect:'/projects'})
+    }).catch(err=>{
+        console.log(err)
+    })
+})
 
 
 app.get('/projects/create',(req,res)=>{

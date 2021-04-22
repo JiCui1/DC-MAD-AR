@@ -12,32 +12,32 @@
             
 
         </div>
-        <!-- <a class="delete" data-doc="<%= project._id %>" >delete</a> -->
+        <a  class="delete" data-doc="<%= project._id %>" > delete  </a>
         </div>
 
 
 
 
 
-        <!-- <script>
-            const trashcan = document.querySelector("a.delete");
-            trashcan.addEventListener("click", (e)=>{
-                // output project id variable
-                const endpoint = `/projects/${trashcan/dataset.doc}`
+        <script>
+            const trashcan = document.querySelector(".delete")
 
-                // send delete request to server 
+            trashcan.onclick = () => {
+                
+                const endpoint = `/projects/${trashcan.dataset.doc}`
+
                 fetch(endpoint,{
                     method:"DELETE"
-                }).then((response)=>{response.json()})
-                .then((data)=>{window.location.href = data.redirect})
-                .catch((err)=>{
-                    console.log(err)
                 })
-            })
+                .then((response)=>response.json())
+                .then((data)=>window.location.href = data.redirect)
+                .catch((err)=>console.log(err))
+
+            }
 
 
 
-        </script> -->
+        </script>
 
     </body>
 
