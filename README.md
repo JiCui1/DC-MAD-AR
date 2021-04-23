@@ -13,3 +13,12 @@ Public: Place to store express static information like css file/assets folder fo
 
 Views: ejs files to for node js to render to front end
 
+
+# Instruction
+Push to development branch by using
+
+```bash
+git push origin development
+```
+
+
