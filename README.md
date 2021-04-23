@@ -1,6 +1,8 @@
 # Dependency
 mongoose: mongoDB framework to make CRUD operation
+
 express: node js framework
+
 ejs: view engine to output data from DB to front end
 
 
