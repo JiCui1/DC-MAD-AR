@@ -15,6 +15,19 @@ Views: ejs files to for node js to render to front end
 
 
 # Instruction
+
+Add remote origin by using
+```bash
+git remote add origin https://github.com/JiCui1/DC-MAD-AR.git
+```
+
+
+Pull from development branch by using
+```bash
+git pull origin development
+```
+
+
 Push to development branch by using
 
 ```bash

@@ -109,6 +109,7 @@ app.delete('/projects/:id',(req,res)=>{
     })
 })
 
+
 //404 page will display if get request not specified
 app.use((req,res)=>{
     res.status(404).render('404')
