@@ -87,7 +87,7 @@ app.post('/projects/', upload.single('modelFile'), (req,res)=>{
     const project = new Project({
         title:req.body.title,
         method:req.body.method,
-        filePath: `public/assets/${req.file.originalname}`
+        filePath: `/assets/${req.file.originalname}`
         })
 
     // sending info to db
@@ -118,6 +118,16 @@ app.get('/projects/:id/detail',(req,res)=>{
     })
 })
 
+app.get('/projects/:id',(req,res)=>{
+    const id = req.params.id
+    Project.findById(id)
+    .then(result=>{
+        res.render('marker-model',{project:result,title:"marker demo"})
+    }).catch((err)=>{
+        console.log(err)
+    })
+})
+
 
 //delecte project when delete button clicked
 app.delete('/projects/:id',(req,res)=>{
@@ -134,6 +144,6 @@ app.delete('/projects/:id',(req,res)=>{
 
 
 //404 page will display if get request not specified
-app.use((req,res)=>{
-    res.status(404).render('404')
-})
+// app.use((req,res)=>{
+//     res.status(404).render('404')
+// })
