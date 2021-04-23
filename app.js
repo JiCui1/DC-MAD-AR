@@ -1,7 +1,10 @@
 const { render } = require('ejs')
 const express = require('express')
+const multer = require('multer')
+const path = require('path')
 const mongoose = require('mongoose')
 const Project = require('./models/project')
+
 
 const app = express()
 
@@ -11,7 +14,7 @@ mongoose.connect(dbURI,{useNewUrlParser:true,useUnifiedTopology:true})
 .then((result)=>{
     console.log("Connected to db")
 
-    //localhose:3000 
+    //localhost:3000 
     app.listen(3000)
     
 }).catch((err)=>{
@@ -61,11 +64,31 @@ app.get('/projects',(req,res)=>{
 })
 
 
+const storage = multer.diskStorage({
+    destination: (req, file, cb) =>{
+        //cb is the callback function, null for errors, public/assets is destination
+        cb(null,'public')
+    },
+    filename: (req,file,cb) => {
+        //store the file with the file name
+        const ext = path.extname(file.originalname)
+        const fileName = file.originalname
+        const filePath = `assets/${fileName}`
+        // const { originalname } = file;
+        cb(null, filePath)
+    }
+})
+const upload = multer({storage})
+
 //submit form information to database
-app.post('/projects/',(req,res)=>{
+app.post('/projects/', upload.single('modelFile'), (req,res)=>{
     //body is a method from the middleware urlenconded 
     //getting value from form input to submit
-    const project = new Project(req.body)
+    const project = new Project({
+        title:req.body.title,
+        method:req.body.method,
+        filePath: `public/assets/${req.file.originalname}`
+        })
 
     // sending info to db
     project.save()
@@ -85,7 +108,7 @@ app.get('/projects/create',(req,res)=>{
 
 
 //single project info/potential url to run application
-app.get('/projects/:id',(req,res)=>{
+app.get('/projects/:id/detail',(req,res)=>{
     const id = req.params.id
     Project.findById(id)
     .then(result=>{

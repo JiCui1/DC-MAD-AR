@@ -11,7 +11,7 @@
         <% if(projects.length > 0){ %>
 
             <% projects.forEach(project=>{ %>
-                <a class="single" href="/projects/<%= project._id %>">
+                <a class="single" href="/projects/<%= project._id %>/detail">
                 <h1 class="title"><%= project.title  %> </h1>
                 <h3 class="method"><%= project.method %></h3>
                 <h3 class="modelPath"><%= project.modelPath %></h3>
@@ -27,3 +27,7 @@
     <!-- <%- include('./partials/footer.ejs') %> -->
 </body>
 </html>
+
+
+
+

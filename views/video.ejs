@@ -1,0 +1,70 @@
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+<body>
+
+    <!-- <%- include('./partials/nav.ejs') %> -->
+
+    <div class="projects content">
+        <h2>All Projects</h2>
+
+        <!-- looping through all projects in db to output them  -->
+        <% if(projects.length > 0){ %>
+
+            <% projects.forEach(project=>{ %>
+                <a class="single" href="/projects/<%= project._id %>">
+                <h1 class="title"><%= project.title  %> </h1>
+                <h3 class="method"><%= project.method %></h3>
+                <h3 class="modelPath"><%= project.modelPath %></h3>
+                </a>
+            <% }) %>
+         
+        <% }else{ %>
+                <p>NOTHING TO SHOW</p>
+
+            <% } %>
+    </div>
+
+    <!-- <%- include('./partials/footer.ejs') %> -->
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html>
+    <%- include('./partials/headscript.ejs') %>
+
+  <body style="margin : 0px; overflow: hidden;">
+
+    <!-- arjs market 3d model  -->
+
+    <!-- <a-scene embedded arjs>
+
+      <a-marker preset="hiro">
+        <a-entity
+          position="0 0 0"
+          scale="0.1 0.1 0.1"
+          gltf-model="burger.glb"
+        ></a-entity>
+      </a-marker>
+      <a-entity camera></a-entity>
+
+    </a-scene> -->
+
+
+    <!-- arjs market video  -->
+
+    <a-scene embedded arjs='sourceType: webcam; detectionMode: mono; trackingMethod: best; debugUIEnabled: false;' vr-mode-ui="enabled: false">
+      <a-assets>
+          <video crossOrigin="anonymous" id="vid" autoplay loop muted="true" type="video/mp4" src="vid.mp4">
+      </a-assets>
+      <a-marker preset="hiro">
+          <a-video src="#vid" width="1.78" height="1" rotation="270 0 0" play="true"></a-video>
+      </a-marker>
+    <a-entity camera></a-entity>
+    </a-scene>
+
+
+  </body>
+</html>
+

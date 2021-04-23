@@ -14,7 +14,7 @@ const projectSchema = new Schema({
         required:true
     },
 
-    modelPath: {
+    filePath: {
         type:String,
         required:true
     }
