@@ -1,0 +1,29 @@
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+<body>
+
+    <!-- <%- include('./partials/nav.ejs') %> -->
+
+    <div class="projects content">
+        <h2>All Projects</h2>
+
+        <!-- looping through all projects in db to output them  -->
+        <% if(projects.length > 0){ %>
+
+            <% projects.forEach(project=>{ %>
+                <a class="single" href="/projects/<%= project._id %>">
+                <h1 class="title"><%= project.title  %> </h1>
+                <h3 class="method"><%= project.method %></h3>
+                <h3 class="modelPath"><%= project.modelPath %></h3>
+                </a>
+            <% }) %>
+         
+        <% }else{ %>
+                <p>NOTHING TO SHOW</p>
+
+            <% } %>
+    </div>
+
+    <!-- <%- include('./partials/footer.ejs') %> -->
+</body>
+</html>
