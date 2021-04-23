@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location Tracker</title>
+</head>
+
+    <!-- ---------- linking a frame and ar.js ---------- -->
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+
+    <body style="margin: 0px; overflow: hidden;">
+        
+        <!-- ---------- set the scene ---------- -->
+        <!--vr-mode-ui = enables the VR button, we don't want that
+            renderer = allows for better sorting and rendering
+            embedded = removes full screen CSS styling
+        -->
+        <a-scene 
+        vr-mode-ui="enabled: false;"
+        embedded
+        arjs="sourceType: webcam; debugUIEnables: false;">
+
+            <!-- ---------- linking the glTF ---------- -->
+            <a-entity
+            gltf-model="./assets/orchid.gltf"
+            scale="1"
+            gps-entity-place="latitude: 43.899218; longitude: -78.918807;"
+            value="This will always face the user." look-at="[gps-camera]"
+            ></a-entity>
+
+            <!-- this camera supports multiple markers -->
+            <a-camera gps-camera rotation-reader></a-camera>
+        </a-scene>
+    </body>
+</html>

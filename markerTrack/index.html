@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marker Tracker - Barcode</title>
+</head>
+
+    <!-- ---------- linking a frame and ar.js ---------- -->
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+
+    <body style="margin: 0px; overflow: hidden;">
+        
+        <!-- ---------- adding how we see the barcode ---------- -->
+        <a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
+
+            <!-- ---------- place an object in a marker ---------- -->
+            <a-marker type="barcode" value="1" >
+                <a-entity
+                position="0 0 0"
+                scale="1 1 1"
+                rotation="0 0 0"
+                gltf-model="./assets/orchid.gltf"
+                ></a-entity>
+            </a-marker>
+
+            <a-marker type="barcode" value="2" >
+                <a-entity
+                position="0 0 0"
+                scale="1 1 1"
+                rotation="0 0 0"
+                gltf-model="./assets/areca.gltf"
+                ></a-entity>
+            </a-marker>
+
+            <!-- this camera supports multiple markers -->
+            <a-entity camera></a-entity>
+        </a-scene>
+    </body>
+</html>
