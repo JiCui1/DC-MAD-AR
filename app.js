@@ -129,11 +129,20 @@ app.get('/projects/:id',(req,res)=>{
     Project.findById(id)
     .then(result=>{
 
-         if(result.method == "marker"){
-             res.render('marker-model',{project:result,title:"marker demo"})
-         }else if(result.method == "gps"){
-            res.render('gps',{project:result,title:"gps demo"})
-         }
+        //choosing render while based on result method
+        switch (result.method){
+            case "marker":
+                res.render('marker-model',{project:result,title:"marker demo"})
+                break
+            
+            case "gps":
+                res.render('gps',{project:result,title:"gps demo"})
+                break
+
+            case "image":
+                res.render('image-track',{project:result,title:"image demo"})
+                break
+        }
         
     }).catch((err)=>{
         console.log(err)
