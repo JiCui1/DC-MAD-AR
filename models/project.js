@@ -17,7 +17,23 @@ const projectSchema = new Schema({
     filePath: {
         type:String,
         required:true
-    }
+    },
+
+    imgDesPath:{
+        type: String
+    },
+
+    lat:{
+        type:Number
+    },
+
+    long:{
+        type:Number
+    },
+
+    gpsRange:{
+        type:Number
+    },
 
 },{timestamps:true})
 

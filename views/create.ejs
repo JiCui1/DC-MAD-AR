@@ -5,19 +5,38 @@
 
     <div class="create-blog content">
         <form action = '/projects' method="POST" enctype="multipart/form-data">
-            <label for="title">Project title:</label>
+            <label for="title">Project title:</label><br>
             <input type="text" id="title" name="title" required>
-            <label for="method">Project method:</label>
+            <br><br>
+
+            <label for="method">Project method:</label><br>
             <select id="method" name="method">
                 <option value="image">Image Tracking</option>
                 <option value="gps">GPS Tracking</option>
                 <option value="marker">Marker Tracking</option>
             </select>
-            <!-- <input type="text" id="method" name="method" required> -->
-            <!-- <label for="filePath">Model Path:</label>
-            <input type="text" id="filePath" name="filePath"required></input> -->
-            <label for="modelFile">Upload File</label>
-            <input type="file" name="modelFile">
+            <br><br>
+ 
+            <label for="lat">Lat:</label><br>
+            <input type="number" id="lat" name="lat">
+            <br><br>
+
+            <label for="long">Long:</label><br>
+            <input type="number" id="long" name="long">
+            <br><br>
+
+            <label for="range">Trigger Range:</label><br>
+            <input type="number" id="range" name="range">
+            <br><br>
+
+            <label for="modelFile">Upload Model</label><br>
+            <input type="file" name="modelFile" id="modelFile">
+            <br><br>
+
+            <label for="imgDesFile">Upload Image Descriptor</label><br>
+            <input type="file" name="imgDesFile" id="imgDesFile">   
+            <br><br>        
+
             <button>Submit</button>
         </form>
     </div>

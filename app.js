@@ -87,7 +87,12 @@ app.post('/projects/', upload.single('modelFile'), (req,res)=>{
     const project = new Project({
         title:req.body.title,
         method:req.body.method,
-        filePath: `/assets/${req.file.originalname}`
+        // imgDesPath:`/assets/${req.body.imgDesFile.originalname}`,
+        filePath: `/assets/${req.file.originalname}`,
+        lat:req.body.lat,
+        long:req.body.long,
+        gpsRange:req.body.range,
+    
         })
 
     // sending info to db
