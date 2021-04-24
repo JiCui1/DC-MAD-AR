@@ -128,8 +128,13 @@ app.get('/projects/:id',(req,res)=>{
     const id = req.params.id
     Project.findById(id)
     .then(result=>{
+
+         if(result.method == "marker"){
+             res.render('marker-model',{project:result,title:"marker demo"})
+         }else if(result.method == "gps"){
+            res.render('gps',{project:result,title:"gps demo"})
+         }
         
-        res.render('marker-model',{project:result,title:"marker demo"})
     }).catch((err)=>{
         console.log(err)
     })
