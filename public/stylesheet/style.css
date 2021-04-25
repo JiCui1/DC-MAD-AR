@@ -13,17 +13,22 @@ body {
   cursor: pointer;
 }
 
+button{
+  padding: 0.5rem;
+  font-size: 1.3rem;
+}
+
 /* --------------------------------------------- HOME PAGE -------------------------------------------------*/
-h1{
+.mainTitle{
   text-align: center;
   margin-top: 2rem;
 }
 
+
 .decoratingButtons {
-  padding: 1rem;
-  font-size: 1.5rem;
+
   left: 50%;
-  margin-left: 49.7rem;
+  margin-left: 51rem;
   margin-top: 3rem;
 }
 
@@ -35,4 +40,29 @@ a{
 a:hover{
   color: #b91b8a;
 
+}
+
+/* --------------------------------------------- CREATE PAGE -------------------------------------------------*/
+
+form{
+  margin-top: 2rem;
+}
+
+label {
+  font-size: 1.2rem;
+  margin-left: 0.5rem;
+}
+
+input{
+  padding: 0.7rem;
+  font-size: 1.1rem;
+}
+
+select{
+  padding: 0.7rem;
+  font-size: 0.8rem;
+}
+
+.submitButton{
+  margin-left: 5rem;
 }
