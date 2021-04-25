@@ -6,7 +6,7 @@
 }
 
 body {
-  background-color: pink;
+  background-color: #f4dfe3;;
 }
 
 .delete {
@@ -17,4 +17,22 @@ body {
 .title {
   text-align: center;
   margin-top: 2rem;
+}
+
+.decoratingButtons {
+  padding: 1rem;
+  font-size: 1.5rem;
+  left: 50%;
+  margin-left: 49.7rem;
+  margin-top: 3rem;
+}
+
+a{
+  color: black;
+  text-decoration: none;
+}
+
+a:hover{
+  color: #b91b8a;
+
 }
