@@ -77,4 +77,21 @@ select{
 
 .single {
   color: #b91b8a;
+  text-transform: capitalize;
 }
+
+/* --------------------------------------------- SINGLE PROJECTS -------------------------------------------------*/
+
+.detailTitle, .singleDetail{
+  color: #b91b8a;
+  text-transform: capitalize;
+}
+
+.detailTitle{
+  margin-bottom: 2rem;
+}
+
+.setButtons{
+  margin-top: 1rem;
+}
+

@@ -3,23 +3,26 @@
 
     <body>
         <div class="details">
-        <h1>Name: <%= project.title %></h1>
-        <div class="content">
+        <h1 class="mainTitle detailTitle"> <%= project.title %></h1>
+        <div class="content  offset-5">
 
-            <h2>Trigger: <%= project.method %></h2>
-            <h2>Model File Path: <%= project.filePath %></h2>
-            <h2>GPS Lat: <%= project.lat %></h2>
-            <h2>GPS Long: <%= project.long %></h2>
-            <h2>GPS Range: <%= project.gpsRange %></h2>
-            <h2>Project ID: <%= project._id %></h2>
+            <h2>Trigger:<span class="singleDetail"> <%= project.method %></span></h2>
+            <h2>Model File Path: <span class="singleDetail"><%= project.filePath %></span></h2>
+            <h2>GPS Lat: <span class="singleDetail"><%= project.lat %></span></h2>
+            <h2>GPS Long:<span class="singleDetail"> <%= project.long %></span></h2>
+            <h2>GPS Range: <span class="singleDetail"><%= project.gpsRange %></span></h2>
+            <h2>Project ID:<span class="singleDetail"> <%= project._id %></span></h2>
 
             
         </div>
-        <a  class="view" data-doc="<%= project._id %>"  href="/projects/<%= project._id %>/"> view </a>
+        <div class="setButtons">
+            <button class="offset-5"><a  class="view" data-doc="<%= project._id %>"  href="/projects/"> Back </a></button>
+            <button><a  class="view" data-doc="<%= project._id %>"  href="/projects/<%= project._id %>/"> View </a></button>
+            <button><a  class="delete" data-doc="<%= project._id %>" > Delete  </a></button>
         </div>
         </div>
-        <a  class="delete" data-doc="<%= project._id %>" > delete  </a>
-        </div>
+
+
 
 
 
