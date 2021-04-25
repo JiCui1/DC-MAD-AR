@@ -12,3 +12,9 @@ body {
 .delete {
   cursor: pointer;
 }
+
+/* --------------------------------------------- HOME PAGE -------------------------------------------------*/
+.title {
+  text-align: center;
+  margin-top: 2rem;
+}
