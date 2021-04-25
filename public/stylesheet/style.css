@@ -64,3 +64,17 @@ select{
 .submitButton{
   margin-left: 5rem;
 }
+
+/* --------------------------------------------- ALL PROJECTS -------------------------------------------------*/
+
+.projectDetails {
+  margin-top: 2rem;
+}
+
+.modelPath {
+  margin-bottom: 2rem;
+}
+
+.single {
+  color: #b91b8a;
+}

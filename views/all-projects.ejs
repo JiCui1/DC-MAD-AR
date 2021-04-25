@@ -5,16 +5,17 @@
     <!-- <%- include('./partials/nav.ejs') %> -->
 
     <div class="projects content">
-        <h2>All Projects</h2>
+        <h1 class="mainTitle">All Projects</h1>
 
         <!-- looping through all projects in db to output them  -->
+        <div class="offset-5 projectDetails">
         <% if(projects.length > 0){ %>
 
             <% projects.forEach(project=>{ %>
-                <a class="single" href="/projects/<%= project._id %>/detail">
-                <h1 class="title"><%= project.title  %> </h1>
-                <h3 class="method"><%= project.method %></h3>
-                <h3 class="modelPath"><%= project.modelPath %></h3>
+                
+                    <h2 class="title"> NAME :: <a class="single" href="/projects/<%= project._id %>/detail"><%= project.title  %> </a></h1>
+                    <h2 class="method"> METHOD :: <a class="single" href="/projects/<%= project._id %>/detail"><%= project.method %></a></h3>
+                    <h3 class="modelPath"> <a class="single" href="/projects/<%= project._id %>/detail"><%= project.modelPath %></a></h3>
                 </a>
             <% }) %>
          
@@ -22,6 +23,7 @@
                 <p>NOTHING TO SHOW</p>
 
             <% } %>
+        </div>
     </div>
 
     <!-- <%- include('./partials/footer.ejs') %> -->
