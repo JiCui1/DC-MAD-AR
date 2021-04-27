@@ -4,6 +4,7 @@ const multer = require('multer')
 const path = require('path')
 const mongoose = require('mongoose')
 const Project = require('./models/project')
+const fs = require('fs')
 
 
 const app = express()
@@ -117,7 +118,6 @@ app.get('/projects/:id/detail',(req,res)=>{
     const id = req.params.id
     Project.findById(id)
     .then(result=>{
-        console.log(result)
         res.render('details',{project:result, title:"project details"})
     }).catch((err)=>{
         console.log(err)
@@ -154,6 +154,22 @@ app.get('/projects/:id',(req,res)=>{
 app.delete('/projects/:id',(req,res)=>{
 
     const id =req.params.id
+    let deleteModelPath
+
+    Project.findById(id)
+    .then(result=>{
+        deleteModelPath = `public/${result.filePath}`
+        fs.unlink(deleteModelPath,(err)=>{
+            if(err){
+                console.log(err)
+            }else{
+                console.log('file delete sucess')
+            }
+        })
+    })
+
+
+    
 
     Project.findByIdAndDelete(id)
     .then(result=>{
@@ -162,6 +178,9 @@ app.delete('/projects/:id',(req,res)=>{
         console.log(err)
     })
 })
+
+
+
 
 
 //404 page will display if get request not specified

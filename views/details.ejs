@@ -1,7 +1,9 @@
 <html>
+    
     <%- include('./partials/head.ejs') %>
 
     <body>
+
         <div class="details">
         <h1 class="mainTitle detailTitle"> <%= project.title %></h1>
         <div class="content  offset-5">
@@ -13,7 +15,6 @@
             <h2>GPS Range: <span class="singleDetail"><%= project.gpsRange %></span></h2>
             <h2>Project ID:<span class="singleDetail"> <%= project._id %></span></h2>
 
-            
         </div>
 
         <div class="setButtons">
@@ -34,16 +35,18 @@
 
 
         <script>
-            const trashcan = document.querySelector(".delete")
+            const trashcan = document.querySelector(".delete") 
 
             trashcan.onclick = () => {
                 
                 const endpoint = `/projects/${trashcan.dataset.doc}`
 
+
+
                 fetch(endpoint,{
                     method:"DELETE"
                 })
-                .then((response)=>response.json())
+                .then((response)=>{return response.json()})
                 .then((data)=>window.location.href = data.redirect)
                 .catch((err)=>console.log(err))
 
