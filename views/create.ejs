@@ -36,7 +36,7 @@
             <input type="file" name="modelFile" id="modelFile">
             <br><br>
 
-            <a href="/projects/create/image-des-upload"><h3>Click here to upload image descriptor</h3></a>
+            <a href="/projects/create/image-des-upload" id="desUploadLink"><h3>Click here to upload image descriptor</h3></a>
             <br><br>        
 
             <button class="submitButton">Submit</button>
@@ -59,12 +59,16 @@
                 $("#gpsOptions").show();
                 $("#imgDesFile").hide();
                 $("#desFileLabel").hide();
+                $("#desUploadLink").hide()
             }else if(v=="marker"){
             $("#gpsOptions").hide();
+            $("#desUploadLink").hide()
         } else if(v=="image"){
             $("#gpsOptions").hide();
             $("#imgDesFile").show();
-            $("#desFileLabel").show()   
+            $("#desFileLabel").show()  
+            $("#desUploadLink").show() 
+
         }
     });
 });

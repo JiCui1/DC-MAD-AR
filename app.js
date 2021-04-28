@@ -4,6 +4,7 @@ const multer = require('multer')
 const path = require('path')
 const mongoose = require('mongoose')
 const Project = require('./models/project')
+const fs = require("fs");
 
 
 const app = express()
@@ -117,7 +118,6 @@ app.get('/projects/:id/detail',(req,res)=>{
     const id = req.params.id
     Project.findById(id)
     .then(result=>{
-        console.log(result)
         res.render('details',{project:result, title:"project details"})
     }).catch((err)=>{
         console.log(err)
@@ -153,6 +153,9 @@ app.get('/projects/create/image-des-upload',(req,res)=>{
     res.render('des-upload.ejs',{title:"home"})
 })
 
+app.post('/des-upload',(req,res)=>{
+    
+})
 
 //delecte project when delete button clicked
 app.delete('/projects/:id',(req,res)=>{
@@ -160,14 +163,23 @@ app.delete('/projects/:id',(req,res)=>{
     const id =req.params.id
 
     //DELETE function for the asset folder inserted .. :- righ now focusing on one image to check if it works
-    const fs = require("fs");
-    fs.unlink(`/assets/Unitiled_Artwork.png` , function(err) {
-    if (err) {
-    throw err
-        } else {
-    console.log("Successfully deleted the file.")
-    }
-    });
+
+    Project.findById(id)
+    .then(result=>{
+        const deleteModelPath = `public${result.filePath}`
+        fs.unlink(deleteModelPath , function(err) {
+            if (err) {
+            throw err
+                } else {
+            console.log("Successfully deleted the file.")
+            }
+            });
+
+    }).catch((err)=>{
+        console.log(err)
+    })
+
+
 
     Project.findByIdAndDelete(id)
     .then(result=>{
