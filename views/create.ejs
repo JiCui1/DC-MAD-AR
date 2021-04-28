@@ -17,25 +17,26 @@
                 <option value="marker">Marker Tracking</option>
             </select>
             <br><br>
- 
-            <label for="lat">Lat:</label><br>
-            <input type="number" id="lat" name="lat" step="any">
-            <br><br>
 
-            <label for="long">Long:</label><br>
-            <input type="number" id="long" name="long" step="any">
-            <br><br>
+            <div id="gpsOptions">
+                <label for="lat">Lat:</label><br>
+                <input type="number" id="lat" name="lat" step="any">
+                <br><br>
 
-            <label for="range">Trigger Range:</label><br>
-            <input type="number" id="range" name="range">
-            <br><br>
+                <label for="long">Long:</label><br>
+                <input type="number" id="long" name="long" step="any">
+                <br><br>
+
+                <label for="range">Trigger Range:</label><br>
+                <input type="number" id="range" name="range">
+                <br><br>
+            </div>
 
             <label for="modelFile">Upload Model</label><br>
             <input type="file" name="modelFile" id="modelFile">
             <br><br>
 
-            <label for="imgDesFile">Upload Image Descriptor</label><br>
-            <input type="file" name="imgDesFile" id="imgDesFile">   
+            <a href="/projects/create/image-des-upload" id="desUploadLink"><h3>Click here to upload image descriptor</h3></a>
             <br><br>        
 
             <button class="submitButton">Submit</button>
@@ -44,3 +45,31 @@
 
 </body>
 </html>
+
+<script>
+    console.log("connect");
+
+    $(document).ready(function(){
+        let gpsOptions = document.getElementById("gpsOptions");
+        let method = document.getElementById("method");
+        $("#gpsOptions").hide();
+        $("#method").on("change", function(){
+            var v = $(this).val();
+                if(v=="gps"){
+                $("#gpsOptions").show();
+                $("#imgDesFile").hide();
+                $("#desFileLabel").hide();
+                $("#desUploadLink").hide()
+            }else if(v=="marker"){
+            $("#gpsOptions").hide();
+            $("#desUploadLink").hide()
+        } else if(v=="image"){
+            $("#gpsOptions").hide();
+            $("#imgDesFile").show();
+            $("#desFileLabel").show()  
+            $("#desUploadLink").show() 
+
+        }
+    });
+});
+</script>

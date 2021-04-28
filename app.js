@@ -149,6 +149,13 @@ app.get('/projects/:id',(req,res)=>{
     })
 })
 
+app.get('/projects/create/image-des-upload',(req,res)=>{
+    res.render('des-upload.ejs',{title:"home"})
+})
+
+app.post('/des-upload',(req,res)=>{
+    
+})
 
 //delecte project when delete button clicked
 app.delete('/projects/:id',(req,res)=>{
@@ -170,6 +177,25 @@ app.delete('/projects/:id',(req,res)=>{
 
 
     
+
+    //DELETE function for the asset folder inserted .. :- righ now focusing on one image to check if it works
+
+    Project.findById(id)
+    .then(result=>{
+        const deleteModelPath = `public${result.filePath}`
+        fs.unlink(deleteModelPath , function(err) {
+            if (err) {
+            throw err
+                } else {
+            console.log("Successfully deleted the file.")
+            }
+            });
+
+    }).catch((err)=>{
+        console.log(err)
+    })
+
+
 
     Project.findByIdAndDelete(id)
     .then(result=>{
