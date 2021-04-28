@@ -36,8 +36,7 @@
             <input type="file" name="modelFile" id="modelFile">
             <br><br>
 
-            <label for="imgDesFile">Upload Image Descriptor</label><br>
-            <input type="file" name="imgDesFile" id="imgDesFile">   
+            <a href="/projects/create/image-des-upload"><h3>Click here to upload image descriptor</h3></a>
             <br><br>        
 
             <button class="submitButton">Submit</button>
@@ -58,9 +57,15 @@
             var v = $(this).val();
                 if(v=="gps"){
                 $("#gpsOptions").show();
-            }else{
-            $(".gpsOptions").hide();
-        } 
+                $("#imgDesFile").hide();
+                $("#desFileLabel").hide();
+            }else if(v=="marker"){
+            $("#gpsOptions").hide();
+        } else if(v=="image"){
+            $("#gpsOptions").hide();
+            $("#imgDesFile").show();
+            $("#desFileLabel").show()   
+        }
     });
 });
 </script>

@@ -149,6 +149,10 @@ app.get('/projects/:id',(req,res)=>{
     })
 })
 
+app.get('/projects/create/image-des-upload',(req,res)=>{
+    res.render('des-upload.ejs',{title:"home"})
+})
+
 
 //delecte project when delete button clicked
 app.delete('/projects/:id',(req,res)=>{
