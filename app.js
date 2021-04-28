@@ -155,6 +155,16 @@ app.delete('/projects/:id',(req,res)=>{
 
     const id =req.params.id
 
+    //DELETE function for the asset folder inserted .. :- righ now focusing on one image to check if it works
+    const fs = require("fs");
+    fs.unlink(`/assets/Unitiled_Artwork.png` , function(err) {
+    if (err) {
+    throw err
+        } else {
+    console.log("Successfully deleted the file.")
+    }
+    });
+
     Project.findByIdAndDelete(id)
     .then(result=>{
         res.json({redirect:'/projects'})

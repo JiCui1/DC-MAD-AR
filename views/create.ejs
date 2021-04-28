@@ -17,18 +17,20 @@
                 <option value="marker">Marker Tracking</option>
             </select>
             <br><br>
- 
-            <label for="lat">Lat:</label><br>
-            <input type="number" id="lat" name="lat" step="any">
-            <br><br>
 
-            <label for="long">Long:</label><br>
-            <input type="number" id="long" name="long" step="any">
-            <br><br>
+            <div id="gpsOptions">
+                <label for="lat">Lat:</label><br>
+                <input type="number" id="lat" name="lat" step="any">
+                <br><br>
 
-            <label for="range">Trigger Range:</label><br>
-            <input type="number" id="range" name="range">
-            <br><br>
+                <label for="long">Long:</label><br>
+                <input type="number" id="long" name="long" step="any">
+                <br><br>
+
+                <label for="range">Trigger Range:</label><br>
+                <input type="number" id="range" name="range">
+                <br><br>
+            </div>
 
             <label for="modelFile">Upload Model</label><br>
             <input type="file" name="modelFile" id="modelFile">
@@ -44,3 +46,21 @@
 
 </body>
 </html>
+
+<script>
+    console.log("connect");
+
+    $(document).ready(function(){
+        let gpsOptions = document.getElementById("gpsOptions");
+        let method = document.getElementById("method");
+        $("#gpsOptions").hide();
+        $("#method").on("change", function(){
+            var v = $(this).val();
+                if(v=="gps"){
+                $("#gpsOptions").show();
+            }else{
+            $(".gpsOptions").hide();
+        } 
+    });
+});
+</script>
