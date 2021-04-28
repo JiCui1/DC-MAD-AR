@@ -154,7 +154,7 @@ app.get('/projects/:id',(req,res)=>{
 app.delete('/projects/:id',(req,res)=>{
 
     const id =req.params.id
-    let deleteModelPath
+    
 
     Project.findById(id)
     .then(result=>{
