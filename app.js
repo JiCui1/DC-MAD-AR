@@ -5,7 +5,7 @@ const path = require('path')
 const mongoose = require('mongoose')
 const Project = require('./models/project')
 const fs = require('fs')
-
+const { v4: uuidv4 } = require('uuid')
 
 const app = express()
 
@@ -85,20 +85,47 @@ const upload = multer({storage})
 app.post('/projects/', upload.single('modelFile'), (req,res)=>{
     //body is a method from the middleware urlenconded 
     //getting value from form input to submit
+
     const project = new Project({
         title:req.body.title,
         method:req.body.method,
-        // imgDesPath:`/assets/${req.body.imgDesFile.originalname}`,
-        filePath: `/assets/${req.file.originalname}`,
         lat:req.body.lat,
         long:req.body.long,
         gpsRange:req.body.range,
+        // imgDesPath:`/assets/${req.body.imgDesFile.originalname}`,
+        // filePath: `/assets/${req.file.originalname}`,
+        trigger:[{
+            name: req.body.trigger_name,
+            id:uuidv4(),
+            marker_path:req.body.marker_path,
+            descriptor_path: req.body.descriptor_path,
+            asset_path: `/assets/${req.file.originalname}`,
+            asset_type: `${path.extname(req.file.originalname)}`,
+            asset_scale:{
+                x: req.body.scale_x,
+                y: req.body.scale_y,
+                z: req.body.scale_z,
+            },
+            asset_position:{
+                x: req.body.position_x,
+                y: req.body.position_y,
+                z: req.body.position_z,
+            },
+            asset_rotation:{
+                x: req.body.rotation_x,
+                y: req.body.rotation_y,
+                z: req.body.rotation_z,
+            },
+
+        }]
+
     
         })
 
     // sending info to db
     project.save()
         .then((result)=>{
+            console.log(result)
             //once submitted redirect back to all projects page
             res.redirect('/projects')
         }).catch((err)=>{
