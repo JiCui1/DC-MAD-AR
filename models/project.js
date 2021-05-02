@@ -43,7 +43,7 @@ const projectSchema = new Schema({
         id:String,
         marker_path: String,
         descriptor_path: String,
-        asset_path:{type: String, required:true},
+        asset_path:{type: String},
         asset_type:{type: String},
         asset_size:{
             x:{type:Number,default:1},

@@ -80,11 +80,42 @@ const storage = multer.diskStorage({
     }
 })
 const upload = multer({storage})
+const multipleUpload = upload.fields([{name:"modelFile", maxCount:10}])
 
 //submit form information to database
-app.post('/projects/', upload.single('modelFile'), (req,res)=>{
+app.post('/projects/', multipleUpload, (req,res)=>{
     //body is a method from the middleware urlenconded 
     //getting value from form input to submit
+    if(req.files){
+        console.log("files uploaded")
+    }
+    let triggerList = []
+    console.log(req.body.trigger_name)
+    for(let i = 0; i < req.body.trigger_name.length; i++){
+        triggerList.push({
+            name: req.body.trigger_name[i],
+            // marker_path:req.body.marker_path[i],
+            // descriptor_path: req.body.descriptor_path[i],
+            asset_path: `/assets/${req.files.modelFile[i]["originalname"]}`,
+            asset_type: `${path.extname(req.files.modelFile[i]["originalname"])}`,
+            asset_scale:{
+                x: req.body.scale_x[i],
+                y: req.body.scale_y[i],
+                z: req.body.scale_z[i],
+            },
+            asset_position:{
+                x: req.body.position_x[i],
+                y: req.body.position_y[i],
+                z: req.body.position_z[i],
+            },
+            asset_rotation:{
+                x: req.body.rotation_x[i],
+                y: req.body.rotation_y[i],
+                z: req.body.rotation_z[i],
+            },
+
+        })
+    }
 
     const project = new Project({
         title:req.body.title,
@@ -92,32 +123,34 @@ app.post('/projects/', upload.single('modelFile'), (req,res)=>{
         lat:req.body.lat,
         long:req.body.long,
         gpsRange:req.body.range,
+        trigger: triggerList
         // imgDesPath:`/assets/${req.body.imgDesFile.originalname}`,
         // filePath: `/assets/${req.file.originalname}`,
-        trigger:[{
-            name: req.body.trigger_name,
-            id:uuidv4(),
-            marker_path:req.body.marker_path,
-            descriptor_path: req.body.descriptor_path,
-            asset_path: `/assets/${req.file.originalname}`,
-            asset_type: `${path.extname(req.file.originalname)}`,
-            asset_scale:{
-                x: req.body.scale_x,
-                y: req.body.scale_y,
-                z: req.body.scale_z,
-            },
-            asset_position:{
-                x: req.body.position_x,
-                y: req.body.position_y,
-                z: req.body.position_z,
-            },
-            asset_rotation:{
-                x: req.body.rotation_x,
-                y: req.body.rotation_y,
-                z: req.body.rotation_z,
-            },
+        // trigger:[{
+        //     name: req.body.trigger_name,
+        //     id:uuidv4(),
+        //     marker_path:req.body.marker_path,
+        //     descriptor_path: req.body.descriptor_path,
+        //     // asset_path: `/assets/${req.file.originalname}`,
+        //     // asset_type: `${path.extname(req.file.originalname)}`,
+        //     asset_scale:{
+        //         x: req.body.scale_x,
+        //         y: req.body.scale_y,
+        //         z: req.body.scale_z,
+        //     },
+        //     asset_position:{
+        //         x: req.body.position_x,
+        //         y: req.body.position_y,
+        //         z: req.body.position_z,
+        //     },
+        //     asset_rotation:{
+        //         x: req.body.rotation_x,
+        //         y: req.body.rotation_y,
+        //         z: req.body.rotation_z,
+        //     },
 
-        }]
+        // }]
+        
 
     
         })

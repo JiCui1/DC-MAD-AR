@@ -21,7 +21,7 @@
                     <br>
                     <h1>Trigger <%= i+1 %></h1>
                     <h2 class="trigger_name"> Name: <%= project.trigger[i].name %></h2>
-                    <h2 class="trigger_id"> Trigger Id: <%= project.trigger[i].id %></h2>
+                    <h2 class="trigger_id"> Trigger Id: <%= project.trigger[i]._id %></h2>
                     <h2 class="trigger_asset_path"> Asset Path: <%= project.trigger[i].asset_path %></h2>
                     <button><a  class="delete" data-doc="<%= project.trigger[0].id %>" > Delete  </a></button>
 
