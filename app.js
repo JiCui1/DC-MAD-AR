@@ -89,8 +89,14 @@ app.post('/projects/', multipleUpload, (req,res)=>{
 
     //list to store all triggers
     let triggerList = []
-    console.log(req.body.trigger_name)
+
+    //put file into an array if not already one
+    if(typeof(!req.body.trigger_name=="array")){
+        req.body.trigger_name = [req.body.trigger_name]
+    }
+
     for(let i = 0; i < req.body.trigger_name.length; i++){
+
         triggerList.push({
             name: req.body.trigger_name[i],
             // marker_path:req.body.marker_path[i],
