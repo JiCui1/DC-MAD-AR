@@ -2,20 +2,30 @@
     <%- include('./partials/headscript.ejs') %>
 
   <body style="margin : 0px; overflow: hidden;">
-    <h1><%= project.filePath %></h1>
+    <h1><%= project.trigger[0].asset_position.x %> <%= project.trigger[0].asset_position.y %> <%= project.trigger[0].asset_position.z %></h1>
+    <h1><%= project.trigger[0].asset_rotation.x %> <%= project.trigger[0].asset_rotation.y %> <%= project.trigger[0].asset_rotation.z %></h1>
+    <h1><%= project.trigger[0].asset_size.x %> <%= project.trigger[0].asset_size.y %> <%= project.trigger[0].asset_size.z %></h1>
+    <h1><%= project.trigger[0].asset_path %></h1>
 
         <!-- arjs market 3d model  -->
 
     <a-scene embedded arjs>
 
-      <a-marker preset="hiro">
-        <a-entity
-          position="0 0 0"
-          scale="1 1 1"
-          gltf-model="<%= project.filePath %>"
-        ></a-entity>
-      </a-marker>
-      <a-entity camera></a-entity>
+
+      <% for(i=0;project.trigger.length>i;i++){ %>
+        <a-marker preset="hiro">
+          <a-entity
+            position="<%= project.trigger[i].asset_position.x %> <%= project.trigger[i].asset_position.y %> <%= project.trigger[i].asset_position.z %>"
+            rotation="<%= project.trigger[i].asset_rotation.x %> <%= project.trigger[i].asset_rotation.y %> <%= project.trigger[i].asset_rotation.z %>"
+            scale="<%= project.trigger[i].asset_size.x %> <%= project.trigger[i].asset_size.y %> <%= project.trigger[i].asset_size.z %>"
+            gltf-model="<%= project.trigger[i].asset_path %>"
+          ></a-entity>
+        </a-marker>
+
+
+      <% } %>
+
+      <a-entity camera></a-entity> 
 
     </a-scene>
 
