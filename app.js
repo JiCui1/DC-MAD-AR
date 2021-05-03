@@ -93,7 +93,7 @@ app.post('/projects/', multipleUpload, (req,res)=>{
     console.log(typeof(req.body.trigger_name))
 
     //put file into an array if not already one
-    if(typeof(req.body.trigger_name)=="String"){
+    if(typeof(req.body.trigger_name)=="string"){
         req.body.trigger_name = [req.body.trigger_name]
     }
 
@@ -193,9 +193,14 @@ app.get('/projects/create/image-des-upload',(req,res)=>{
     res.render('des-upload.ejs',{title:"home"})
 })
 
-app.post('/des-upload',(req,res)=>{
-    
+
+app.put('/projects/:id',(req,res)=>{
+    const id = req.params.id
+
+    Project.findById
+
 })
+
 
 //delecte project when delete button clicked
 app.delete('/projects/:id',(req,res)=>{
@@ -203,37 +208,28 @@ app.delete('/projects/:id',(req,res)=>{
     const id =req.params.id
     
 
+
     Project.findById(id)
     .then(result=>{
-        deleteModelPath = `public/${result.filePath}`
-        fs.unlink(deleteModelPath,(err)=>{
-            if(err){
-                console.log(err)
-            }else{
-                console.log('file delete sucess')
-            }
-        })
+        console.log(result.trigger)
+        console.log(result.trigger.length)
+        for(let i = 0; i < result.trigger.length; i++){
+            deleteModelPath = `public/${result.trigger[i].asset_path}`
+            fs.unlink(deleteModelPath,(err)=>{
+                if(err){
+                    console.log(err)
+                }else{
+                    console.log('file delete sucess')
+                }
+            })
+        }
+
     })
 
 
     
 
     //DELETE function for the asset folder inserted .. :- righ now focusing on one image to check if it works
-
-    Project.findById(id)
-    .then(result=>{
-        const deleteModelPath = `public${result.filePath}`
-        fs.unlink(deleteModelPath , function(err) {
-            if (err) {
-            throw err
-                } else {
-            console.log("Successfully deleted the file.")
-            }
-            });
-
-    }).catch((err)=>{
-        console.log(err)
-    })
 
 
 
