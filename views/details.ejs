@@ -23,7 +23,7 @@
                     <h2 class="trigger_name"> Name: <%= project.trigger[i].name %></h2>
                     <h2 class="trigger_id"> Trigger Id: <%= project.trigger[i]._id %></h2>
                     <h2 class="trigger_asset_path"> Asset Path: <%= project.trigger[i].asset_path %></h2>
-                    <button><a  class="trigger_delete" data-doc="<%= project.trigger[i]._id %>" > Delete  </a></button>
+                    <button><a  class="trigger_delete" data-project = "<%= project._id %>" data-trigger="<%= project.trigger[i]._id %>" > Delete  </a></button>
 
                 
                     <% } %>
@@ -67,15 +67,17 @@
 
             }
 
-            let triggerDelete = document.querySelectorAll("trigger_delete")
+            let triggerDelete = document.querySelectorAll(".trigger_delete")
             for(let i = 0; i < triggerDelete.length; i++){
                 triggerDelete[i].onclick = function(){
-                    const triggerEndpoint = `/projects/${triggerDelete[i].dataset.doc}`
+                    const triggerEndpoint = `/projects/${triggerDelete[i].dataset.project}/${triggerDelete[i].dataset.trigger}`
                     fetch(triggerEndpoint,{
                         method:"PUT"
                     })
-                    .then((response)=>{return reponse.json()})
+                    .then((response)=>{return response.json()})
+                    .then((data)=>window.location.href = data.redirect)
                     .catch((err)=>console.log(err))
+
                 }
             }
 
