@@ -75,13 +75,17 @@
         }
     });
 
+    // let deleteArray = []
+    // let triggerArray
+    
+
     $(".add_trigger").on("click", function(e){
         e.preventDefault()
         let currentHTML = $('.trigger_list').html()
 
         $(".trigger_list").html(currentHTML + 
-            `<br><br><div class="trigger_container">
-
+            `<div class="trigger_container">
+                <br><br>
             <label for="trigger_name">Trigger Name</label>
             <input type="text" name="trigger_name" class="trigger_name" value="Untitled"><br><br>
 
@@ -110,13 +114,38 @@
             <label for="rotation_y">Rotation z</label>
             <input type="number" name="rotation_z" class="rotation_z" value = 0><br><br>
 
-            <button class="delete_trigger">DELETE</button>
+            <h1 class="delete_trigger" style="cursor:pointer;">DELETE</h1>
+            <br><br>
+            </div>`
 
-            </div><br><br>`
 
         )
 
+        // deleteArray = document.querySelectorAll(".delete_trigger")
+        // triggerArray = document.querySelectorAll(".trigger_container")
+        // console.log(triggerArray)
+        // console.log(deleteArray)
+        // for(let i = 0; i < deleteArray.length;i++){
+     
+        //     deleteArray[i].onclick = function(){
+                
+        //     }
+        // }
+        $(".delete_trigger").click(function(){
+            let parentDiv = this.parentElement
+            console.log(parentDiv)
+            parentDiv.remove()
+        })
+
+
+
 
     })
+
+
+
+
+
+
 });
 </script>
