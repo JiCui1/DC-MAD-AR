@@ -194,12 +194,58 @@ app.get('/projects/create/image-des-upload',(req,res)=>{
 })
 
 
-app.put('/projects/:id',(req,res)=>{
-    const id = req.params.id
+app.put('/projects/:id/:trigger',(req,res)=>{
+    let projectId = req.params.id
+    let triggerId = req.params.trigger
+    console.log(projectId)
+    console.log(triggerId)
 
-    Project.findById
+
+    Project.findById(projectId)
+    .then(result=>{
+        console.log(result)
+        let triggerArray = result.trigger
+        console.log(triggerArray)
+        let deleteIndex = triggerArray.findIndex(x=>x._id==triggerId)
+        console.log(deleteIndex)
+        triggerArray.splice(deleteIndex,1)
+        result.trigger = triggerArray
+        try{
+        result = result.save()
+        console.log(result)
+        console.log("save success")
+        res.json({redirect:`/projects/${projectId}/detail`})
+        }catch{(err)=>{
+            console.log(err)
+        }}
+
+
+
+    })
+
+    // let triggerArray = project.trigger
+    // console.log(triggerArray)
+    // console.log(triggerArray.findIndex(x => x._id == triggerId))
+    // let deleteIndex = triggerArray.findIndex(x => x._id == triggerId)
+    // console.log(deleteIndex)
+    // triggerArray = triggerArray.splice(deleteIndex,1)
+
+    // console.log(deleteIndex)
+
+    // project.trigger = triggerArray
+    // try{
+    // project = project.save()
+    // res.json({redirect:'/projects'})
+    // }catch{(err)=>{console.log(err)}}
+
+
+
+
+
 
 })
+
+
 
 
 //delecte project when delete button clicked
@@ -211,8 +257,6 @@ app.delete('/projects/:id',(req,res)=>{
 
     Project.findById(id)
     .then(result=>{
-        console.log(result.trigger)
-        console.log(result.trigger.length)
         for(let i = 0; i < result.trigger.length; i++){
             deleteModelPath = `public/${result.trigger[i].asset_path}`
             fs.unlink(deleteModelPath,(err)=>{
@@ -227,10 +271,8 @@ app.delete('/projects/:id',(req,res)=>{
     })
 
 
-    
 
     //DELETE function for the asset folder inserted .. :- righ now focusing on one image to check if it works
-
 
 
     Project.findByIdAndDelete(id)
