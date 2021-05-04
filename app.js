@@ -199,7 +199,6 @@ app.post('/projects/:id/:trigger/edit',(req,res)=>{
     let projectId = req.params.id
     let triggerId = req.params.trigger
 
-
     Project.findById(projectId)
     .then(result=>{
         let triggerArray = result.trigger

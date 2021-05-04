@@ -111,22 +111,6 @@
                 }
             }
 
-
-            // let saveButton = document.querySelectorAll(".edit_save")
-            // for(let i = 0; i < saveButton.length; i++){
-            //     saveButton[i].onclick = function(){
-            //         const saveEndpoint = `/projects/${saveButton[i].dataset.project}/${triggerDelete[i].dataset.trigger}/edit`
-            //         fetch(saveEndpoint,{
-            //             method:"PUT"
-            //         })
-            //         .then((response)=>{return response.json()})
-            //         .then((data)=>window.location.href = data.redirect)
-            //         .catch((err)=>console.log(err))
-
-            //     }
-            // }
-
-
             let editButton = document.querySelectorAll(".trigger_edit")
             for(let i = 0; i < editButton.length; i++){
                 let editContainer = editButton[i].parentNode.nextSibling.nextSibling
