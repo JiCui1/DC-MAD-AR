@@ -73,12 +73,13 @@ const storage = multer.diskStorage({
     filename: (req,file,cb) => {
         //store the file with the file name
         const ext = path.extname(file.originalname)
-        const fileName = file.originalname
+        const fileName = uuidv4()+'-'+file.originalname
         const filePath = `assets/${fileName}`
         // const { originalname } = file;
         cb(null, filePath)
     }
 })
+
 const upload = multer({storage})
 const multipleUpload = upload.fields([{name:"modelFile", maxCount:10}])
 
@@ -89,8 +90,7 @@ app.post('/projects/', multipleUpload, (req,res)=>{
 
     //list to store all triggers
     let triggerList = []
-    console.log(req.body.trigger_name)
-    console.log(typeof(req.body.trigger_name))
+    console.log(req.files.modelFile[0].filename)
 
     //put file into an array if not already one
     if(typeof(req.body.trigger_name)=="string"){
@@ -103,7 +103,8 @@ app.post('/projects/', multipleUpload, (req,res)=>{
             name: req.body.trigger_name[i],
             // marker_path:req.body.marker_path[i],
             // descriptor_path: req.body.descriptor_path[i],
-            asset_path: `/assets/${req.files.modelFile[i]["originalname"]}`,
+            // asset_path: `/assets/${req.files.modelFile[i]["originalname"]}`,
+            asset_path: `/${req.files.modelFile[i].filename}`,
             asset_type: `${path.extname(req.files.modelFile[i]["originalname"])}`,
             asset_scale:{
                 x: req.body.scale_x[i],
@@ -197,8 +198,6 @@ app.get('/projects/create/image-des-upload',(req,res)=>{
 app.put('/projects/:id/:trigger',(req,res)=>{
     let projectId = req.params.id
     let triggerId = req.params.trigger
-    console.log(projectId)
-    console.log(triggerId)
 
 
     Project.findById(projectId)
@@ -206,8 +205,8 @@ app.put('/projects/:id/:trigger',(req,res)=>{
         
         let triggerArray = result.trigger
         let deleteIndex = triggerArray.findIndex(x=>x._id==triggerId)
-        let deleteModelPath = `public/${triggerArray[deleteIndex].asset_path}`
-        console.log(deleteModelPath)
+        let deleteModelPath = `public${triggerArray[deleteIndex].asset_path}`
+
         fs.unlink(deleteModelPath,(err)=>{
             if(err){
                 console.log(err)
