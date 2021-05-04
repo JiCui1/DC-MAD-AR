@@ -203,11 +203,19 @@ app.put('/projects/:id/:trigger',(req,res)=>{
 
     Project.findById(projectId)
     .then(result=>{
-        console.log(result)
+        
         let triggerArray = result.trigger
-        console.log(triggerArray)
         let deleteIndex = triggerArray.findIndex(x=>x._id==triggerId)
-        console.log(deleteIndex)
+        let deleteModelPath = `public/${triggerArray[deleteIndex].asset_path}`
+        console.log(deleteModelPath)
+        fs.unlink(deleteModelPath,(err)=>{
+            if(err){
+                console.log(err)
+            }else{
+                console.log('file delete sucess')
+            }
+        })
+
         triggerArray.splice(deleteIndex,1)
         result.trigger = triggerArray
         try{
@@ -222,25 +230,6 @@ app.put('/projects/:id/:trigger',(req,res)=>{
 
 
     })
-
-    // let triggerArray = project.trigger
-    // console.log(triggerArray)
-    // console.log(triggerArray.findIndex(x => x._id == triggerId))
-    // let deleteIndex = triggerArray.findIndex(x => x._id == triggerId)
-    // console.log(deleteIndex)
-    // triggerArray = triggerArray.splice(deleteIndex,1)
-
-    // console.log(deleteIndex)
-
-    // project.trigger = triggerArray
-    // try{
-    // project = project.save()
-    // res.json({redirect:'/projects'})
-    // }catch{(err)=>{console.log(err)}}
-
-
-
-
 
 
 })
