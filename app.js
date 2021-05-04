@@ -195,7 +195,42 @@ app.get('/projects/create/image-des-upload',(req,res)=>{
 })
 
 
-app.put('/projects/:id/:trigger',(req,res)=>{
+app.post('/projects/:id/:trigger/edit',(req,res)=>{
+    let projectId = req.params.id
+    let triggerId = req.params.trigger
+
+
+    Project.findById(projectId)
+    .then(result=>{
+        let triggerArray = result.trigger
+        let editIndex = triggerArray.findIndex(x=>x._id==triggerId)
+        result.trigger[editIndex].asset_position.x = req.body.position_x
+        result.trigger[editIndex].asset_position.y = req.body.position_y
+        result.trigger[editIndex].asset_position.z = req.body.position_z
+
+        result.trigger[editIndex].asset_rotation.x = req.body.rotation_x
+        result.trigger[editIndex].asset_rotation.y = req.body.rotation_y
+        result.trigger[editIndex].asset_rotation.z = req.body.rotation_z
+
+        result.trigger[editIndex].asset_size.x = req.body.scale_x
+        result.trigger[editIndex].asset_size.y = req.body.scale_y
+        result.trigger[editIndex].asset_size.z = req.body.scale_z
+
+        try{
+            result = result.save()
+            console.log("info update success")
+            res.redirect(`/projects/${projectId}/detail`)
+        }catch{(err)=>{console.log(err)}}
+
+    })
+
+
+
+})
+
+
+
+app.put('/projects/:id/:trigger/delete',(req,res)=>{
     let projectId = req.params.id
     let triggerId = req.params.trigger
 
@@ -258,11 +293,7 @@ app.delete('/projects/:id',(req,res)=>{
 
     })
 
-
-
     //DELETE function for the asset folder inserted .. :- righ now focusing on one image to check if it works
-
-
     Project.findByIdAndDelete(id)
     .then(result=>{
         res.json({redirect:'/projects'})

@@ -23,7 +23,37 @@
                     <h2 class="trigger_name"> Name: <%= project.trigger[i].name %></h2>
                     <h2 class="trigger_id"> Trigger Id: <%= project.trigger[i]._id %></h2>
                     <h2 class="trigger_asset_path"> Asset Path: <%= project.trigger[i].asset_path %></h2>
+                    <h2 class="trigger_position"> position: <%= project.trigger[i].asset_position.x %>, <%= project.trigger[i].asset_position.y %>, <%= project.trigger[i].asset_position.z %></h2>
+                    <h2 class="trigger_rotation"> rotation: <%= project.trigger[i].asset_rotation.x %>, <%= project.trigger[i].asset_rotation.y %>, <%= project.trigger[i].asset_rotation.z %></h2>
+                    <h2 class="trigger_size"> size: <%= project.trigger[i].asset_size.x %>, <%= project.trigger[i].asset_size.y %>, <%= project.trigger[i].asset_size.z %></h2>
                     <button><a  class="trigger_delete" data-project = "<%= project._id %>" data-trigger="<%= project.trigger[i]._id %>" > Delete  </a></button>
+                    <button><a  class="trigger_edit"> EDIT  </a></button>
+                    <div class="edit_container">
+                        <form action = '/projects/<%= project._id %>/<%= project.trigger[i]._id %>/edit' method="POST">
+                            <br><br>
+                            <label for="scale_x">Scale x</label>
+                            <input type="number" name="scale_x" class="scale_x" value = "<%= project.trigger[i].asset_size.x %>" ><br>
+                            <label for="scale_y">Scale y</label>
+                            <input type="number" name="scale_y" class="scale_y" value = "<%= project.trigger[i].asset_size.y %>"><br>
+                            <label for="scale_y">Scale z</label>
+                            <input type="number" name="scale_z" class="scale_z" value = "<%= project.trigger[i].asset_size.z %>"><br><br>
+
+                            <label for="position_x">Position x</label>
+                            <input type="number" name="position_x" class="position_x" value = "<%= project.trigger[i].asset_position.x %>"><br>
+                            <label for="position_y">Position y</label>
+                            <input type="number" name="position_y" class="position_y" value = "<%= project.trigger[i].asset_position.y %>"><br>
+                            <label for="position_y">Position z</label>
+                            <input type="number" name="position_z" class="position_z" value = "<%= project.trigger[i].asset_position.z %>"><br><br>
+
+                            <label for="rotation_x">Rotation x</label>
+                            <input type="number" name="rotation_x" class="rotation_x" value = "<%= project.trigger[i].asset_rotation.x %>"><br>
+                            <label for="rotation_y">Rotation y</label>
+                            <input type="number" name="rotation_y" class="rotation_y" value = "<%= project.trigger[i].asset_rotation.y %>"><br>
+                            <label for="rotation_y">Rotation z</label>
+                            <input type="number" name="rotation_z" class="rotation_z" value = "<%= project.trigger[i].asset_rotation.z %>"><br><br>
+                            <button class="edit_save">SAVE</button>
+                        </form>
+                    </div>
 
                 
                     <% } %>
@@ -70,7 +100,7 @@
             let triggerDelete = document.querySelectorAll(".trigger_delete")
             for(let i = 0; i < triggerDelete.length; i++){
                 triggerDelete[i].onclick = function(){
-                    const triggerEndpoint = `/projects/${triggerDelete[i].dataset.project}/${triggerDelete[i].dataset.trigger}`
+                    const triggerEndpoint = `/projects/${triggerDelete[i].dataset.project}/${triggerDelete[i].dataset.trigger}/delete`
                     fetch(triggerEndpoint,{
                         method:"PUT"
                     })
@@ -81,6 +111,43 @@
                 }
             }
 
+
+            // let saveButton = document.querySelectorAll(".edit_save")
+            // for(let i = 0; i < saveButton.length; i++){
+            //     saveButton[i].onclick = function(){
+            //         const saveEndpoint = `/projects/${saveButton[i].dataset.project}/${triggerDelete[i].dataset.trigger}/edit`
+            //         fetch(saveEndpoint,{
+            //             method:"PUT"
+            //         })
+            //         .then((response)=>{return response.json()})
+            //         .then((data)=>window.location.href = data.redirect)
+            //         .catch((err)=>console.log(err))
+
+            //     }
+            // }
+
+
+            let editButton = document.querySelectorAll(".trigger_edit")
+            for(let i = 0; i < editButton.length; i++){
+                let editContainer = editButton[i].parentNode.nextSibling.nextSibling
+                console.log(editButton[i])
+                console.log(editButton[i].parentNode.nextSibling.nextSibling)
+                editContainer.style.display = "none"
+                let active = false
+                editButton[i].onclick = function(){
+                    if(!active){
+                    editContainer.style.display = "block"
+                    active = true
+                    }else{
+                        editContainer.style.display = "none"
+                        active = false
+                    }
+                }
+            }
+
+
+
+            
 
 
 
