@@ -77,19 +77,41 @@
 
     // let deleteArray = []
     // let triggerArray
+
     
 
     $(".add_trigger").on("click", function(e){
         e.preventDefault()
+        console.log($("#method").val())
+        let markerOption
+        if($("#method").val() == "marker"){
+            markerOption=
+                `<div class="marker_options">
+                <label for="marker">Choose a marker: </label><br>
+                <select class="marker" name="marker">
+                    <option value="marker_a">Marker A</option>   
+                    <option value="marker_b">Marker B</option>    
+                    <option value="marker_c">Marker C</option>    
+                    <option value="marker_d">Marker D</option>    
+                    <option value="marker_e">Marker E</option>     
+                    <option value="hiro">Marker Hiro</option>    
+                </select>
+                <br><br>
+                </div>`
+
+        }else{
+            markerOption=""
+        }
         let currentHTML = $('.trigger_list').html()
 
         $(".trigger_list").html(currentHTML + 
             `<div class="trigger_container">
                 <br><br>
             <label for="trigger_name">Trigger Name</label>
-            <input type="text" name="trigger_name" class="trigger_name" value="Untitled"><br><br>
-
-            <label for="modelFile">Upload Model</label><br>
+            <input type="text" name="trigger_name" class="trigger_name" value="Untitled"><br><br>`
+            
+                + markerOption + 
+            `<label for="modelFile">Upload Model</label><br>
             <input type="file" name="modelFile" class="modelFile">
             <br><br>
 

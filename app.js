@@ -95,12 +95,18 @@ app.post('/projects/', multipleUpload, (req,res)=>{
     if(typeof(req.body.trigger_name)=="string"){
         req.body.trigger_name = [req.body.trigger_name]
     }
+    console.log(req.body)
+    console.log(req.body.marker)
 
     for(let i = 0; i < req.body.trigger_name.length; i++){
 
+        if(typeof(req.body.marker)=="string"){
+            req.body.marker = [req.body.marker]
+        }
+
         triggerList.push({
             name: req.body.trigger_name[i],
-            // marker_path:req.body.marker_path[i],
+            marker_path:`/markers/${req.body.marker[i]}.patt`,
             // descriptor_path: req.body.descriptor_path[i],
             // asset_path: `/assets/${req.files.modelFile[i]["originalname"]}`,
             asset_path: `/${req.files.modelFile[i].filename}`,

@@ -7,14 +7,17 @@
     <h1><%= project.trigger[0].asset_size.x %> <%= project.trigger[0].asset_size.y %> <%= project.trigger[0].asset_size.z %></h1>
     <h1><%= project.trigger[0].asset_path %></h1>
 
-        <!-- arjs market 3d model  -->
+        <!-- arjs marker 3d model  -->
 
     <a-scene embedded arjs>
 
 
       <% for(i=0;project.trigger.length>i;i++){ %>
         <% if(project.trigger[i].asset_type==".glb" || project.trigger[i].asset_type==".gltf") { %>
-        <a-marker preset="hiro">
+          <!-- preset="hiro" -->
+          <!-- url="<%= project.trigger[i].marker_path %>" -->
+          <!-- type="pattern" patternUrl="/markers/pattern-a.patt" -->
+          <a-marker type="pattern" patternUrl="/markers/pattern-e.patt" >
           <a-entity
             position="<%= project.trigger[i].asset_position.x %> <%= project.trigger[i].asset_position.y %> <%= project.trigger[i].asset_position.z %>"
             rotation="<%= project.trigger[i].asset_rotation.x %> <%= project.trigger[i].asset_rotation.y %> <%= project.trigger[i].asset_rotation.z %>"
