@@ -90,7 +90,6 @@ app.post('/projects/', multipleUpload, (req,res)=>{
 
     //list to store all triggers
     let triggerList = []
-    console.log(req.files.modelFile[0].filename)
 
     //put file into an array if not already one
     if(typeof(req.body.trigger_name)=="string"){
