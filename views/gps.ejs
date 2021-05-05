@@ -3,16 +3,32 @@
 
     <body style="margin: 0px; overflow: hidden;">
 
-        <a-scene vr-mode-ui="enabled: false;" embedded arjs="sourceType: webcam; debugUIEnables: false;">
+        <a-scene vr-mode-ui="enabled: false;" embedded arjs="sourceType: webcam; videoTexture: true; debugUIEnables: false;">
 
-            <!-- ---------- linking the glTF ---------- -->
-            <a-entity gltf-model="<%= project.filePath %>" scale="1 1 1"
-                gps-entity-place="latitude: <%= project.lat %>; longitude: <%= project.long %>;"
-                value="This will always face the user." look-at="[gps-camera]" position="0 0 -10" rotation="15 45 50">
-            </a-entity>
+
+            <% for(i=0;project.trigger.length>i;i++){ %>
+                <% if(project.trigger[i].asset_type==".glb" || project.trigger[i].asset_type==".gltf") { %>
+
+                  <a-entity
+                    gps-entity-place="latitude: <%= project.lat %>; longitude: <%= project.long %>;"
+                    value="This will always face the user."
+                    position="<%= project.trigger[i].asset_position.x %> <%= project.trigger[i].asset_position.y %> <%= project.trigger[i].asset_position.z %>"
+                    rotation="<%= project.trigger[i].asset_rotation.x %> <%= project.trigger[i].asset_rotation.y %> <%= project.trigger[i].asset_rotation.z %>"
+                    scale="<%= project.trigger[i].asset_size.x %> <%= project.trigger[i].asset_size.y %> <%= project.trigger[i].asset_size.z %>"
+                    gltf-model="<%= project.trigger[i].asset_path %>"
+                  ></a-entity>
+        
+                <% }else if(project.trigger[i].asset_type==".mp4"){ %>
+
+                  <a-assets>
+                    <a-video crossOrigin="anonymous" id="vid" autoplay loop muted="true" type="video/mp4" src="<%= project.trigger[i].asset_path %>" scale="<%= project.trigger[i].asset_size.x %> <%= project.trigger[i].asset_size.y %> 0"></a-video>
+                  </a-assets>         
+        
+                  <% } %>
+              <% } %>
 
             <!-- this camera supports multiple markers -->
-            <a-camera gps-camera rotation-reader></a-camera>
+            <a-camera gps-projected-camera rotation-reader></a-camera>
         </a-scene>
     </body>
 
