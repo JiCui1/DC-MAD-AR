@@ -190,9 +190,58 @@ app.get('/projects/:id',(req,res)=>{
     })
 })
 
-app.get('/projects/create/image-des-upload',(req,res)=>{
-    res.render('des-upload.ejs',{title:"home"})
+
+
+app.post('/projects/:id/add',multipleUpload,(req,res)=>{
+    let projectId = req.params.id
+    
+    if(typeof(req.body.trigger_name)=="string"){
+        req.body.trigger_name = [req.body.trigger_name]
+    }
+
+    Project.findById(projectId)
+    .then(result=>{
+        let triggerArray = result.trigger
+        for(let i = 0; i < req.body.trigger_name.length; i++){
+        triggerArray.push({
+            name: req.body.trigger_name[i],
+            // marker_path:req.body.marker_path[i],
+            // descriptor_path: req.body.descriptor_path[i],
+            // asset_path: `/assets/${req.files.modelFile[i]["originalname"]}`,
+            asset_path: `/${req.files.modelFile[i].filename}`,
+            asset_type: `${path.extname(req.files.modelFile[i]["originalname"])}`,
+            asset_scale:{
+                x: req.body.scale_x[i],
+                y: req.body.scale_y[i],
+                z: req.body.scale_z[i],
+            },
+            asset_position:{
+                x: req.body.position_x[i],
+                y: req.body.position_y[i],
+                z: req.body.position_z[i],
+            },
+            asset_rotation:{
+                x: req.body.rotation_x[i],
+                y: req.body.rotation_y[i],
+                z: req.body.rotation_z[i],
+            },
+
+        })
+
+        }
+
+        result.trigger = triggerArray
+        try{
+            result = result.save()
+            console.log("added new trigger")
+            res.redirect(`/projects/${projectId}/detail`)
+        }catch{(err)=>{
+            console.log(err)
+        }}
+
+    })
 })
+
 
 
 app.post('/projects/:id/:trigger/edit',(req,res)=>{
@@ -222,8 +271,6 @@ app.post('/projects/:id/:trigger/edit',(req,res)=>{
         }catch{(err)=>{console.log(err)}}
 
     })
-
-
 
 })
 
