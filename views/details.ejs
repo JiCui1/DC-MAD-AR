@@ -191,7 +191,7 @@
             <h1 class="delete_trigger" style="cursor:pointer;">DELETE</h1>
             <br><br>`
             
-            triggerList.appendChild(triggerDiv)
+            triggerList.insertBefore(triggerDiv,triggerList.childNodes[0])
 
 
 
@@ -204,10 +204,24 @@
 
     })
 
-            $(".save_add").hide()
+    $(".save_add").hide()
+        setInterval(function(){
+            let allTriggers = document.querySelectorAll(".trigger_container")
+            if(typeof(allTriggers)=="string"){
+                allTriggers = [allTriggers]
+            }
+
+            if(allTriggers.length<1){
+                $(".save_add").hide()
+            }
+
+        },50)
+
+            
             $(".add_trigger").click(function(){
                 $(".save_add").show()
             })
+
 
         </script>
 

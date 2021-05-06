@@ -138,7 +138,7 @@
             <h1 class="delete_trigger" style="cursor:pointer;">DELETE</h1>
             <br><br>`
 
-            triggerList.appendChild(triggerDiv)
+            triggerList.insertBefore(triggerDiv,triggerList.childNodes[0])
 
 
         $(".delete_trigger").click(function(){
