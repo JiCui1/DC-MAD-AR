@@ -82,7 +82,6 @@
 
     $(".add_trigger").on("click", function(e){
         e.preventDefault()
-        console.log($("#method").val())
         let markerOption
         if($("#method").val() == "marker"){
             markerOption=
@@ -102,11 +101,11 @@
         }else{
             markerOption=""
         }
-        let currentHTML = $('.trigger_list').html()
 
-        $(".trigger_list").html(currentHTML + 
-            `<div class="trigger_container">
-                <br><br>
+        let triggerList = document.querySelector(".trigger_list")
+        let triggerDiv = document.createElement("div")
+        triggerDiv.classList.add("trigger_container")
+        triggerDiv.innerHTML = `<br><br>
             <label for="trigger_name">Trigger Name</label>
             <input type="text" name="trigger_name" class="trigger_name" value="Untitled"><br><br>`
             
@@ -137,11 +136,9 @@
             <input type="number" name="rotation_z" class="rotation_z" value = 0><br><br>
 
             <h1 class="delete_trigger" style="cursor:pointer;">DELETE</h1>
-            <br><br>
-            </div>`
+            <br><br>`
 
-
-        )
+            triggerList.appendChild(triggerDiv)
 
 
         $(".delete_trigger").click(function(){

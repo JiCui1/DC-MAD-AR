@@ -152,16 +152,17 @@
 
 
 
-            $(".add_trigger").on("click", function(e){
+        $(".add_trigger").on("click", function(e){
         e.preventDefault()
-        let currentHTML = $('.trigger_list').html()
 
-        $(".trigger_list").html(
-            `<div class="trigger_container">
-                <br><br>
+        let triggerList = document.querySelector(".trigger_list")
+        let triggerDiv = document.createElement("div")
+        triggerDiv.classList.add("trigger_container")
+        triggerDiv.innerHTML = `<br><br>
             <label for="trigger_name">Trigger Name</label>
             <input type="text" name="trigger_name" class="trigger_name" value="Untitled"><br><br>`
-            + markerOption + 
+            
+                + markerOption + 
             `<label for="modelFile">Upload Model</label><br>
             <input type="file" name="modelFile" class="modelFile">
             <br><br>
@@ -188,11 +189,10 @@
             <input type="number" name="rotation_z" class="rotation_z" value = 0><br><br>
 
             <h1 class="delete_trigger" style="cursor:pointer;">DELETE</h1>
-            <br><br>
-            </div>` + currentHTML
+            <br><br>`
+            
+            triggerList.appendChild(triggerDiv)
 
-
-        )
 
 
         $(".delete_trigger").click(function(){
