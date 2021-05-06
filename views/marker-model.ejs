@@ -17,7 +17,7 @@
           <!-- preset="hiro" -->
           <!-- url="<%= project.trigger[i].marker_path %>" -->
           <!-- type="pattern" patternUrl="/markers/pattern-a.patt" -->
-          <a-marker type="pattern" patternUrl="/markers/pattern-e.patt" >
+          <a-marker preset="custom" type="pattern" url="<%= project.trigger[i].marker_path %>" >
           <a-entity
             position="<%= project.trigger[i].asset_position.x %> <%= project.trigger[i].asset_position.y %> <%= project.trigger[i].asset_position.z %>"
             rotation="<%= project.trigger[i].asset_rotation.x %> <%= project.trigger[i].asset_rotation.y %> <%= project.trigger[i].asset_rotation.z %>"
