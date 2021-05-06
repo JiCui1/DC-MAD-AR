@@ -16,6 +16,10 @@
             <h2>Project ID:<span class="singleDetail"> <%= project._id %></span></h2>
             <button class="add_trigger">ADD</button>
 
+
+
+            
+
             <form class="trigger_list" action="/projects/<%= project._id %>/add" method="POST" enctype="multipart/form-data"><button class="save_add">SAVE</button></form>
 
             <% if(project.trigger.length > 0){ %>
@@ -32,6 +36,7 @@
                     <h2 class="trigger_size"> size: <%= project.trigger[i].asset_size.x %>, <%= project.trigger[i].asset_size.y %>, <%= project.trigger[i].asset_size.z %></h2>
                     <button><a  class="trigger_delete" data-project = "<%= project._id %>" data-trigger="<%= project.trigger[i]._id %>" > Delete </a></button>
                     <button><a  class="trigger_edit"> EDIT  </a></button>
+                    
                     <div class="edit_container">
                         <form action = '/projects/<%= project._id %>/<%= project.trigger[i]._id %>/edit' method="POST">
                             <br><br>
@@ -124,6 +129,28 @@
                     }
                 }
             }
+        
+        let markerOption
+
+        if( "<%= project.method %>" == "marker"){
+            markerOption=
+                `<div class="marker_options">
+                <label for="marker">Choose a marker: </label><br>
+                <select class="marker" name="marker">
+                    <option value="marker_a">Marker A</option>   
+                    <option value="marker_b">Marker B</option>    
+                    <option value="marker_c">Marker C</option>    
+                    <option value="marker_d">Marker D</option>    
+                    <option value="marker_e">Marker E</option>     
+                    <option value="hiro">Marker Hiro</option>    
+                </select>
+                <br><br>
+                </div>`
+        }else{
+            markerOption=""
+        }
+
+
 
             $(".add_trigger").on("click", function(e){
         e.preventDefault()
@@ -133,9 +160,9 @@
             `<div class="trigger_container">
                 <br><br>
             <label for="trigger_name">Trigger Name</label>
-            <input type="text" name="trigger_name" class="trigger_name" value="Untitled"><br><br>
-
-            <label for="modelFile">Upload Model</label><br>
+            <input type="text" name="trigger_name" class="trigger_name" value="Untitled"><br><br>`
+            + markerOption + 
+            `<label for="modelFile">Upload Model</label><br>
             <input type="file" name="modelFile" class="modelFile">
             <br><br>
 
