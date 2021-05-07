@@ -4,6 +4,9 @@
 
 ![PlaceHolder of the App](./arImages/new.jpg)
 
+Link to try the application ~ https://---
+
+
 ___
 
 Reflect is an augmented reality application which is designed and developed by Durham College students under the guidance of experienced professors. 
@@ -58,12 +61,6 @@ git push origin development
    * Replace < project id > with the actual id of project which you can find in localhost:3000/projects.
  
 
-
-
-
-
-
-
 # Dependency
 
 **mongoose:** MongoDB framework to make CRUD operation
@@ -81,6 +78,20 @@ Public: Place to store express static information like css file/assets folder fo
 Views: ejs files to for node js to render to front end
 
 Partials: Folder to hold resuable code like html head
+
+
+# Linking library and stylesheets
+
+In order to link the stylesheet and libraries in the application you will either need to install it by the node library or add a link in the file **head.ejs** located  : 
+```bash 
+ Views > Partials > head.ejs
+```
+
+All the scripting links for **AR.js** and **A-frame** are located in the file **headscript.ejs**  located :
+```bash 
+ Views > Partials > headscript.ejs
+```
+
 
 # For Developers  
 
@@ -138,6 +149,8 @@ In folder Views - details.ejs
 ```bash
 In folder Views - create.ejs
 ```
+* This is where the user can add more options while creating a project.
+* Additional methods of creating and input can be added here.
 
 **Assets**
 
@@ -158,8 +171,24 @@ AR.js is being used to create an AR experiance for the users. All the files rega
 
 **marker-model.ejs**
 
+This is the file in the **Views** folder which contains the AR code to detect a marker and show an image or a video according to which asset has been uploaded.
+
+* Contains option for changing : 
+   * Position
+   * Rotation 
+   * Scale 
+of the Image
+*  The Marker that is used to detect the asset can be changed by specifying in the code : 
+```bash 
+<a-marker preset="hiro"> 
+```
+
+
 **video.ejs**
 
-**image-track.ejs**
+This is where the video asset settings can be changed and a particular marker can be selected for the video asset.
+
 
 **gps.ejs**
+This file contains the setting for the gps which includes the latitude and longitude input. 
+
