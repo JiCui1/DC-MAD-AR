@@ -42,27 +42,37 @@ git push origin development
 
 # How to test
 
-Start app with
+* Open **Terminal** in a Code Editor.
+* Start app with
+   * ```bash 
+      node app
+   * app is the main file which contains all the functionality to start the application.
 
-```bash
-node app
-```
+* Test URL  
+   * ```bash 
+      localhost:3000/projects/<project id>
+   *  Localhost can be changed in the app.js file to any other value for localhost. 
+      ```bash 
+         app.listen(3000)
+       ```
+   * Replace < project id > with the actual id of project which you can find in localhost:3000/projects.
+ 
 
-test url
 
-localhost:3000/projects/< project id >
 
-replace < project id > with the actual id of project which you can find in localhost:3000/projects
+
+
+
 
 # Dependency
 
-mongoose: mongoDB framework to make CRUD operation
+**mongoose:** MongoDB framework to make CRUD operation
 
-express: node js framework
+**express:** node js framework
 
-ejs: view engine to output data from DB to front end
+**ejs:** view engine to output data from DB to front end
 
-multer: middleware to upload file to folder
+**multer:** middleware to upload file to folder
 
 # Project Structure
 
@@ -124,19 +134,32 @@ In folder Views - details.ejs
 
 
 **Create.ejs**
+
 ```bash
 In folder Views - create.ejs
 ```
 
 **Assets**
+
 All the assests are stored in two locations - 
 * In Database
 * Public > Assets
 
 
 **Stylesheet**
+
 Location of the stylesheet 
 * public > stylesheet > style.css
 
 
+# AR 
 
+AR.js is being used to create an AR experiance for the users. All the files regarding AR is in folder **Views**.
+
+**marker-model.ejs**
+
+**video.ejs**
+
+**image-track.ejs**
+
+**gps.ejs**
