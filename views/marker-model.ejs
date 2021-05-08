@@ -28,11 +28,12 @@
 
         <% }else if(project.trigger[i].asset_type==".mp4"){ %>
           <a-assets>
-            <video crossOrigin="anonymous" id="vid" autoplay loop muted="true" type="video/mp4" src="project.trigger[i].asset_path">
+            <video crossOrigin="anonymous" id="vid" autoplay loop muted="true" type="video/mp4" src="<%= project.trigger[i].asset_path %>">
           </a-assets>
-          <a-marker preset="hiro">
+          <a-marker preset="custom" type="pattern" url="<%= project.trigger[i].marker_path %>" >
             <a-video src="#vid" width="1.69" height="1" rotation="270 0 0" play="true"></a-video>
           </a-marker>
+
 
 
           <% } %>
