@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 const Project = require('./models/project')
 const fs = require('fs')
 const { v4: uuidv4 } = require('uuid')
+const makeDes = require("./descriptor")
 
 const app = express()
 
@@ -74,20 +75,21 @@ const storage = multer.diskStorage({
         //store the file with the file name
         const ext = path.extname(file.originalname)
         const fileName = uuidv4()+'-'+file.originalname
-        const filePath = `assets/${fileName}`
+        let filePath = `assets/${fileName}`
+
         // const { originalname } = file;
         cb(null, filePath)
     }
 })
 
 const upload = multer({storage})
-const multipleUpload = upload.fields([{name:"modelFile", maxCount:10}])
+const multipleUpload = upload.fields([{name:"modelFile", maxCount:10},{name:"imgUpload", maxCount:10}])
 
 //submit form information to database
 app.post('/projects/', multipleUpload, (req,res)=>{
     //body is a method from the middleware urlenconded 
     //getting value from form input to submit
-
+    console.log("create1")
     //list to store all triggers
     let triggerList = []
 
@@ -95,10 +97,24 @@ app.post('/projects/', multipleUpload, (req,res)=>{
     if(typeof(req.body.trigger_name)=="string"){
         req.body.trigger_name = [req.body.trigger_name]
     }
-    console.log(req.body)
-    console.log(req.body.marker)
 
     for(let i = 0; i < req.body.trigger_name.length; i++){
+        console.log(req.body.method)
+        console.log(req.files.imgUpload[i])
+        console.log(req.files.imgUpload[i].filename)
+        if(req.body.method=="image"){
+            try{
+            makeDes(req.files.imgUpload[i].path)
+
+            }catch{(err)=>{console.log(err)}}
+        }
+
+        let markerPath 
+        if(req.body.method=="marker"){
+          markPath = `/markers/${req.body.marker[i]}.patt`
+        }else{
+            markPath = ""
+        }
 
         if(typeof(req.body.marker)=="string"){
             req.body.marker = [req.body.marker]
@@ -106,7 +122,7 @@ app.post('/projects/', multipleUpload, (req,res)=>{
 
         triggerList.push({
             name: req.body.trigger_name[i],
-            marker_path:`/markers/${req.body.marker[i]}.patt`,
+            marker_path: markerPath,
             // descriptor_path: req.body.descriptor_path[i],
             // asset_path: `/assets/${req.files.modelFile[i]["originalname"]}`,
             asset_path: `/${req.files.modelFile[i].filename}`,

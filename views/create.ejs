@@ -102,6 +102,15 @@
             markerOption=""
         }
 
+        let imgUpload
+        if($("#method").val() == "image"){
+            imgUpload = 
+            `<br><label for="imgUpload">Choose Track Image</label>
+            <input name="imgUpload" class="imgUpload" type="file"><br>`
+        }else{
+            imgUpload = ""
+        }
+
         let triggerList = document.querySelector(".trigger_list")
         let triggerDiv = document.createElement("div")
         triggerDiv.classList.add("trigger_container")
@@ -109,7 +118,7 @@
             <label for="trigger_name">Trigger Name</label>
             <input type="text" name="trigger_name" class="trigger_name" value="Untitled"><br><br>`
             
-                + markerOption + 
+                + markerOption + imgUpload +
             `<label for="modelFile">Upload Model</label><br>
             <input type="file" name="modelFile" class="modelFile">
             <br><br>
