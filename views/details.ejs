@@ -9,7 +9,6 @@
         <div class="content  offset-5">
 
             <h2>Trigger:<span class="singleDetail"> <%= project.method %></span></h2>
-            <h2>Model File Path: <span class="singleDetail"><%= project.filePath %></span></h2>
             <h2>GPS Lat: <span class="singleDetail"><%= project.lat %></span></h2>
             <h2>GPS Long:<span class="singleDetail"> <%= project.long %></span></h2>
             <h2>GPS Range: <span class="singleDetail"><%= project.gpsRange %></span></h2>
@@ -30,6 +29,7 @@
                     <h2 class="trigger_name"> Name: <%= project.trigger[i].name %></h2>
                     <h2 class="trigger_id"> Trigger Id: <%= project.trigger[i]._id %></h2>
                     <h2 class="trigger_marker"> Marker Path: <%= project.trigger[i].marker_path %></h2>
+                    <h2 class="trigger_marker"> Descriptor Path: <%= project.trigger[i].descriptor_path %></h2>
                     <h2 class="trigger_asset_path"> Asset Path: <%= project.trigger[i].asset_path %></h2>
                     <h2 class="trigger_position"> position: <%= project.trigger[i].asset_position.x %>, <%= project.trigger[i].asset_position.y %>, <%= project.trigger[i].asset_position.z %></h2>
                     <h2 class="trigger_rotation"> rotation: <%= project.trigger[i].asset_rotation.x %>, <%= project.trigger[i].asset_rotation.y %>, <%= project.trigger[i].asset_rotation.z %></h2>

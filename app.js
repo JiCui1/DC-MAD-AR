@@ -102,12 +102,18 @@ app.post('/projects/', multipleUpload, (req,res)=>{
         console.log(req.body.method)
         console.log(req.files.imgUpload[i])
         console.log(req.files.imgUpload[i].filename)
+
+        let descriptorPath 
         if(req.body.method=="image"){
+            descriptorPath = `/descriptors/${path.parse(req.files.imgUpload[i].filename).name}`
             try{
             makeDes(req.files.imgUpload[i].path)
 
             }catch{(err)=>{console.log(err)}}
+        }else{
+            descriptorPath = ""
         }
+
 
         let markerPath 
         if(req.body.method=="marker"){
@@ -123,8 +129,7 @@ app.post('/projects/', multipleUpload, (req,res)=>{
         triggerList.push({
             name: req.body.trigger_name[i],
             marker_path: markerPath,
-            // descriptor_path: req.body.descriptor_path[i],
-            // asset_path: `/assets/${req.files.modelFile[i]["originalname"]}`,
+            descriptor_path: descriptorPath,
             asset_path: `/${req.files.modelFile[i].filename}`,
             asset_type: `${path.extname(req.files.modelFile[i]["originalname"])}`,
             asset_scale:{
