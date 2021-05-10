@@ -26,18 +26,27 @@
         }
     </style>
 
+    
+
     <body style="margin: 0px; overflow: hidden;">
         <h1><%= project.trigger[0].asset_position.x %> <%= project.trigger[0].asset_position.y %> <%= project.trigger[0].asset_position.z %></h1>
         <h1><%= project.trigger[0].asset_rotation.x %> <%= project.trigger[0].asset_rotation.y %> <%= project.trigger[0].asset_rotation.z %></h1>
         <h1><%= project.trigger[0].asset_size.x %> <%= project.trigger[0].asset_size.y %> <%= project.trigger[0].asset_size.z %></h1>
         <h1><%= project.trigger[0].asset_path %></h1>
         <h1><%= project.trigger[0].descriptor_path %></h1>
+
+        <div class="arjs-loader">
+            <div>Loading, please wait...</div>
+        </div>
         
+
+
         <a-scene 
         vr-mode-ui="enabled: false;"
         renderer="logarithmicDepthBuffer: true;"
         embedded
         arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;">
+
 
 
         <% for(let i = 0; project.trigger.length > i; i++ ){ %>
@@ -49,12 +58,14 @@
             smoothTolerance=".01"
             smoothThreshold="5"
         >
+
             <a-entity
             gltf-model="<%= project.trigger[i].asset_path %>"
             position="<%= project.trigger[i].asset_position.x %> <%= project.trigger[i].asset_position.y %> <%= project.trigger[i].asset_position.z %>"
             rotation="<%= project.trigger[i].asset_rotation.x %> <%= project.trigger[i].asset_rotation.y %> <%= project.trigger[i].asset_rotation.z %>"
             scale="<%= project.trigger[i].asset_size.x %> <%= project.trigger[i].asset_size.y %> <%= project.trigger[i].asset_size.z %>"
             ></a-entity>
+            
         </a-nft>
 
         <% } %>
