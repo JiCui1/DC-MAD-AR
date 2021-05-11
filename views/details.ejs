@@ -130,7 +130,33 @@
         let currentHTML = $('.trigger_list').html()
 
         $(".trigger_list").html(
+            
             `
+            <section id="transformSection">
+            <div class="scale transformBoxes">
+                <div class="transformTitle">
+                    <h3>Scale</h3>
+                    <h3>&#9662;</h3>
+                </div>
+                <div id="scaleSliders" class="slideWrapper">
+                    <div class="sliderSection">
+                        <label for="scale_x" class="label">X</label>
+                        <input type="text" name="scale_x" value="1" class="input">
+                        <input type="range" min="-100" max="100" value="0" class="slider" id="xRange">
+                    </div>
+                    <div class="sliderSection">
+                        <label for="yValue" class="label">Y</label>
+                        <input type="text" name="yValue" value="0" class="input">
+                        <input type="range" min="-100" max="100" value="0" class="slider" id="yRange">
+                    </div>
+                    <div class="sliderSection">
+                        <label for="zValue" class="label">Z</label>
+                        <input type="text" name="zValue" value="0" class="input">
+                        <input type="range" min="-100" max="100" value="0" class="slider" id="zRange">
+                    </div>
+                </div>
+            </div>
+            </section>
             <div class="trigger_container">
                 <br><br>
             <label for="trigger_name">Trigger Name</label>
@@ -139,6 +165,8 @@
             <label for="modelFile">Upload Model</label><br>
             <input type="file" name="modelFile" class="modelFile">
             <br><br>
+
+
 
             <label for="scale_x">Scale x</label>
             <input type="number" name="scale_x" class="scale_x" value = 1><br>
@@ -196,8 +224,8 @@
                 </div>
                 <div id="scaleSliders" class="slideWrapper">
                     <div class="sliderSection">
-                        <label for="xValue" class="label">X</label>
-                        <input type="text" name="xValue" value="0" class="input">
+                        <label for="scale_x" class="label">X</label>
+                        <input type="text" name="scale_x" value="1" class="input">
                         <input type="range" min="-100" max="100" value="0" class="slider" id="xRange">
                     </div>
                     <div class="sliderSection">
