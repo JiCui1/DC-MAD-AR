@@ -1,22 +1,30 @@
 <html lang="en">
     <%- include('./partials/head.ejs') %>
 <body>
-
-    <h1 class="mainTitle">Create Your Project :</h1>
-
-    <div class="create-blog content offset-5 col-4">
-        <form action = '/projects' method="POST" enctype="multipart/form-data">
-            <label for="title">Project title:</label><br>
-            <input type="text" id="title" name="title" required>
-            <br><br>
-
-            <label for="method">Project method:</label><br>
-            <select id="method" name="method">
-                <option value="image">Image Tracking</option>
-                <option value="gps">GPS Tracking</option>
-                <option value="marker">Marker Tracking</option>
+    <header>
+        <!--<header action = '/projects' method="POST" enctype="multipart/form-data"> </header>-->
+        <a href="" id="logo"><img src="" alt=""></a>
+        <div id="nameBox" class="namingBox">
+            <input type="text" placeholder="Untitled Project" id="projectName title" class="objectName" name="title" required>
+        </div>
+        <select id="method" name="method">
+            <option value="image">Image Tracking</option>
+            <option value="gps">GPS Tracking</option>
+            <option value="marker">Marker Tracking</option>
+        </select>
+        <div id="instructions"></div>
+        <h2 id="test">Test</h2>
+        <div id="customSelect">
+            <select name="saving" id="saveProject">
+                <option value="save">Save</option>
+                <option value="savePublish">Save and Publish</option>
             </select>
-            <br><br>
+        </div>
+    </header>
+
+
+    <div class="create-blog content ">
+        <form action = '/projects' method="POST" enctype="multipart/form-data">
 
             <div id="gpsOptions">
                 <label for="lat">Lat:</label><br>

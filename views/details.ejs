@@ -57,6 +57,7 @@
                             <button class="edit_save">SAVE</button>
                         </form>
                     </div>
+                    
 
                 
                     <% } %>
@@ -129,7 +130,8 @@
         let currentHTML = $('.trigger_list').html()
 
         $(".trigger_list").html(
-            `<div class="trigger_container">
+            `
+            <div class="trigger_container">
                 <br><br>
             <label for="trigger_name">Trigger Name</label>
             <input type="text" name="trigger_name" class="trigger_name" value="Untitled"><br><br>
@@ -185,5 +187,82 @@
 
     </body>
 
+    <!--
+        <section id="transformSection">
+            <div class="scale transformBoxes">
+                <div class="transformTitle">
+                    <h3>Scale</h3>
+                    <h3>&#9662;</h3>
+                </div>
+                <div id="scaleSliders" class="slideWrapper">
+                    <div class="sliderSection">
+                        <label for="xValue" class="label">X</label>
+                        <input type="text" name="xValue" value="0" class="input">
+                        <input type="range" min="-100" max="100" value="0" class="slider" id="xRange">
+                    </div>
+                    <div class="sliderSection">
+                        <label for="yValue" class="label">Y</label>
+                        <input type="text" name="yValue" value="0" class="input">
+                        <input type="range" min="-100" max="100" value="0" class="slider" id="yRange">
+                    </div>
+                    <div class="sliderSection">
+                        <label for="zValue" class="label">Z</label>
+                        <input type="text" name="zValue" value="0" class="input">
+                        <input type="range" min="-100" max="100" value="0" class="slider" id="zRange">
+                    </div>
+                </div>
+            </div>
+
+            <div class="position transformBoxes">
+                <div class="transformTitle">
+                    <h3>Position</h3>
+                    <h3>&#9662;</h3>
+                </div>
+                <div id="positionSliders" class="slideWrapper">
+                    <div class="sliderSection">
+                        <label for="xValue" class="label">X</label>
+                        <input type="text" name="xValue" value="0" class="input">
+                        <input type="range" min="-100" max="100" value="0" class="slider" id="xRange">
+                    </div>
+                    <div class="sliderSection">
+                        <label for="yValue" class="label">Y</label>
+                        <input type="text" name="yValue" value="0" class="input">
+                        <input type="range" min="-100" max="100" value="0" class="slider" id="yRange">
+                    </div>
+                    <div class="sliderSection">
+                        <label for="zValue" class="label">Z</label>
+                        <input type="text" name="zValue" value="0" class="input">
+                        <input type="range" min="-100" max="100" value="0" class="slider" id="zRange">
+                    </div>
+                </div>
+            </div>
+
+            <div class="rotation transformBoxes">
+                <div class="transformTitle">
+                    <h3>Rotation</h3>
+                    <h3>&#9662;</h3>
+                </div>
+                <div id="rotationSliders" class="slideWrapper">
+                    <div class="sliderSection">
+                        <label for="xValue" class="label">X</label>
+                        <input type="text" name="xValue" value="0" class="input">
+                        <input type="range" min="-100" max="100" value="0" class="slider" id="xRange">
+                    </div>
+                    <div class="sliderSection">
+                        <label for="yValue" class="label">Y</label>
+                        <input type="text" name="yValue" value="0" class="input">
+                        <input type="range" min="-100" max="100" value="0" class="slider" id="xRange">
+                    </div>
+                    <div class="sliderSection">
+                        <label for="zValue" class="label">Z</label>
+                        <input type="text" name="zValue" value="0" class="input">
+                        <input type="range" min="-100" max="100" value="0" class="slider" id="xRange">
+                    </div>
+                </div>
+            </div>
+        </section>
+    -->
+
 
 </html>
+
