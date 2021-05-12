@@ -4,6 +4,7 @@ const multer = require('multer')
 const path = require('path')
 const mongoose = require('mongoose')
 const Project = require('./models/project')
+const router = express.Router();
 
 
 const app = express()
@@ -111,7 +112,6 @@ app.get('/projects/create',(req,res)=>{
     res.render('create',{title:'CREATE'})
 })
 
-
 //single project info/potential url to run application
 app.get('/projects/:id/detail',(req,res)=>{
     const id = req.params.id
@@ -123,6 +123,7 @@ app.get('/projects/:id/detail',(req,res)=>{
         console.log(err)
     })
 })
+
 
 app.get('/projects/:id',(req,res)=>{
     const id = req.params.id
