@@ -16,6 +16,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles/styles.css">
     <link rel="stylesheet" href="./styles/fontAwesome/css/all.css">
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <script src="script.js"></script>
     <title>AR Editor</title>
 </head>
 <body>
@@ -98,9 +100,9 @@
             <div class="scale transformBoxes">
                 <div class="transformTitle">
                     <h3>Scale</h3>
-                    <h3>&#9662;</h3>
+                    <h3 class="toggleScale toggle">&#9662;</h3>
                 </div>
-                <div id="scaleSliders" class="slideWrapper">
+                <div id="scaleSliders" class="slideWrapper slideScale">
                     <div class="sliderSection">
                         <label for="xValue" class="label">X</label>
                         <input type="text" name="xValue" value="0" class="input">
@@ -122,9 +124,9 @@
             <div class="position transformBoxes">
                 <div class="transformTitle">
                     <h3>Position</h3>
-                    <h3>&#9662;</h3>
+                    <h3 class="togglePosition toggle">&#9662;</h3>
                 </div>
-                <div id="positionSliders" class="slideWrapper">
+                <div id="positionSliders" class="slideWrapper slidePosition">
                     <div class="sliderSection">
                         <label for="xValue" class="label">X</label>
                         <input type="text" name="xValue" value="0" class="input">
@@ -146,9 +148,9 @@
             <div class="rotation transformBoxes">
                 <div class="transformTitle">
                     <h3>Rotation</h3>
-                    <h3>&#9662;</h3>
+                    <h3 class="toggleRotation toggle">&#9662;</h3>
                 </div>
-                <div id="rotationSliders" class="slideWrapper">
+                <div id="rotationSliders" class="slideWrapper slideRotation">
                     <div class="sliderSection">
                         <label for="xValue" class="label">X</label>
                         <input type="text" name="xValue" value="0" class="input">
@@ -169,6 +171,27 @@
         </section>
 
     </main>
+    <script>
+
+        //Toggle for Scale 
+        $(".toggleScale").click(function(){
+            $('.slideScale').toggle('slow')
+        });
+
+        //Toggle for Position 
+        $(".togglePosition").click(function(){
+            $('.slidePosition').toggle('slow')
+        });
+
+
+        //Toggle for Rotation 
+        $(".toggleRotation").click(function(){
+            $('.slideRotation').toggle('slow')
+        });
+
+
+    </script>
 
 </body>
 </html>
+
