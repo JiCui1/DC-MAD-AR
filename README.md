@@ -1,6 +1,6 @@
 # REFLECT
 
-(./arImages/reflectLogo.png)
+!["Reflect Logo"](./reflectLogo.png)
 
 Reflect is an augmented reality application which is designed and developed by Durham College students under the guidance of experienced professors.
 
