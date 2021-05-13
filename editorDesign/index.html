@@ -17,9 +17,7 @@
     <link rel="stylesheet" href="./styles/styles.css">
     <link rel="stylesheet" href="./styles/fontAwesome/css/all.css">
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-    <script src="three.min.js"></script>
-    <script src="GLTFLoader.js"></script>
-    <script src="OrbitControls.js"></script>
+
     <script src="script.js"></script>
     <title>AR Editor</title>
 </head>
@@ -64,18 +62,20 @@
             </div>
             <!-- ADD TRIGGER - IMAGE -->
             <div class="addPanel" id="addImage">
-                <div class="thumbnail"></div>
+                <div class="thumbnail">
+                    <img id="blah" src="#" alt="your image" />
+                </div>
                 <form action="" class="addForm">
                     <div class="namingBox">
                         <input type="text" placeholder="Untitled" name="imageTrigger" class="objectName">
                     </div>
-                    <input type="file" id="fileUpload" name="file" >
+                    <input type="file" id="fileUpload" name="file" accept="image/*">
                     <input type="submit" value="ADD" id="addButton" class="addButton">
                 </form>
             </div>
             <!-- ADD TRIGGER - MARKER -->
             <div class="addPanel" id="addMarker">
-                <div class="thumbnail"></div>
+                <div class="thumbnail" id="imagePreview"></div>
                 <form action="" class="addForm">
                     <div class="namingBox markerNamingBox">
                         <input type="text" placeholder="Untitled" name="markerTrigger" class="objectName">
@@ -191,6 +191,15 @@
         $(".toggleRotation").click(function(){
             $('.slideRotation').toggle('slow')
         });
+
+
+        //View the image that is uploaded
+        fileUpload.onchange = evt => {
+            const [file] = fileUpload.files
+            if (file) {
+                blah.src = URL.createObjectURL(file)
+            }
+        }
 
 
     </script>
