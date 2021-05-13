@@ -24,10 +24,8 @@ const project_create_page = (req,res)=> {
 
 // controller to post info to db
 const project_create = (req,res)=>{
-        //body is a method from the middleware urlenconded 
-    //getting value from form input to submit
-    console.log("create1")
-    //list to store all triggers
+
+    //Array to store all triggers
     let triggerList = []
 
     //put file into an array if not already one
@@ -35,12 +33,15 @@ const project_create = (req,res)=>{
         req.body.trigger_name = [req.body.trigger_name]
     }
 
+    //for loop to process all triggers and store into array
     for(let i = 0; i < req.body.trigger_name.length; i++){
 
+        //create the path to image descritors if image tracking is used
         let descriptorPath 
         if(req.body.method=="image"){
             descriptorPath = `/descriptors/${path.parse(req.files.imgUpload[i].filename).name}`
             try{
+            //makeDes is a function to create image descriptors, argument take the path to image
             makeDes(req.files.imgUpload[i].path)
 
             }catch{(err)=>{console.log(err)}}
@@ -49,6 +50,7 @@ const project_create = (req,res)=>{
         }
 
 
+        //keep track of which marker is used for the specific model
         let markerPath 
         if(req.body.method=="marker"){
             if(typeof(req.body.marker=="string")){
@@ -62,8 +64,10 @@ const project_create = (req,res)=>{
         if(typeof(req.body.marker)=="string"){
             req.body.marker = [req.body.marker]
         }
-        console.log(markerPath)
+
+        //store trigger to server
         triggerList.push({
+            //trigger object strcuture
             name: req.body.trigger_name[i],
             marker_path: markerPath,
             descriptor_path: descriptorPath,
@@ -130,7 +134,7 @@ const project_run = (req,res) => {
     Project.findById(id)
     .then(result=>{
 
-        //choosing render while based on result method
+        //choosing render file based on result method
         switch (result.method){
             case "marker":
                 res.render('marker-model',{project:result,title:"marker demo"})

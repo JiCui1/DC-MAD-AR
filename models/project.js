@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 //schema is the structure of data
 const Schema = mongoose.Schema
 
+//database schema for each project
 const projectSchema = new Schema({
     title: {
         type: String,
