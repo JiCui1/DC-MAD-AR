@@ -5,7 +5,9 @@
 Reflect is an augmented reality application which is designed and developed by Durham College students under the guidance of experienced professors.
 
 Credits to Founding Contributors:
+
 Students: Dana Carroll, Simran Garcha, Heather Grandovec, Jiahua Cui
+
 Professors: Linda Chen, Stuart Sackler
 
 # Instruction
@@ -102,7 +104,9 @@ modules: separate js function
 # AR.js
 
 AR.js is library used to create the AR experience.
+
 You can find their documentation here: https://ar-js-org.github.io/AR.js-Docs/
 
 Aframe(Web VR/AR library) tags are used for the project
+
 You can find their documentation here: https://aframe.io/docs/1.2.0/introduction/
