@@ -86,7 +86,7 @@
                         <div id="marker4" class="premadeMarker" onclick="viewD()"></div>
                         <div id="marker5" class="premadeMarker" onclick="viewE()"></div>
                     </div>
-                    <input type="submit" value="ADD" id="addButton" class="addButton">
+                    <input type="submit" value="ADD" id="addButton" class="addButton" onclick="addMarker()">
                 </form>
             </div>
 
@@ -112,8 +112,8 @@
                 <tr>
                     <td >
                         <div class="outerSquare">
-                            <div class="innerSquare" id="markerOne" draggable="true"  ondragstart="drag(event)">
-                                <img src="./images/a.png" draggable="true"  ondragstart="drag(event)">
+                            <div class="innerSquare" id="markerOne" draggable="true"  ondrag="drag(event)">
+                                <img src="./images/a.png" draggable="true" id="markerOne" ondrag="drag(event)">
                             </div>
                             <p>Marker One</p>
                         </div>
@@ -144,7 +144,7 @@
                 <tr>
                     <td >
                         <div class="outerSquare">
-                            <div class="innerSquare">
+                            <div class="innerSquare" id="markerTwo" draggable="true">
 
                             </div>
                             <p>Marker Two</p>
@@ -286,132 +286,19 @@
     <footer>
         <p>Copyright Durham College   2021</p>
     </footer>
-    <script>
 
-                //View the image that is uploaded
-                fileUpload.onchange = evt => {
-            const [file] = fileUpload.files
-            if (file) {
-                imageUpload.src = URL.createObjectURL(file)
-            }
-        }
-
-        /*  SELECT ONE IMAGE AND DISPLAY THAT IMAGE */
-        let imagePreview = document.getElementById("imagePreview")
-
-        function viewA(){
-            console.log("Image 01")
-            imagePreview.innerHTML="<img src='images/a.png' />";
-        }
-
-        function viewB(){
-            console.log("Image 01")
-            imagePreview.innerHTML="<img src='images/b.png' />";
-        }
-
-        function viewC(){
-            console.log("Image 01")
-            imagePreview.innerHTML="<img src='images/c.png' />";
-        }
-
-        function viewD(){
-            console.log("Image 01")
-            imagePreview.innerHTML="<img src='images/d.png' />";
-        }
-
-        function viewE(){
-            console.log("Image 01")
-            imagePreview.innerHTML="<img src='images/e.png' />";
-        }
-
-
-        /*   DRAG AND DROP */
-
-        function allowDrop(ev) {
-            ev.preventDefault();
-        }
-
-        function drag(ev) {
-            ev.dataTransfer.setData("text", ev.target.id);
-        }
-
-        function drop(ev) {
-            ev.preventDefault();
-            var data = ev.dataTransfer.getData("text");
-            ev.target.appendChild(document.getElementById(data));
-        }
-
-
-        /*---------------------TOGGLE ----------------------*/
-
-        //Toggle for Scale 
-        $(".toggleScale").click(function(){
-            $('.slideScale').toggle('slow')
-        });
-
-        //Toggle for Position 
-        $(".togglePosition").click(function(){
-            $('.slidePosition').toggle('slow')
-        });
-
-
-        //Toggle for Rotation 
-        $(".toggleRotation").click(function(){
-            $('.slideRotation').toggle('slow')
-        });
-
-        //----------------  SCALING SLIDERS -----------------------//
-
-        function updateScaleX(val) {
-            document.getElementById('xScaleInput').value=val; 
-        }
-
-        function updateScaleY(val) {
-            document.getElementById('yScaleInput').value=val; 
-        }
-
-        function updateScaleZ(val) {
-            document.getElementById('zScaleInput').value=val; 
-        }
-
-        //----------------  POSITION SLIDERS -----------------------//
-
-
-        function updatePositionX(val) {
-            document.getElementById('xPositionInput').value=val; 
-        }
-
-        function updatePositionY(val) {
-            document.getElementById('yPositionInput').value=val; 
-        }
-
-        function updatePositionZ(val) {
-            document.getElementById('zPositionInput').value=val; 
-        }
-
-
-        //----------------  ROTATION SLIDERS -----------------------//
-
-        function updateRotationX(val) {
-            document.getElementById('xRotationInput').value=val; 
-        }
-
-        function updateRotationY(val) {
-            document.getElementById('yRotationInput').value=val; 
-        }
-
-        function updateRotationZ(val) {
-            document.getElementById('zRotationInput').value=val; 
-        }
-
-
-
-    </script>
         <script src="script/three.min.js"></script>
         <script src="script/GLTFLoader.js"></script>
         <script src="script/OrbitControls.js"></script>
         <script src="script/dat.gui.min.js"></script>
+
+
+
+        <!--Script with 3D loader and three.js custom func-->
         <script src="script/script.js"></script>
+
+            <!--Script to Load func-->
+    <script src="script/mainFunc.js"></script>
 
 </body>
 </html>
