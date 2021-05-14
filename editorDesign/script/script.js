@@ -11,7 +11,7 @@ function init() {
     scene.background = new THREE.Color(0xdddddd);
 
     sizes = {
-        width: 800,
+        width: 880,
         height: 600
     }
 

@@ -1,12 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
-<<<<<<< HEAD
-const { render } = require('ejs')
-
-=======
 const Project = require('./models/project')
 const router = express.Router();
->>>>>>> cf41ac2fa9a7658c2475276f5ee085eef9525d11
 
 const projectRoutes = require("./routes/projectRoutes")
 
@@ -55,8 +50,6 @@ app.get('/',(req,res)=>{
 app.use('/projects',projectRoutes)
 
 
-<<<<<<< HEAD
-=======
 //page for form
 app.get('/projects/create',(req,res)=>{
     res.render('create',{title:'CREATE'})
@@ -113,7 +106,6 @@ app.delete('/projects/:id',(req,res)=>{
         console.log(err)
     })
 })
->>>>>>> cf41ac2fa9a7658c2475276f5ee085eef9525d11
 
 
 //404 page will display if get request not specified
