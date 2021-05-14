@@ -109,29 +109,29 @@
                 <tr>
                     <td >
                         <div class="outerSquare">
-                            <div class="innerSquare">
-
+                            <div class="innerSquare" id="markerOne" draggable="true"  ondragstart="drag(event)">
+                                <img src="./images/a.png" draggable="true"  ondragstart="drag(event)">
                             </div>
                             <p>Marker One</p>
                         </div>
                     </td>
                     <td>
                         <div class="outerSquare">
-                            <div class="innerSquare">
+                            <div class="innerSquare" class="markerBox box" ondrop="drop(event)" ondragover="allowDrop(event)" id="inputBoxOneFirst ">
 
                             </div>
                         </div>
                     </td>
                     <td>
                         <div class="outerSquare">
-                            <div class="innerSquare">
+                            <div class="innerSquare" id="inputBoxOneSecond">
 
                             </div>
                         </div>
                     </td>
                     <td>
                         <div class="outerSquare">
-                            <div class="innerSquare">
+                            <div class="innerSquare" id="triggerOne" draggable="true">
                             </div>
                             <p>Trigger One</p>
                         </div>
@@ -149,7 +149,7 @@
                     </td>
                     <td>
                         <div class="outerSquare">
-                            <div class="innerSquare">
+                            <div class="innerSquare" class="markerBox" id="inputBoxTwoFirst">
 
                             </div>
                         </div>
@@ -173,14 +173,14 @@
                     <td >
                         <div class="outerSquare">
                             <div class="innerSquare">
-
+                                
                             </div>
                             <p>Marker Three</p>
                         </div>
                     </td>
                     <td>
                         <div class="outerSquare">
-                            <div class="innerSquare">
+                            <div class="innerSquare" class="markerBox" id="inputBoxThreeFirst">
 
                             </div>
                         </div>
@@ -292,6 +292,25 @@
                 imageUpload.src = URL.createObjectURL(file)
             }
         }
+
+        /*   DRAG AND DROP */
+
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.appendChild(document.getElementById(data));
+        }
+
+
+        /*---------------------TOGGLE ----------------------*/
 
         //Toggle for Scale 
         $(".toggleScale").click(function(){
