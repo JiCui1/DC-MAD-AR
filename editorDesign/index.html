@@ -110,18 +110,18 @@
                 <div id="scaleSliders" class="slideWrapper slideScale">
                     <div class="sliderSection">
                         <label for="xValue" class="label">X</label>
-                        <input type="text" name="xValue" value="0" class="input">
-                        <input type="range" min="-100" max="100" value="0" class="slider" id="xRange">
+                        <input type="text" name="xValue" value="" class="input" id="xScaleInput" placeholder=" ">
+                        <input type="range" min="-100" max="100" value="0" class="slider" id="xRange" onchange="updateScaleX(this.value);">
                     </div>
                     <div class="sliderSection">
                         <label for="yValue" class="label">Y</label>
-                        <input type="text" name="yValue" value="0" class="input">
-                        <input type="range" min="-100" max="100" value="0" class="slider" id="yRange">
+                        <input type="text" name="yValue" value="" class="input" id="yScaleInput" placeholder=" ">
+                        <input type="range" min="-100" max="100" value="0" class="slider" id="yRange" onchange="updateScaleY(this.value);">
                     </div>
                     <div class="sliderSection">
                         <label for="zValue" class="label">Z</label>
-                        <input type="text" name="zValue" value="0" class="input">
-                        <input type="range" min="-100" max="100" value="0" class="slider" id="zRange">
+                        <input type="text" name="zValue" value="" class="input" id="zScaleInput" placeholder=" ">
+                        <input type="range" min="-100" max="100" value="0" class="slider" id="zRange" onchange="updateScaleZ(this.value);">
                     </div>
                 </div>
             </div>
@@ -134,18 +134,18 @@
                 <div id="positionSliders" class="slideWrapper slidePosition">
                     <div class="sliderSection">
                         <label for="xValue" class="label">X</label>
-                        <input type="text" name="xValue" value="0" class="input">
-                        <input type="range" min="-100" max="100" value="0" class="slider" id="xRange">
+                        <input type="text" name="xValue" value="" class="input" id="xPositionInput" placeholder=" ">
+                        <input type="range" min="-100" max="100" value="0" class="slider" id="xRange" onchange="updatePositionX(this.value);">
                     </div>
                     <div class="sliderSection">
                         <label for="yValue" class="label">Y</label>
-                        <input type="text" name="yValue" value="0" class="input">
-                        <input type="range" min="-100" max="100" value="0" class="slider" id="yRange">
+                        <input type="text" name="yValue" value="" class="input" id="yPositionInput" placeholder=" ">
+                        <input type="range" min="-100" max="100" value="0" class="slider" id="yRange" onchange="updatePositionY(this.value);">
                     </div>
                     <div class="sliderSection">
                         <label for="zValue" class="label">Z</label>
-                        <input type="text" name="zValue" value="0" class="input">
-                        <input type="range" min="-100" max="100" value="0" class="slider" id="zRange">
+                        <input type="text" name="zValue" value="" class="input" id="zPositionInput" placeholder=" ">
+                        <input type="range" min="-100" max="100" value="0" class="slider" id="zRange" onchange="updatePositionZ(this.value);">
                     </div>
                 </div>
             </div>
@@ -158,18 +158,18 @@
                 <div id="rotationSliders" class="slideWrapper slideRotation">
                     <div class="sliderSection">
                         <label for="xValue" class="label">X</label>
-                        <input type="text" name="xValue" value="0" class="input">
-                        <input type="range" min="-100" max="100" value="0" class="slider" id="xRange">
+                        <input type="text" name="xValue" value="" id="xRotationInput" placeholder=" " class="input">
+                        <input type="range" min="-100" max="100" value="0" class="slider" id="xRange" onchange="updateRotationX(this.value);">
                     </div>
                     <div class="sliderSection">
                         <label for="yValue" class="label">Y</label>
-                        <input type="text" name="yValue" value="0" class="input">
-                        <input type="range" min="-100" max="100" value="0" class="slider" id="xRange">
+                        <input type="text" name="yValue" id="yRotationInput" placeholder=" " value="" class="input">
+                        <input type="range" min="-100" max="100" value="0" class="slider" id="xRange" onchange="updateRotationY(this.value);">
                     </div>
                     <div class="sliderSection">
                         <label for="zValue" class="label">Z</label>
-                        <input type="text" id="zRotationInput" name="zValue" value="" class="input">
-                        <input type="range" min="0" max="100" class="slider" id="xRange zRotationSlider" onchange="updateTextInput(this.value);">
+                        <input type="text" id="zRotationInput" placeholder=" " name="zValue" value="" class="input">
+                        <input type="range" min="-100" max="100" class="slider" id="xRange" onchange="updateRotationZ(this.value);">
                     </div>
                 </div>
             </div>
@@ -177,6 +177,14 @@
 
     </main>
     <script>
+
+                //View the image that is uploaded
+                fileUpload.onchange = evt => {
+            const [file] = fileUpload.files
+            if (file) {
+                imageUpload.src = URL.createObjectURL(file)
+            }
+        }
 
         //Toggle for Scale 
         $(".toggleScale").click(function(){
@@ -194,16 +202,47 @@
             $('.slideRotation').toggle('slow')
         });
 
+        //----------------  SCALING SLIDERS -----------------------//
 
-        //View the image that is uploaded
-        fileUpload.onchange = evt => {
-            const [file] = fileUpload.files
-            if (file) {
-                imageUpload.src = URL.createObjectURL(file)
-            }
+        function updateScaleX(val) {
+            document.getElementById('xScaleInput').value=val; 
         }
 
-        function updateTextInput(val) {
+        function updateScaleY(val) {
+            document.getElementById('yScaleInput').value=val; 
+        }
+
+        function updateScaleZ(val) {
+            document.getElementById('zScaleInput').value=val; 
+        }
+
+        //----------------  POSITION SLIDERS -----------------------//
+
+
+        function updatePositionX(val) {
+            document.getElementById('xPositionInput').value=val; 
+        }
+
+        function updatePositionY(val) {
+            document.getElementById('yPositionInput').value=val; 
+        }
+
+        function updatePositionZ(val) {
+            document.getElementById('zPositionInput').value=val; 
+        }
+
+
+        //----------------  ROTATION SLIDERS -----------------------//
+
+        function updateRotationX(val) {
+            document.getElementById('xRotationInput').value=val; 
+        }
+
+        function updateRotationY(val) {
+            document.getElementById('yRotationInput').value=val; 
+        }
+
+        function updateRotationZ(val) {
             document.getElementById('zRotationInput').value=val; 
         }
 
