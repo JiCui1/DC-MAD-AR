@@ -42,12 +42,19 @@ function viewE(){
 let markerOne = document.getElementById('markerOne');
 let markerTwo = document.getElementById('markerTwo');
 
-/*function addMarker(){
-    if(imagePreview.innerHTML != empty ){
+function addMarker(){
+    console.log('Add Marker')
+    if(imagePreview.innerHTML  != null ){
         console.log("Not empty");
-        if (markerOne)
+        if (markerOne == null){
+            imagePreview.innerHTML = markerOne.innerHTML
+        }
+        else{
+            imagePreview.innerHTML = markerTwo.innerHTML
+        }
+        event.preventDefault();
     }
-}*/
+}
         
         
 /* ----------------  DRAG AND DROP ---------------*/
