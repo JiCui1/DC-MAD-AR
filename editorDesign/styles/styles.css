@@ -278,9 +278,80 @@ section {
 
 /* *************** VIEWPORT *************** */
 
+/**Image Uploaded */
+#imageUpload {
+    width: 100%;
+    height: auto;
+}
+
+
 
 /* *************** DRAG AND DROP *************** */
 
+#dragSection {
+    grid-area: drag;
+    padding-left: 0rem;
+    padding-right: 0rem;
+}
+
+#dragHeading{
+    height: 18%;
+}
+
+table {
+    width: 100%;
+    border: 1px solid var(--mediumGrey);
+    padding: 0.2rem;
+    border-left: none;
+    border-right: none;
+}
+
+.outerSquare {
+    border: 0.2rem solid var(--lightBlue);
+    background-color: var(--lightBlue);
+    border-radius: 4px;
+    margin: 1rem;
+    padding: 0.1rem;
+    text-align: center;
+    width: 10rem;
+    
+}
+
+.innerSquare {
+    width: 100%;
+    height: 2rem;
+    background-color: white;
+    margin: 0px;
+}
+
+.centerSquare {
+    height: 2rem;
+    margin: 1rem 1rem 1rem 1.5rem;
+    padding: 0.1rem;
+    text-align: center;
+    border: dotted var(--mediumGrey) 0.13rem;
+}
+
+p{
+    color: white;
+    padding-top: 0.4rem;
+}
+
+.centerSquare p{
+    color: var(--lightBlue);
+    font-size: 1rem;
+}
+
+.subheading h2 {
+    float: left;
+    padding-left: 3rem;
+    padding-bottom: 1rem;
+}
+
+#titleTwo{
+    padding-left: 14rem;
+    padding-right: 10rem;
+}
 
 /* *************** TRANSFORM *************** */
 .transformBoxes {
@@ -346,8 +417,12 @@ section {
     cursor: pointer;
 }
 
-/**Image Uploaded */
-#imageUpload {
-    width: 100%;
-    height: auto;
+/*FOOTER */
+
+footer{
+    background: var(--mediumBlue);
+    color: white;
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1rem;
 }
