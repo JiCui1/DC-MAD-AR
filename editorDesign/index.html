@@ -168,8 +168,8 @@
                     </div>
                     <div class="sliderSection">
                         <label for="zValue" class="label">Z</label>
-                        <input type="text" name="zValue" value="0" class="input">
-                        <input type="range" min="-100" max="100" value="0" class="slider" id="xRange">
+                        <input type="text" id="zRotationInput" name="zValue" value="" class="input">
+                        <input type="range" min="0" max="100" class="slider" id="xRange zRotationSlider" onchange="updateTextInput(this.value);">
                     </div>
                 </div>
             </div>
@@ -202,6 +202,11 @@
                 imageUpload.src = URL.createObjectURL(file)
             }
         }
+
+        function updateTextInput(val) {
+            document.getElementById('zRotationInput').value=val; 
+        }
+
 
 
     </script>

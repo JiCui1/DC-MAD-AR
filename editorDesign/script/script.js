@@ -1,7 +1,6 @@
 
 let scene;
 
-
 function init() {
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0xdddddd);
@@ -14,8 +13,8 @@ height: 600
     camera = new THREE.PerspectiveCamera(40, sizes.width/sizes.height, 1, 5000);
 
     /*camera.rotation.y = 45/180*Math.PI;*/
-    //camera.position.x = 5;
-    camera.position.y = 2;
+    camera.position.x = 5;
+    camera.position.y = 6;
     camera.position.z = 20;
 
 
