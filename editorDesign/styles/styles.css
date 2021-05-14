@@ -1,0 +1,443 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: montserrat;
+    color: var(--darkestBlue);
+    font-weight: normal;
+}
+
+:root {
+    --darkestBlue: #127C70;
+    --mediumBlue: #289C8E;
+    --lightBlue: #2FC4B1;
+    --white: #FFFFFF;
+    --darkestGrey: #8E8E8E;
+    --mediumGrey: #656565;
+    --lightGrey: #DADADA;
+}
+
+/* *************** NAV BAR *************** */
+header {
+    position: relative;
+    padding: 0.5rem;
+    display: grid;
+    grid-template-columns: auto auto auto 0.5fr auto auto auto;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    "logo projectName tracking . instructions test save"
+    ;
+    justify-items: center;
+    align-items: center;
+}
+#logo {
+    grid-area: logo;
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+    background: var(--lightBlue);
+    cursor: pointer;
+}
+#projectName {
+    grid-area: projectName;
+    border: none;
+    border-bottom: solid 2px var(--darkestBlue);
+    font-size: 1.25rem;
+}
+/* ********** ISSUE: PENCIL ********** */
+/*  - Is there a way to make the namingBox have a width so it's not affected
+    by the elements below it?
+    - This class is used for the project name as well as the addingPanel
+*/
+.namingBox {
+    position: relative;
+}
+.namingBox::after {
+    position: absolute;
+    content: "\f303";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    right: 0;
+    color: var(--lightBlue);
+    
+}
+#trackingType {
+    grid-area: tracking;
+    font-size: 1.25rem;
+}
+#instructions {
+    grid-area: instructions;
+    height: 2.5rem;
+    width: 2.5rem;
+    border-radius: 50%;
+    background: var(--lightBlue);
+    cursor: pointer;
+}
+#test {
+    grid-area: test;
+    background: var(--lightBlue);
+    color: var(--white);
+    padding: 0.3rem 2rem 0.3rem 2rem;
+    border-radius: 5px;
+    font-size: 1.25rem;
+    cursor: pointer;
+}
+#customSelect {
+    grid-area: save;
+    position: relative;
+    background: var(--lightBlue);
+    color: var(--white);
+    padding: 0.3rem 1rem 0.3rem 1rem;
+    border-radius: 5px;
+    display: grid;
+    grid-template-areas: "select";
+    align-items: center;
+    cursor: pointer;
+}
+#customSelect::after {
+    grid-area: select;
+    position: absolute;
+    content: "";
+    width: 0.8em;
+    height: 0.5em;
+    background-color: var(--white);
+    clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+    justify-self: end;
+}
+#saveProject {
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    padding: 0 1em 0 0;
+    width: 100%;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: inherit;
+    line-height: inherit;
+    font-size: 1.25rem;
+    outline: none;
+    color: var(--white);
+}
+
+
+/* *************** MAIN *************** */
+main {
+    padding: 0 1rem 0 1rem;
+    display: grid;
+    grid-template-columns: 45% 55%;
+    grid-template-rows: auto auto auto auto;
+    grid-row-gap: 1rem;
+    grid-column-gap: 1rem;
+    grid-template-areas: 
+    "objects viewport"
+    "drag viewport"
+    "drag transform"
+    "drag transform"
+    ;
+}
+
+#addSection {
+    grid-area: objects;
+}
+
+#dragSection {
+    grid-area: drag;
+}
+
+#viewportSection {
+    grid-area: viewport;
+}
+
+#transformSection {
+    grid-area: transform;
+}
+
+section {
+    border-radius: 5px;
+    border: 1px solid var(--darkestGrey);
+    padding: 1rem;
+}
+
+/* *************** ADD OBJECT SECTION *************** */
+#addSection {
+    padding: 0;
+}
+.addTitles {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+.titleButton {
+    padding: 0.5rem 0 0.5rem 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    text-align: center;
+    cursor: pointer;
+}
+.objectActive {
+    border-left: 1px solid var(--darkestGrey);
+    border-bottom: 1px solid var(--darkestGrey);
+}
+.triggerActive {
+    border-right: 1px solid var(--darkestGrey);
+    border-bottom: 1px solid var(--darkestGrey);
+}
+.addPanel {
+    display: flex;
+    justify-content: left;
+    padding: 1rem 1rem 1rem 1.5rem;
+    position: relative;
+}
+.thumbnail {
+    width: 9rem;
+    height: 9rem;
+    background:  var(--lightGrey);
+    border-radius: 0.5rem;
+}
+.addForm {
+    display: flex;
+    flex-direction: column;
+    padding-left: 1.5rem;
+}
+.addForm input {
+    margin-bottom: 0.5rem;
+}
+.addButton {
+    border: none;
+    background: #3FB217;
+    color: var(--white);
+    font-size: 1rem;
+    padding: 0.25rem 1.5rem 0.25rem 1.5rem;
+    border-radius: 0.5rem;
+    position: absolute;
+    bottom: 1rem;
+    right: 2rem;
+    cursor: pointer;
+}
+.objectName {
+    border: none;
+    border-bottom: solid 2px var(--darkestBlue);
+    font-size: 1.25rem;
+}
+/* ****** ADD TRIGGER - IMAGE ****** */
+#fileUpload::-webkit-file-upload-button {
+    visibility: hidden;
+}
+#fileUpload::before {
+    content: 'UPLOAD';
+    display: inline-block;
+    border-radius: 0.5rem;
+    outline: none;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    background-color: var(--lightBlue);
+    color: var(--white);
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    text-align: center;
+}
+/* ****** ADD TRIGGER - MARKER ****** */
+.premadeMarkerBox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.premadeMarker {
+    border: none;
+    border-radius: 0.5rem;
+    height: 3rem;
+    width: 3rem;
+    background-color: var(--lightBlue);
+    margin-right: 0.2rem;
+}
+#marker1 {
+    background-image: url(../images/a.png);
+    background-size: cover;
+}
+#marker2 {
+    background-image: url(../images/b.png);
+    background-size: cover;
+}
+#marker3 {
+    background-image: url(../images/c.png);
+    background-size: cover;
+}
+#marker4 {
+    background-image: url(../images/d.png);
+    background-size: cover;
+}
+#marker5 {
+    background-image: url(../images/e.png);
+    background-size: cover;
+}
+
+#imagePreview img {
+    width: 100%;
+    border-radius: 4px;
+}
+
+/* *************** VIEWPORT *************** */
+
+/**Image Uploaded */
+#imageUpload {
+    width: 100%;
+    height: auto;
+}
+
+
+
+/* *************** DRAG AND DROP *************** */
+
+.hide {
+    display: none;
+}
+
+#dragSection {
+    grid-area: drag;
+    padding-left: 0rem;
+    padding-right: 0rem;
+}
+
+#dragHeading{
+    height: 18%;
+}
+
+table {
+    width: 100%;
+    border: 1px solid var(--mediumGrey);
+    padding: 0.2rem;
+    border-left: none;
+    border-right: none;
+}
+
+.outerSquare {
+    border: 0.2rem solid var(--lightBlue);
+    background-color: var(--lightBlue);
+    border-radius: 4px;
+    margin: 1rem;
+    padding: 0.1rem;
+    text-align: center;
+    width: 10rem;
+    
+}
+
+.innerSquare {
+    width: 100%;
+    height: 2rem;
+    background-color: white;
+    margin: 0px;
+    height: 9.4rem;
+}
+
+.innerSquare  img {
+    width: 100%;
+}
+
+
+
+.centerSquare {
+    height: 2rem;
+    margin: 1rem 1rem 1rem 1.5rem;
+    padding: 0.1rem;
+    text-align: center;
+    border: dotted var(--mediumGrey) 0.13rem;
+}
+
+p{
+    color: white;
+    padding-top: 0.4rem;
+}
+
+.centerSquare p{
+    color: var(--lightBlue);
+    font-size: 1rem;
+}
+
+.subheading h2 {
+    float: left;
+    padding-left: 3rem;
+    padding-bottom: 1rem;
+}
+
+#titleTwo{
+    padding-left: 14rem;
+    padding-right: 10rem;
+}
+
+/* *************** TRANSFORM *************** */
+.transformBoxes {
+    border: 1px solid var(--mediumGrey);
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+.transformTitle {
+    display: flex;
+    justify-content: space-between;
+}
+.slideWrapper {
+    padding-top: 1rem;
+    display: grid;
+    grid-template-rows: auto auto auto;
+    grid-template-columns: auto;
+    grid-row-gap: 1.5rem;
+}
+#positionSliders,
+#rotationSliders {
+    display: none;
+}
+.sliderSection {
+    padding: 0 1rem 0 1rem;
+    font-size: 1.25rem;
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    grid-row-gap: 1rem;
+    grid-template-areas: 
+    "label input"
+    "slider slider"
+    ;
+}
+.label {
+    grid-area: label;
+}
+.input {
+    grid-area: input;
+    font-size: 1.25rem;
+    width: 3rem;
+    text-align: center;
+    justify-self: end;
+}
+.slider {
+    grid-area: slider;
+}
+.slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 0.5rem;
+    background: var(--lightBlue);
+    outline: none;
+}
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: var(--mediumBlue);
+    cursor: pointer;
+}
+
+/*FOOTER */
+
+footer{
+    background: var(--mediumBlue);
+    color: white;
+    text-align: center;
+    margin-top: 2rem;
+    padding: 1rem;
+}

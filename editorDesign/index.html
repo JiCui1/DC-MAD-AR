@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- 
+            *************** THINGS TO DO ***************
+            1. Add Panel: When "objects" is active, add objectActive to triggerButton
+            2. Add Panel: When "trigger" is active, add triggerActive to to objectButton
+            2. Add Panel: Can the untitled have it's own width so it doesn't take width of content below it?
+            3. Transform Panel: When active display #positionSliders #rotationSliders #scaleSliders
+
+    -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles/styles.css">
+    <link rel="stylesheet" href="./styles/fontAwesome/css/all.css">
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <!-- Import the component -->
+    <title>AR Editor</title>
+</head>
+<body>
+    
+    <header>
+        <a href="" id="logo"><img src="" alt=""></a>
+        <div id="nameBox" class="namingBox">
+            <input type="text" placeholder="Untitled Project" id="projectName" class="objectName">
+        </div>
+        <h2 id="trackingType">Marker Tracking</h2>
+        <div id="instructions"></div>
+        <h2 id="test">Test</h2>
+        <div id="customSelect">
+            <select name="saving" id="saveProject">
+                <option value="save">Save</option>
+                <option value="savePublish">Save and Publish</option>
+            </select>
+        </div>
+    </header>
+
+    <main>
+
+        <section id="addSection">
+            <div class="addTitles">
+                <h1 id="objectButton" class="titleButton">Objects</h1>
+                <h1 id="triggerButton" class="objectActive titleButton">Triggers</h1>
+            </div>
+            <!-- ADD TRIGGER - LONGITUDE -->
+            <div class="addPanel" id="addLocation">
+                <div class="thumbnail"></div>
+                <form action="" class="addForm">
+                    <div class="namingBox">
+                        <input type="text" placeholder="Untitled" name="locationTrigger" class="objectName">
+                    </div>
+                    <label for="longitude">Longitude</label>
+                    <input type="text" id="longitude" name="longitude">
+                    <label for="latitude">Latitude</label>
+                    <input type="text" id="latitude" name="latitude">
+                    <input type="submit" value="ADD" id="addButton" class="addButton">
+                </form>
+            </div>
+            <!-- ADD TRIGGER - IMAGE -->
+            <div class="addPanel" id="addImage">
+                <div class="thumbnail">
+                    <img id="imageUpload" src="#" alt="your image" />
+                </div>
+                <form action="" class="addForm">
+                    <div class="namingBox">
+                        <input type="text" placeholder="Untitled" name="imageTrigger" class="objectName">
+                    </div>
+                    <input type="file" id="fileUpload" name="file" accept="image/*" placeholder=" ">
+                    <input type="submit" value="ADD" id="addButton" class="addButton">
+                </form>
+            </div>
+            <!-- ADD TRIGGER - MARKER -->
+            <div class="addPanel" id="addMarker">
+                <div class="thumbnail" id="imagePreview"></div>
+                <form action="" class="addForm">
+                    <div class="namingBox markerNamingBox">
+                        <input type="text" placeholder="Untitled" name="markerTrigger" class="objectName">
+                    </div>
+                    <div class="premadeMarkerBox inputbox" name="image" id="image" >
+                        <div id="marker1" class="premadeMarker" onclick="viewA()"></div>
+                        <div id="marker2" class="premadeMarker" onclick="viewB()"></div>
+                        <div id="marker3" class="premadeMarker" onclick="viewC()"></div>
+                        <div id="marker4" class="premadeMarker" onclick="viewD()"></div>
+                        <div id="marker5" class="premadeMarker" onclick="viewE()"></div>
+                    </div>
+                    <input type="submit" value="ADD" id="addButton" class="addButton" onclick="addMarker()">
+                </form>
+            </div>
+
+             
+
+        </section>
+
+        <section id="viewportSection">
+            <!-- Use it like any other HTML element -->
+            <canvas class="renderPro"></canvas>
+            
+        </section>
+
+        <section id="dragSection">
+            <h1 id="dragHeading" class="titleButton">Drag and Drop</h1>
+            <div class="subheading">
+                <h2 id="titleOne">Object</h2>
+                <h2 id="titleTwo">Links</h2>
+                <h2 id="titleThree">Triggers</h2>
+            </div>
+            <table>
+
+                <tr>
+                    <td ondragstart="drag(event)">
+                        <div class="outerSquare" ondragstart="drag(event)">
+                            <div class="innerSquare"   draggable="true"  ondrag="drag(event)">
+                                <img src="./images/a.png" draggable="true" id="markerOne"  ondrag="drag(event)">
+                            </div>
+                            <p>Marker One</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="outerSquare">
+                            <div class="innerSquare" class="markerBox box" ondrop="drop(event)" ondragover="allowDrop(event)" id="inputBoxOneFirst ">
+
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="outerSquare">
+                            <div class="innerSquare" id="inputBoxOneSecond">
+
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="outerSquare">
+                            <div class="innerSquare" id="triggerOne" draggable="true">
+                            </div>
+                            <p>Trigger One</p>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td >
+                        <div class="outerSquare">
+                            <div class="innerSquare" id="markerTwo" draggable="true">
+
+                            </div>
+                            <p>Marker Two</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="outerSquare">
+                            <div class="innerSquare" class="markerBox" id="inputBoxTwoFirst">
+
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="outerSquare">
+                            <div class="innerSquare">
+
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="outerSquare">
+                            <div class="innerSquare">
+                            </div>
+                            <p>Trigger Two</p>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td >
+                        <div class="outerSquare">
+                            <div class="innerSquare">
+                                
+                            </div>
+                            <p>Marker Three</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="outerSquare">
+                            <div class="innerSquare" class="markerBox" id="inputBoxThreeFirst">
+
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="outerSquare">
+                            <div class="innerSquare">
+
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="outerSquare">
+                            <div class="innerSquare">
+                            </div>
+                            <p>Trigger Three</p>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+        </section>
+
+
+        <section id="transformSection">
+            <div class="scale transformBoxes">
+                <div class="transformTitle">
+                    <h3>Scale</h3>
+                    <h3 class="toggleScale toggle">&#9662;</h3>
+                </div>
+                <div id="scaleSliders" class="slideWrapper slideScale">
+                    <div class="sliderSection">
+                        <label for="xValue" class="label">X</label>
+                        <input type="text" name="xValue" value="" class="input" id="xScaleInput" placeholder=" ">
+                        <input type="range" min="-3" max="3" step="0.01" value="0" class="slider" id="xRange" onchange="updateScaleX(this.value);">
+                    </div>
+                    <div class="sliderSection">
+                        <label for="yValue" class="label">Y</label>
+                        <input type="text" name="yValue" value="" class="input" id="yScaleInput" placeholder=" ">
+                        <input type="range" min="-3" max="3" step="0.01" value="0" class="slider" id="yRange" onchange="updateScaleY(this.value);">
+                    </div>
+                    <div class="sliderSection">
+                        <label for="zValue" class="label">Z</label>
+                        <input type="text" name="zValue" value="" class="input" id="zScaleInput" placeholder=" ">
+                        <input type="range" min="-3" max="3" step="0.01" value="0" class="slider" id="zRange" onchange="updateScaleZ(this.value);">
+                    </div>
+                </div>
+            </div>
+
+            <div class="position transformBoxes">
+                <div class="transformTitle">
+                    <h3>Position</h3>
+                    <h3 class="togglePosition toggle">&#9662;</h3>
+                </div>
+                <div id="positionSliders" class="slideWrapper slidePosition">
+                    <div class="sliderSection">
+                        <label for="xValue" class="label">X</label>
+                        <input type="text" name="xValue" value="" class="input" id="xPositionInput" placeholder=" ">
+                        <input type="range" min="-3" max="3" step="0.01" value="0" class="slider" id="xRange" onchange="updatePositionX(this.value);">
+                    </div>
+                    <div class="sliderSection">
+                        <label for="yValue" class="label">Y</label>
+                        <input type="text" name="yValue" value="" class="input" id="yPositionInput" placeholder=" ">
+                        <input type="range" min="-3" max="3" step="0.01" value="0" class="slider" id="yRange" onchange="updatePositionY(this.value);">
+                    </div>
+                    <div class="sliderSection">
+                        <label for="zValue" class="label">Z</label>
+                        <input type="text" name="zValue" value="" class="input" id="zPositionInput" placeholder=" ">
+                        <input type="range" min="-3" max="3" step="0.01" value="0" class="slider" id="zRange" onchange="updatePositionZ(this.value);">
+                    </div>
+                </div>
+            </div>
+
+            <div class="rotation transformBoxes">
+                <div class="transformTitle">
+                    <h3>Rotation</h3>
+                    <h3 class="toggleRotation toggle">&#9662;</h3>
+                </div>
+                <div id="rotationSliders" class="slideWrapper slideRotation">
+                    <div class="sliderSection">
+                        <label for="xValue" class="label">X</label>
+                        <input type="text" name="xValue" value="" id="xRotationInput" placeholder=" " class="input">
+                        <input type="range" min="-3" max="3" step="0.01" value="0" class="slider" id="xRange" onchange="updateRotationX(this.value);">
+                    </div>
+                    <div class="sliderSection">
+                        <label for="yValue" class="label">Y</label>
+                        <input type="text" name="yValue" id="yRotationInput" placeholder=" " value="" class="input" >
+                        <input type="range" min="-3" max="3" step="0.01" value="0" class="slider" id="xRange" onchange="updateRotationY(this.value);">
+                    </div>
+                    <div class="sliderSection">
+                        <label for="zValue" class="label">Z</label>
+                        <input type="text" id="zRotationInput" placeholder=" " name="zValue" value="" class="input">
+                        <input type="range" min="-3" max="3" step="0.01" class="slider" id="xRange" onchange="updateRotationZ(this.value);">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    <footer>
+        <p>Copyright Durham College   2021</p>
+    </footer>
+
+        <script src="script/three.min.js"></script>
+        <script src="script/GLTFLoader.js"></script>
+        <script src="script/OrbitControls.js"></script>
+        <script src="script/dat.gui.min.js"></script>
+
+
+
+        <!--Script with 3D loader and three.js custom func-->
+        <script src="script/script.js"></script>
+
+            <!--Script to Load func-->
+    <script src="script/mainFunc.js"></script>
+
+</body>
+</html>
+

@@ -1,7 +1,12 @@
 const express = require('express')
 const mongoose = require('mongoose')
+<<<<<<< HEAD
 const { render } = require('ejs')
 
+=======
+const Project = require('./models/project')
+const router = express.Router();
+>>>>>>> cf41ac2fa9a7658c2475276f5ee085eef9525d11
 
 const projectRoutes = require("./routes/projectRoutes")
 
@@ -50,6 +55,65 @@ app.get('/',(req,res)=>{
 app.use('/projects',projectRoutes)
 
 
+<<<<<<< HEAD
+=======
+//page for form
+app.get('/projects/create',(req,res)=>{
+    res.render('create',{title:'CREATE'})
+})
+
+//single project info/potential url to run application
+app.get('/projects/:id/detail',(req,res)=>{
+    const id = req.params.id
+    Project.findById(id)
+    .then(result=>{
+        console.log(result)
+        res.render('details',{project:result, title:"project details"})
+    }).catch((err)=>{
+        console.log(err)
+    })
+})
+
+
+app.get('/projects/:id',(req,res)=>{
+    const id = req.params.id
+    Project.findById(id)
+    .then(result=>{
+
+        //choosing render while based on result method
+        switch (result.method){
+            case "marker":
+                res.render('marker-model',{project:result,title:"marker demo"})
+                break
+            
+            case "gps":
+                res.render('gps',{project:result,title:"gps demo"})
+                break
+
+            case "image":
+                res.render('image-track',{project:result,title:"image demo"})
+                break
+        }
+        
+    }).catch((err)=>{
+        console.log(err)
+    })
+})
+
+
+//delecte project when delete button clicked
+app.delete('/projects/:id',(req,res)=>{
+
+    const id =req.params.id
+
+    Project.findByIdAndDelete(id)
+    .then(result=>{
+        res.json({redirect:'/projects'})
+    }).catch(err=>{
+        console.log(err)
+    })
+})
+>>>>>>> cf41ac2fa9a7658c2475276f5ee085eef9525d11
 
 
 //404 page will display if get request not specified
