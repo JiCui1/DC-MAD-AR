@@ -1,3 +1,16 @@
+/** 
+    Credits to Founding Contributors:
+
+        //?  STUDENTS:   Dana Carroll, Simran Garcha, Heather Grandovec, Jiahua Cui
+        //?  PROFESSORS: Linda Cheng, Stuart Sackler
+
+        
+*/
+
+
+
+
+
 
 let scene;
 
