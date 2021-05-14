@@ -346,3 +346,8 @@ section {
     cursor: pointer;
 }
 
+/**Image Uploaded */
+#imageUpload {
+    width: 100%;
+    height: auto;
+}

@@ -17,8 +17,7 @@
     <link rel="stylesheet" href="./styles/styles.css">
     <link rel="stylesheet" href="./styles/fontAwesome/css/all.css">
     <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-
-    <script src="script.js"></script>
+    <!-- Import the component -->
     <title>AR Editor</title>
 </head>
 <body>
@@ -63,13 +62,13 @@
             <!-- ADD TRIGGER - IMAGE -->
             <div class="addPanel" id="addImage">
                 <div class="thumbnail">
-                    <img id="blah" src="#" alt="your image" />
+                    <img id="imageUpload" src="#" alt="your image" />
                 </div>
                 <form action="" class="addForm">
                     <div class="namingBox">
                         <input type="text" placeholder="Untitled" name="imageTrigger" class="objectName">
                     </div>
-                    <input type="file" id="fileUpload" name="file" accept="image/*">
+                    <input type="file" id="fileUpload" name="file" accept="image/*" placeholder=" ">
                     <input type="submit" value="ADD" id="addButton" class="addButton">
                 </form>
             </div>
@@ -93,6 +92,9 @@
         </section>
 
         <section id="viewportSection">
+            <!-- Use it like any other HTML element -->
+            <canvas class="renderPro"></canvas>
+            
         </section>
 
         <section id="dragSection">
@@ -197,12 +199,16 @@
         fileUpload.onchange = evt => {
             const [file] = fileUpload.files
             if (file) {
-                blah.src = URL.createObjectURL(file)
+                imageUpload.src = URL.createObjectURL(file)
             }
         }
 
 
     </script>
+        <script src="script/three.min.js"></script>
+        <script src="script/GLTFLoader.js"></script>
+        <script src="script/OrbitControls.js"></script>
+        <script src="script/script.js"></script>
 
 </body>
 </html>
