@@ -1,6 +1,34 @@
 //All the soding for basic functionality of the page 
 
 
+/**
+ * Select between object and trigger
+ */
+
+let addLocation = document.getElementById('addLocation');
+let addImage = document.getElementById('addImage');
+let addMarkerOption = document.getElementById('addMarker');
+
+$(addMarkerOption).hide();
+
+function showObject() {
+    console.log("show objects")
+    $(addLocation).show();
+    $(addImage).show();
+    $(addMarkerOption).hide();
+
+
+}
+
+function showTrigger() {
+    console.log("show trigger")
+    $(addLocation).hide()
+    $(addImage).hide();
+    $(addMarkerOption).show();
+
+}
+
+
 //View the image that is uploaded
 fileUpload.onchange = evt => {
     const [file] = fileUpload.files

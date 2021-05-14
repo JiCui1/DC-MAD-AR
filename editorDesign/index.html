@@ -42,8 +42,8 @@
 
         <section id="addSection">
             <div class="addTitles">
-                <h1 id="objectButton" class="titleButton">Objects</h1>
-                <h1 id="triggerButton" class="objectActive titleButton">Triggers</h1>
+                <h1 id="objectButton" class="titleButton" onclick="showObject()">Objects</h1>
+                <h1 id="triggerButton" class="objectActive titleButton" onclick="showTrigger()">Triggers</h1>
             </div>
             <!-- ADD TRIGGER - LONGITUDE -->
             <div class="addPanel" id="addLocation">
@@ -127,7 +127,7 @@
                     </td>
                     <td>
                         <div class="outerSquare">
-                            <div class="innerSquare" id="inputBoxOneSecond">
+                            <div class="innerSquare" id="inputBoxOneSecond" ondrop="drop(event)" ondragover="allowDrop(event)">
 
                             </div>
                         </div>
@@ -143,7 +143,7 @@
 
                 <tr>
                     <td >
-                        <div class="outerSquare">
+                        <div class="outerSquare"  ondragstart="drag(event)">
                             <div class="innerSquare" id="markerTwo" draggable="true">
 
                             </div>
@@ -152,7 +152,7 @@
                     </td>
                     <td>
                         <div class="outerSquare">
-                            <div class="innerSquare" class="markerBox" id="inputBoxTwoFirst">
+                            <div class="innerSquare" class="markerBox" id="inputBoxTwoFirst" ondrop="drop(event)" ondragover="allowDrop(event)">
 
                             </div>
                         </div>
