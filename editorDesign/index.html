@@ -79,16 +79,19 @@
                     <div class="namingBox markerNamingBox">
                         <input type="text" placeholder="Untitled" name="markerTrigger" class="objectName">
                     </div>
-                    <div class="premadeMarkerBox">
-                        <button id="marker1" class="premadeMarker"></button>
-                        <button id="marker2" class="premadeMarker"></button>
-                        <button id="marker3" class="premadeMarker"></button>
-                        <button id="marker4" class="premadeMarker"></button>
-                        <button id="marker5" class="premadeMarker"></button>
+                    <div class="premadeMarkerBox inputbox" name="image" id="image" >
+                        <div id="marker1" class="premadeMarker" onclick="viewA()"></div>
+                        <div id="marker2" class="premadeMarker" onclick="viewB()"></div>
+                        <div id="marker3" class="premadeMarker" onclick="viewC()"></div>
+                        <div id="marker4" class="premadeMarker" onclick="viewD()"></div>
+                        <div id="marker5" class="premadeMarker" onclick="viewE()"></div>
                     </div>
                     <input type="submit" value="ADD" id="addButton" class="addButton">
                 </form>
             </div>
+
+             
+
         </section>
 
         <section id="viewportSection">
@@ -292,6 +295,35 @@
                 imageUpload.src = URL.createObjectURL(file)
             }
         }
+
+        /*  SELECT ONE IMAGE AND DISPLAY THAT IMAGE */
+        let imagePreview = document.getElementById("imagePreview")
+
+        function viewA(){
+            console.log("Image 01")
+            imagePreview.innerHTML="<img src='images/a.png' />";
+        }
+
+        function viewB(){
+            console.log("Image 01")
+            imagePreview.innerHTML="<img src='images/b.png' />";
+        }
+
+        function viewC(){
+            console.log("Image 01")
+            imagePreview.innerHTML="<img src='images/c.png' />";
+        }
+
+        function viewD(){
+            console.log("Image 01")
+            imagePreview.innerHTML="<img src='images/d.png' />";
+        }
+
+        function viewE(){
+            console.log("Image 01")
+            imagePreview.innerHTML="<img src='images/e.png' />";
+        }
+
 
         /*   DRAG AND DROP */
 
