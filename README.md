@@ -8,7 +8,7 @@ Credits to Founding Contributors:
 
 Students: Dana Carroll, Simran Garcha, Heather Grandovec, Jiahua Cui
 
-Professors: Linda Chen, Stuart Sackler
+Professors: Linda Cheng, Stuart Sackler
 
 # Instruction
 
@@ -65,10 +65,11 @@ node app
 ```
 
 test url - localhost:3000
+
 if port 3000 is already in use, find the following code in app.js and change to any other port
 
 ```bash
-    app.listen(3000)
+app.listen(3000)
 ```
 
 # Dependency
