@@ -1,13 +1,18 @@
 
 let scene;
 
+/**
+ * DEBUG - GUI
+ */
+const gui = new dat.GUI()
+
 function init() {
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0xdddddd);
 
     sizes = {
-width: 800,
-height: 600
+        width: 800,
+        height: 600
     }
 
     camera = new THREE.PerspectiveCamera(40, sizes.width/sizes.height, 1, 5000);
@@ -34,21 +39,45 @@ height: 600
 
     //Render -> First create canvas in HTML
     renderer = new THREE.WebGLRenderer({
-//Connect HTML canvas
-canvas: canvashtml,
+    //Connect HTML canvas
+    canvas: canvashtml,
     })
     renderer.setSize(sizes.width, sizes.height);
+
 
 
 
     //GLTF Loader
     let loader = new THREE.GLTFLoader();
     loader.load('models/scene.gltf',function(gltf){
-pokemon = gltf.scene.children[0]
-pokemon.scale.set(0.5,0.5,0.5);
-scene.add(gltf.scene);
-renderer.render(scene,camera);
+    pokemon = gltf.scene.children[0]
+    pokemon.scale.set(0.5,0.5,0.5);
+
+    //DEBUG
+
+        //------SCALE
+        gui.add(pokemon.scale,'x', -3, 3, 0.01  ).name( 'Scale X')
+        gui.add(pokemon.scale,'y', -3, 3, 0.01 ).name( 'Scale Y')
+        gui.add(pokemon.scale,'z', -3, 3, 0.01 ).name( 'Scale Z')
+
+
+        //------POSITION
+        gui.add(pokemon.position,'x', -3, 3, 0.01).name( 'Position X')
+        gui.add(pokemon.position,'y', -3, 3, 0.01).name( 'Position Y')
+        gui.add(pokemon.position,'z', -3, 3, 0.01).name( 'Position Z')
+
+        //------ROTATION
+        gui.add(pokemon.rotation,'x', -3, 3, 0.01).name( 'Rotation X')
+        gui.add(pokemon.rotation,'y', -3, 3, 0.01 ).name( 'Rotation Y')
+        gui.add(pokemon.rotation,'z', -3, 3, 0.01 ).name( 'Rotation Z')
+
+    scene.add(gltf.scene);
+    renderer.render(scene,camera);
+
+
     });
+
+
 
     // Animate
     const clock = new THREE.Clock()

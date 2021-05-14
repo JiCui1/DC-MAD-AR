@@ -111,17 +111,17 @@
                     <div class="sliderSection">
                         <label for="xValue" class="label">X</label>
                         <input type="text" name="xValue" value="" class="input" id="xScaleInput" placeholder=" ">
-                        <input type="range" min="-100" max="100" value="0" class="slider" id="xRange" onchange="updateScaleX(this.value);">
+                        <input type="range" min="-3" max="3" step="0.01" value="0" class="slider" id="xRange" onchange="updateScaleX(this.value);">
                     </div>
                     <div class="sliderSection">
                         <label for="yValue" class="label">Y</label>
                         <input type="text" name="yValue" value="" class="input" id="yScaleInput" placeholder=" ">
-                        <input type="range" min="-100" max="100" value="0" class="slider" id="yRange" onchange="updateScaleY(this.value);">
+                        <input type="range" min="-3" max="3" step="0.01" value="0" class="slider" id="yRange" onchange="updateScaleY(this.value);">
                     </div>
                     <div class="sliderSection">
                         <label for="zValue" class="label">Z</label>
                         <input type="text" name="zValue" value="" class="input" id="zScaleInput" placeholder=" ">
-                        <input type="range" min="-100" max="100" value="0" class="slider" id="zRange" onchange="updateScaleZ(this.value);">
+                        <input type="range" min="-3" max="3" step="0.01" value="0" class="slider" id="zRange" onchange="updateScaleZ(this.value);">
                     </div>
                 </div>
             </div>
@@ -135,17 +135,17 @@
                     <div class="sliderSection">
                         <label for="xValue" class="label">X</label>
                         <input type="text" name="xValue" value="" class="input" id="xPositionInput" placeholder=" ">
-                        <input type="range" min="-100" max="100" value="0" class="slider" id="xRange" onchange="updatePositionX(this.value);">
+                        <input type="range" min="-3" max="3" step="0.01" value="0" class="slider" id="xRange" onchange="updatePositionX(this.value);">
                     </div>
                     <div class="sliderSection">
                         <label for="yValue" class="label">Y</label>
                         <input type="text" name="yValue" value="" class="input" id="yPositionInput" placeholder=" ">
-                        <input type="range" min="-100" max="100" value="0" class="slider" id="yRange" onchange="updatePositionY(this.value);">
+                        <input type="range" min="-3" max="3" step="0.01" value="0" class="slider" id="yRange" onchange="updatePositionY(this.value);">
                     </div>
                     <div class="sliderSection">
                         <label for="zValue" class="label">Z</label>
                         <input type="text" name="zValue" value="" class="input" id="zPositionInput" placeholder=" ">
-                        <input type="range" min="-100" max="100" value="0" class="slider" id="zRange" onchange="updatePositionZ(this.value);">
+                        <input type="range" min="-3" max="3" step="0.01" value="0" class="slider" id="zRange" onchange="updatePositionZ(this.value);">
                     </div>
                 </div>
             </div>
@@ -159,17 +159,17 @@
                     <div class="sliderSection">
                         <label for="xValue" class="label">X</label>
                         <input type="text" name="xValue" value="" id="xRotationInput" placeholder=" " class="input">
-                        <input type="range" min="-100" max="100" value="0" class="slider" id="xRange" onchange="updateRotationX(this.value);">
+                        <input type="range" min="-3" max="3" step="0.01" value="0" class="slider" id="xRange" onchange="updateRotationX(this.value);">
                     </div>
                     <div class="sliderSection">
                         <label for="yValue" class="label">Y</label>
-                        <input type="text" name="yValue" id="yRotationInput" placeholder=" " value="" class="input">
-                        <input type="range" min="-100" max="100" value="0" class="slider" id="xRange" onchange="updateRotationY(this.value);">
+                        <input type="text" name="yValue" id="yRotationInput" placeholder=" " value="" class="input" >
+                        <input type="range" min="-3" max="3" step="0.01" value="0" class="slider" id="xRange" onchange="updateRotationY(this.value);">
                     </div>
                     <div class="sliderSection">
                         <label for="zValue" class="label">Z</label>
                         <input type="text" id="zRotationInput" placeholder=" " name="zValue" value="" class="input">
-                        <input type="range" min="-100" max="100" class="slider" id="xRange" onchange="updateRotationZ(this.value);">
+                        <input type="range" min="-3" max="3" step="0.01" class="slider" id="xRange" onchange="updateRotationZ(this.value);">
                     </div>
                 </div>
             </div>
@@ -252,6 +252,7 @@
         <script src="script/three.min.js"></script>
         <script src="script/GLTFLoader.js"></script>
         <script src="script/OrbitControls.js"></script>
+        <script src="script/dat.gui.min.js"></script>
         <script src="script/script.js"></script>
 
 </body>
