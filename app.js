@@ -2,6 +2,8 @@ const express = require('express')
 const mongoose = require('mongoose')
 const { render } = require('ejs')
 
+//switching this branch to use firebase
+
 
 const projectRoutes = require("./routes/projectRoutes")
 
