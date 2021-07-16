@@ -5,9 +5,9 @@ module.exports.signup_get = (req, res) => {
 };
 
 module.exports.signup_post = async (req, res) => {
-  console.log(req.body);
+
   const { email, password } = req.body;
-  console.log(email, password);
+
 
   try {
     const user = await User.create({ email, password });
