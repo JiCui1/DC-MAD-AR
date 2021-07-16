@@ -28,8 +28,10 @@ app.set("view engine", "ejs");
 //middleware static files (imgs/css)
 //allows ejs files to access public folder
 app.use(express.static(__dirname + "/public"));
+
 //for form submit value access
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 //basic routes, GET request
 app.get("/", (req, res) => {

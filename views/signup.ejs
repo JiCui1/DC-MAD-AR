@@ -19,11 +19,11 @@
     </form>
 
     <script>
-        let signupBtn = document.getElementById("signup_btn")
+        let form = document.querySelector("form")
         let emailError = document.querySelector(".email.error")
         let passwordError = document.querySelector(".password.error")
 
-        signupBtn.onclick = async function(e){
+        form.onsubmit = async function(e){
             e.preventDefault()
 
             emailError.textContent = ""
