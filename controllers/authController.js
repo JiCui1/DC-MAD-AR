@@ -2,6 +2,8 @@ const User = require("../models/User");
 
 const handleErrors = (err) => {
   let errors = { email: "", password: "" };
+
+  //duplicate key error
   if (err.code === 11000) {
     errors.email = "that email is already registered";
     return errors;
