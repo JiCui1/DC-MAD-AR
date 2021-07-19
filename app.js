@@ -2,6 +2,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const { render } = require("ejs");
 
+const cookieParser = require("cookie-parser");
+const { requireAuth, checkUser } = require("./middleware/authMiddleware");
+
 const projectRoutes = require("./routes/projectRoutes");
 const authRoutes = require("./routes/authRoutes");
 
@@ -33,20 +36,21 @@ app.use(express.static(__dirname + "/public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+//access to cookie
+app.use(cookieParser());
+
 //basic routes, GET request
 app.get("/", (req, res) => {
-  // res.send('<p>HOME</p>')
-  const projects = [
-    { title: "TITLE1", snippet: "SJDKASJDKAJSD" },
-    { title: "TITLE2", snippet: "SJDKaskdlasjdklSJDKAJSD" },
-    { title: "TITLE3", snippet: "SJDKAxzjlkfjawiohaslhfasklSJDKAJSD" },
-  ];
+  res.render("index", { title: "HOME" });
+});
 
-  res.render("index", { title: "HOME", projects });
+app.get("*", checkUser);
+app.get("/dashboard", requireAuth, (req, res) => {
+  res.render("dashboard", { title: "dashboard" });
 });
 
 //project routes
-app.use("/projects", projectRoutes);
+app.use("/projects", requireAuth, projectRoutes);
 app.use(authRoutes);
 
 //404 page will display if get request not specified

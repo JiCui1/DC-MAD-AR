@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const jwt = require("jsonwebtoken");
 
 const handleErrors = (err) => {
   let errors = { email: "", password: "" };
@@ -28,6 +29,14 @@ const handleErrors = (err) => {
   return errors;
 };
 
+//3 days of max age in seconds, how long will the token be valid
+const maxAge = 3 * 24 * 60 * 60;
+const createToken = (id) => {
+  return jwt.sign({ id }, "dc mad secret", {
+    expiresIn: maxAge,
+  });
+};
+
 module.exports.signup_get = (req, res) => {
   res.render("signup", { title: "SIGN UP" });
 };
@@ -37,7 +46,9 @@ module.exports.signup_post = async (req, res) => {
 
   try {
     const user = await User.create({ email, password });
-    console.log(user._id);
+    const token = createToken(user._id);
+    //http only stops jwt accessing from front end
+    res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
     res.status(201).json({ user: user._id });
   } catch (err) {
     console.log(err);
@@ -55,6 +66,9 @@ module.exports.login_post = async (req, res) => {
   console.log(req.body);
   try {
     const user = await User.login(email, password);
+    const token = createToken(user._id);
+    //maxAge * 1000 is maxAge in milliseconds
+    res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
     console.log("login success");
     console.log(user._id);
     res.status(201).json({ user: user._id });
