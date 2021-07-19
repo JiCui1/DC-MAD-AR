@@ -34,19 +34,23 @@ app.use(express.static(__dirname + "/public"));
 
 //for form submit value access
 app.use(express.urlencoded({ extended: true }));
+
+//to use json data
 app.use(express.json());
 
 //access to cookie
 app.use(cookieParser());
 
+//check if user exist
+app.get("*", checkUser);
+
 //basic routes, GET request
 app.get("/", (req, res) => {
-  res.render("index", { title: "HOME" });
+  res.render("index", { title: "HOME", user: res.locals.user });
 });
 
-app.get("*", checkUser);
 app.get("/dashboard", requireAuth, (req, res) => {
-  res.render("dashboard", { title: "dashboard" });
+  res.render("dashboard", { title: "dashboard", user: res.locals.user });
 });
 
 //project routes

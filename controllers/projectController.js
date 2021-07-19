@@ -6,7 +6,7 @@ const { render } = require("ejs");
 
 //controller to display all projects sorted by time created
 const project_index = (req, res) => {
-  Project.find()
+  Project.find({ author: res.locals.user._id })
     .sort({ createdAt: -1 })
     .then((result) => {
       res.render("all-projects", { title: "All Projects", projects: result });
@@ -18,7 +18,8 @@ const project_index = (req, res) => {
 
 // controller to get to create page
 const project_create_page = (req, res) => {
-  res.render("create", { title: "CREATE" });
+  console.log(res.locals.user);
+  res.render("create", { title: "CREATE", userID: res.locals.user._id });
 };
 
 // controller to post info to db
@@ -100,6 +101,7 @@ const project_create = (req, res) => {
     long: req.body.long,
     gpsRange: req.body.range,
     trigger: triggerList,
+    author: req.body.userID,
   });
 
   // sending info to db

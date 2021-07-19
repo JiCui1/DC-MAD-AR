@@ -45,22 +45,13 @@ router.get("/:id/detail", projectController.project_detail);
 router.get("/:id", projectController.project_run);
 
 //route to add more triggers to a project
-router.post(
-  "/:id/add",
-
-  multipleUpload,
-  projectController.project_add
-);
+router.post("/:id/add", multipleUpload, projectController.project_add);
 
 //route to edit info of a project(rotation,position,scale)
 router.post("/:id/:trigger/edit", projectController.project_edit);
 
 //route to delete a trigger in a existing project
-router.put(
-  "/:id/:trigger/delete",
-
-  projectController.project_trigger_delete
-);
+router.put("/:id/:trigger/delete", projectController.project_trigger_delete);
 
 //delecte project when delete button clicked
 router.delete("/:id", projectController.project_delete);
