@@ -1,0 +1,11 @@
+Model Information:
+* title:	Porsche 911 - 1975
+* source:	https://sketchfab.com/3d-models/porsche-911-1975-1371bfdfb1ca4449b94be913637e6c27
+* author:	MEGA MODELS (https://sketchfab.com/rathnayakakalindu)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Porsche 911 - 1975" (https://sketchfab.com/3d-models/porsche-911-1975-1371bfdfb1ca4449b94be913637e6c27) by MEGA MODELS (https://sketchfab.com/rathnayakakalindu) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

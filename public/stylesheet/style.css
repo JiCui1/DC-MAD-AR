@@ -1,3 +1,23 @@
+/* fonts: 
+font-family: open-sans, sans-serif;
+font-weight: 600;
+font-style: normal;
+
+apotek extracond light:
+font-family: apotek-extracond, sans-serif;
+font-weight: 300;
+font-style: normal;
+
+apotek extracond bold:
+font-family: apotek-extracond, sans-serif;
+font-weight: 700;
+font-style: normal; */
+
+/* color:
+logo: #C61A9A
+purple: #EB64C8
+blue: #169CE3  */
+
 * {
   margin: 0;
   padding: 0;
@@ -43,6 +63,22 @@ nav {
   background-color: white;
   -webkit-box-shadow: 0px 8px 9px 0px rgba(0, 0, 0, 0.36);
   box-shadow: 0px 8px 5px 0px rgba(0, 0, 0, 0.16);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+}
+
+.nav_btn {
+  font-family: apotek-extracond, sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  color: #eb64c8;
+  font-size: 1.5rem;
+}
+
+.nav_btn:hover {
+  color: #169ce3;
 }
 
 a {

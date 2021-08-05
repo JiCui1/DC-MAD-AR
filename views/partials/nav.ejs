@@ -1,15 +1,29 @@
 <nav>
-    <div class="site-title">
-        <img src="images/reflectLogo.png" style="height:2.5rem;">
-        <a href="/"><h1>Reflect</h1></a>
-    </div>
-    <ul>
+    <a href="/">
+        <div style="display:flex; align-items: center;">
+            <img src="images/reflectLogo.png" style="height:2.5rem;">
+            <h1 style="
+            font-family:apotek-extracond, sans-serif; 
+            font-weight: 700; 
+            font-style: normal;
+            color:#C61A9A;
+            font-size: 2rem;
+            margin-left: 0.3rem;
+            ">Reflect</h1>
+        </div>
+    </a>
+    <ul style="
+    display:flex; 
+    width:8rem; 
+    justify-content: space-between; 
+    list-style: none;            
+">
         <% if(user) { %>
             <li>Welcome, <%= user.email %></li>
-            <li><a href="/logout">log out</a></li>
+            <li><a href="/logout" class="nav_btn">log out</a></li>
             <% }else{ %>
-        <li><a href="/login">Login</a></li>
-        <li><a href="/signup">Sign Up</a></li>
+        <li><a href="/login" class="nav_btn">Login</a></li>
+        <li><a href="/signup" class="nav_btn">Sign Up</a></li>
         <% } %>
     </ul>
 </nav>
