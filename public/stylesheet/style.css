@@ -1,6 +1,6 @@
 /* fonts: 
 font-family: open-sans, sans-serif;
-font-weight: 600;
+font-weight: 300;
 font-style: normal;
 
 apotek extracond light:
@@ -16,7 +16,8 @@ font-style: normal; */
 /* color:
 logo: #C61A9A
 purple: #EB64C8
-blue: #169CE3  */
+blue: #169CE3
+textgrey: #959595  */
 
 * {
   margin: 0;
@@ -36,6 +37,7 @@ body {
 button {
   padding: 0.5rem;
   font-size: 1.3rem;
+  cursor: pointer;
 }
 
 /* --------------------------------------------- HOME PAGE -------------------------------------------------*/
@@ -50,7 +52,63 @@ button {
   background-image: url(../images/home_bg.jpg);
   background-size: cover;
   background-position: bottom;
+  position: relative;
+  overflow: hidden;
 }
+
+.text_container {
+  width: 50rem;
+  height: 50rem;
+  background-image: url(../images/blob.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  position: absolute;
+  right: -200;
+  top: -100;
+  padding-top: 20rem;
+  padding-left: 7rem;
+  z-index: 2;
+}
+
+.text_container h1 {
+  font-family: apotek-extracond, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: #eb64c8;
+  font-size: 4rem;
+  line-height: 3.3rem;
+}
+
+.text_container p {
+  margin-top: 1rem;
+  font-family: open-sans, sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  color: #959595;
+  width: 90%;
+  font-size: 1.2rem;
+}
+
+.text_container a button {
+  width: 13rem;
+  height: 3rem;
+  font-family: apotek-extracond, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: white;
+  background-color: #eb64c8;
+  outline: none;
+  border: none;
+  border-radius: 2rem;
+  margin-top: 1rem;
+}
+
+/* #blob {
+  position: absolute;
+  top: -800;
+  left: -400;
+  z-index: 0;
+} */
 
 .decoratingButtons {
   left: 50%;
@@ -61,12 +119,14 @@ nav {
   width: 100%;
   height: 3rem;
   background-color: white;
-  -webkit-box-shadow: 0px 8px 9px 0px rgba(0, 0, 0, 0.36);
-  box-shadow: 0px 8px 5px 0px rgba(0, 0, 0, 0.16);
+  -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.16);
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.16);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 2rem;
+  z-index: 200;
+  position: relative;
 }
 
 .nav_btn {
@@ -84,6 +144,14 @@ nav {
 a {
   color: black;
   text-decoration: none;
+}
+
+.scene,
+canvas {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  z-index: 0;
 }
 
 a:hover {
