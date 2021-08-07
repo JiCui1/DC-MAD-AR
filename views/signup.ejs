@@ -2,19 +2,24 @@
     <%- include('./partials/head.ejs') %>
 <body>
 
-    <!-- <%- include('./partials/nav.ejs') %> -->
+    <%- include('./partials/nav.ejs') %>
 
     
 
     <form>
         <h2>Sign Up</h2>
-        <label for="email"></label>
-        <input name="email" id="email" type="text">
-        <div class="email error"></div>
-        <label for="password"></label>
-        <input name="password" id="password" type="password">
-        <div class="password error"></div>
+        <div>
+            <label for="email"></label>
+            <input name="email" id="email" type="text" placeholder="Email">
+            <div class="email error"></div><br>
+            <label for="password"></label>
+            <input name="password" id="password" type="password" placeholder="Password">
+            <div class="password error"></div><br>
+            <label for="confirm"></label>
+            <input name="confirm" id="confirm" type="password" placeholder="Confirm Password">
+        </div>
         <button id="signup_btn">Sign Up</button> 
+        <h3>Already have an account? <a href="/login">Log in</a></h3>
 
     </form>
 

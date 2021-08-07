@@ -27,7 +27,7 @@ textgrey: #959595  */
 }
 
 body {
-  background-color: #f4dfe3;
+  background-color: #e6e6e6;
 }
 
 .delete {
@@ -65,7 +65,7 @@ button {
   position: absolute;
   right: -200;
   top: -100;
-  padding-top: 20rem;
+  padding-top: 19rem;
   padding-left: 7rem;
   z-index: 2;
 }
@@ -79,8 +79,17 @@ button {
   line-height: 3.3rem;
 }
 
+.text_container h2{
+  font-family: apotek-extracond, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  color: #eb64c8;
+  font-size: 2rem;
+  line-height: 3.3rem;
+}
+
 .text_container p {
-  margin-top: 1rem;
+  margin-top: 2rem;
   font-family: open-sans, sans-serif;
   font-weight: 300;
   font-style: normal;
@@ -100,7 +109,7 @@ button {
   outline: none;
   border: none;
   border-radius: 2rem;
-  margin-top: 1rem;
+  margin-top: 2rem;
 }
 
 /* #blob {
@@ -162,6 +171,54 @@ a:hover {
 
 form {
   margin-top: 2rem;
+  width: 30rem;
+  height: 30rem;
+  background-color:white;
+  border-radius: 2rem;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin:auto;
+  margin-top:5rem;
+  padding: 2rem;
+  -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.16);
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.16);
+}
+
+form h2{
+  font-family: apotek-extracond, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  color: #eb64c8;
+  font-size: 3rem;
+}
+
+form input{
+  width: 25rem;
+  border: 2px solid #eb64c8;
+  outline:none;
+}
+
+form h3{
+  font-family: open-sans, sans-serif;
+  font-weight: 300;
+  font-style: normal;
+  color: #959595;
+}
+
+form a{
+  color: #eb64c8;
+  font-weight: 600;
+}
+
+form button{
+  background-color: #eb64c8;
+  border:none;
+  color:white;
+  width: 24rem;
+  height:3.5rem;
+  border-radius:2rem;
 }
 
 label {
