@@ -206,6 +206,13 @@ form input {
   width: 25rem;
   border: 2px solid #eb64c8;
   outline: none;
+  font-family: open-sans, sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+::placeholder {
+  color: #959595;
 }
 
 form h3 {
