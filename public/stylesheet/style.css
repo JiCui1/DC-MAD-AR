@@ -27,7 +27,7 @@ textgrey: #959595  */
 }
 
 body {
-  background-color: #e6e6e6;
+  background-color: #f0f0f0;
 }
 
 .delete {
@@ -296,10 +296,45 @@ select {
   margin-left: 5rem;
   width: 50%;
   justify-content: space-between;
+  position: relative;
+  z-index: 3;
+}
+
+.project_btns button {
+  border: 2px solid #eb64c8;
+  font-family: apotek-extracond, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  padding: 0.5rem 1.5rem;
+  color: #eb64c8;
+}
+
+.project_btns button:hover {
+  color: #169ce3;
+}
+
+.btns_container .create_btn {
+  color: white;
+  background-color: #eb64c8;
+  border: none;
+  font-family: apotek-extracond, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  padding: 0.5rem 2rem;
+  border-radius: 2rem;
+}
+
+.btns_container .create_btn:hover {
+  background-color: #169ce3;
+}
+
+.active {
+  background-color: #eb64c8;
+  color: white !important;
 }
 
 .all_projects {
-  margin-top: 3rem;
+  margin-top: 1rem;
   margin-left: 5rem;
 }
 
@@ -309,12 +344,39 @@ select {
   background-color: white;
   padding: 2rem;
   border-radius: 1rem;
-  -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.16);
-  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.16);
+  -webkit-box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.07);
+  box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.07);
+}
+
+.btns_container_card {
+  display: flex;
+  width: 12rem;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.btns_container_card button {
+  border: 2px solid #eb64c8;
+  font-family: apotek-extracond, sans-serif;
+  font-weight: 300;
+  background-color: white;
+  color: #eb64c8;
+  font-size: 1.2rem;
+  width: 5rem;
+  height: 2rem;
+  border-radius: 1.5rem;
+  padding: 0rem;
 }
 
 .title {
   color: #eb64c8;
+}
+
+.last_update {
+  font-family: open-sans;
+  font-weight: 300;
+  color: #959595;
+  font-size: 1rem;
 }
 
 .modelPath {

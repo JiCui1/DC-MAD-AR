@@ -10,21 +10,32 @@
     </div>
     <div class="btns_container">
         <div class='project_btns'>
-            <button>All Projects</button>
+            <button class="active">All Projects</button>
             <button>Online Projects</button>
             <button>Unshared Projects</button>
         </div>
-        <button>Create new</button>
+        <a href="/projects/create"><button class="create_btn">Create new</button></a>
     </div>
+        <hr style="width:50%; margin: 1.5rem 0rem 1.5rem 5rem;">
         <!-- looping through all projects in db to output them  -->
         <div class="all_projects">
-        <% if(projects.length > 0){ %>
+        <% if(projects.length > 0){ %> 
 
-            <% projects.forEach(project=>{ %>
+            <% projects.forEach(project=>{ 
+                let date = project.updatedAt.getDate()
+                let month = project.updatedAt.getMonth()
+                let year = project.updatedAt.getFullYear()
+                let monthArray = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+                month = monthArray[month]
+
+                %>
                 <div class="project_card">
                     <h2 class="title"><a class="single" href="/projects/<%= project._id %>/detail"><%= project.title  %> </a></h1>
-                    <h2 class="method"> METHOD :: <a class="single" href="/projects/<%= project._id %>/detail"><%= project.method %></a></h3>
-                    <h3 class="modelPath"> <a class="single" href="/projects/<%= project._id %>/detail"><%= project.modelPath %></a></h3>
+                    <h2 class="last_update"> Last modified: <%= month %> <%= date %>, <%= year %></h3>
+                    <div class="btns_container_card">
+                        <button>Edit</button>
+                        <button>Test</button>
+                    </div>
                 </div>
             <% }) %>
          
