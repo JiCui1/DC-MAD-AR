@@ -150,6 +150,32 @@ nav {
   color: #169ce3;
 }
 
+.nav_btn_auth li:hover{
+  color:#169ce3;
+}
+
+.nav_btn_auth:hover{
+  color:#169ce3;
+  cursor:pointer;
+}
+
+.nav_btn_auth li{
+  color:#eb64c8;
+  font-family: apotek-extracond;
+  font-weight: 300;
+  font-size: 1.5rem;
+  padding: 1rem;
+  border-right: 1px solid #eb64c8;
+  border-left: 1px solid #eb64c8;
+}
+
+.nav_btn_auth{
+  color:#eb64c8;
+  font-family: apotek-extracond;
+  font-weight: 300;
+  font-size: 1.5rem;
+}
+
 a {
   color: black;
   text-decoration: none;

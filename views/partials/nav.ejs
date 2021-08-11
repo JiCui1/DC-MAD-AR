@@ -1,5 +1,6 @@
 <nav>
-    <a href="/">
+    <% if(user) { %>
+    <a href="/dashboard">
         <div style="display:flex; align-items: center;">
             <img src="images/reflectLogo.png" style="height:2.5rem;">
             <h1 style="
@@ -14,16 +15,37 @@
     </a>
     <ul style="
     display:flex; 
-    width:8rem; 
-    justify-content: space-between; 
+    width:9rem; 
+    justify-content: space-around; 
     list-style: none;            
-">
-        <% if(user) { %>
-            <li>Welcome, <%= user.email %></li>
-            <li><a href="/logout" class="nav_btn">log out</a></li>
-            <% }else{ %>
-        <li><a href="/login" class="nav_btn">Login</a></li>
-        <li><a href="/signup" class="nav_btn">Sign Up</a></li>
-        <% } %>
+    ">
+     <a href="/projects/create" class="nav_btn_auth" ><li>Create</li></a>
+     <li class="nav_btn_auth" style="display: flex; align-items: center; justify-content: space-around;padding-left:1.3rem;">Account <i class="fas fa-sort-down" style="margin-top:-0.5rem; margin-left:0.5rem;"></i></li>
     </ul>
+    <% }else{ %>
+
+        <a href="/">
+            <div style="display:flex; align-items: center;">
+                <img src="images/reflectLogo.png" style="height:2.5rem;">
+                <h1 style="
+                font-family:apotek-extracond, sans-serif; 
+                font-weight: 700; 
+                font-style: normal;
+                color:#C61A9A;
+                font-size: 2rem;
+                margin-left: 0.3rem;
+                ">Reflect</h1>
+            </div>
+        </a>
+        <ul style="
+        display:flex; 
+        width:8rem; 
+        justify-content: space-between; 
+        list-style: none;            
+        ">
+                <li><a href="/login" class="nav_btn">Login</a></li>
+                <li><a href="/signup" class="nav_btn">Sign Up</a></li>
+    </ul>
+    <% } %>
+    
 </nav>
