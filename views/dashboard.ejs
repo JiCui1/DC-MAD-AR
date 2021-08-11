@@ -1,32 +1,38 @@
 <html lang="en">
     <%- include('./partials/head.ejs') %>
-<body>
+<body style="overflow-x: hidden;">
 
     <%- include('./partials/nav.ejs') %>
 
     <div class="projects content">
         <h1 class="mainTitle">My Project</h1>  
+        <img src="/images/blob_dash.svg" style="position:absolute;left:-16rem; top:-7rem; z-index: 0; width:150%;">
     </div>
-    <div class="projects content">
-        <h1 class="mainTitle">All Projects</h1>
-
+    <div class="btns_container">
+        <div class='project_btns'>
+            <button>All Projects</button>
+            <button>Online Projects</button>
+            <button>Unshared Projects</button>
+        </div>
+        <button>Create new</button>
+    </div>
         <!-- looping through all projects in db to output them  -->
-        <div class="offset-5 projectDetails">
+        <div class="all_projects">
         <% if(projects.length > 0){ %>
 
             <% projects.forEach(project=>{ %>
-                
-                    <h2 class="title"> NAME :: <a class="single" href="/projects/<%= project._id %>/detail"><%= project.title  %> </a></h1>
+                <div class="project_card">
+                    <h2 class="title"><a class="single" href="/projects/<%= project._id %>/detail"><%= project.title  %> </a></h1>
                     <h2 class="method"> METHOD :: <a class="single" href="/projects/<%= project._id %>/detail"><%= project.method %></a></h3>
                     <h3 class="modelPath"> <a class="single" href="/projects/<%= project._id %>/detail"><%= project.modelPath %></a></h3>
-                </a>
+                </div>
             <% }) %>
          
         <% }else{ %>
                 <p>NOTHING TO SHOW</p>
 
             <% } %>
-        </div>
+   
         
 
     

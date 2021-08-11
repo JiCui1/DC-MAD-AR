@@ -42,7 +42,14 @@ button {
 
 /* --------------------------------------------- HOME PAGE -------------------------------------------------*/
 .mainTitle {
-  text-align: center;
+  color: white;
+  font-family: apotek-extracond, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 2.5rem;
+  position: relative;
+  z-index: 1;
+  margin-left: 4rem;
   margin-top: 2rem;
 }
 
@@ -150,17 +157,17 @@ nav {
   color: #169ce3;
 }
 
-.nav_btn_auth li:hover{
-  color:#169ce3;
+.nav_btn_auth li:hover {
+  color: #169ce3;
 }
 
-.nav_btn_auth:hover{
-  color:#169ce3;
-  cursor:pointer;
+.nav_btn_auth:hover {
+  color: #169ce3;
+  cursor: pointer;
 }
 
-.nav_btn_auth li{
-  color:#eb64c8;
+.nav_btn_auth li {
+  color: #eb64c8;
   font-family: apotek-extracond;
   font-weight: 300;
   font-size: 1.5rem;
@@ -169,8 +176,8 @@ nav {
   border-left: 1px solid #eb64c8;
 }
 
-.nav_btn_auth{
-  color:#eb64c8;
+.nav_btn_auth {
+  color: #eb64c8;
   font-family: apotek-extracond;
   font-weight: 300;
   font-size: 1.5rem;
@@ -283,8 +290,31 @@ select {
 
 /* --------------------------------------------- ALL PROJECTS -------------------------------------------------*/
 
-.projectDetails {
-  margin-top: 2rem;
+.btns_container {
+  display: flex;
+  margin-top: 5rem;
+  margin-left: 5rem;
+  width: 50%;
+  justify-content: space-between;
+}
+
+.all_projects {
+  margin-top: 3rem;
+  margin-left: 5rem;
+}
+
+.project_card {
+  width: 53%;
+  height: 10rem;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.16);
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.16);
+}
+
+.title {
+  color: #eb64c8;
 }
 
 .modelPath {
@@ -292,8 +322,7 @@ select {
 }
 
 .single {
-  color: #b91b8a;
-  text-transform: capitalize;
+  color: #eb64c8;
 }
 
 /* --------------------------------------------- SINGLE PROJECTS -------------------------------------------------*/

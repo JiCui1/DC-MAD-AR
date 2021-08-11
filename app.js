@@ -47,7 +47,24 @@ app.get("*", checkUser);
 
 //basic routes, GET request
 app.get("/", (req, res) => {
-  res.render("index", { title: "HOME", user: res.locals.user });
+  //if user is logged in, redirect to dashboard
+  if (res.locals.user) {
+    Project.find({ author: res.locals.user._id })
+      .sort({ createdAt: -1 })
+      .then((result) => {
+        res.render("dashboard", {
+          title: "Dashboard",
+          user: res.locals.user,
+          projects: result,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  } else {
+    //if user is not logged in, render home page
+    res.render("index", { title: "HOME", user: res.locals.user });
+  }
 });
 
 //dashboard routes
