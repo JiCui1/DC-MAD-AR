@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const { render } = require("ejs");
+const Project = require("./models/project");
 
 const cookieParser = require("cookie-parser");
 const { requireAuth, checkUser } = require("./middleware/authMiddleware");
@@ -49,8 +50,20 @@ app.get("/", (req, res) => {
   res.render("index", { title: "HOME", user: res.locals.user });
 });
 
+//dashboard routes
 app.get("/dashboard", requireAuth, (req, res) => {
-  res.render("dashboard", { title: "dashboard", user: res.locals.user });
+  Project.find({ author: res.locals.user._id })
+    .sort({ createdAt: -1 })
+    .then((result) => {
+      res.render("dashboard", {
+        title: "Dashboard",
+        user: res.locals.user,
+        projects: result,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 //project routes

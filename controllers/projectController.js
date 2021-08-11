@@ -9,7 +9,7 @@ const project_index = (req, res) => {
   Project.find({ author: res.locals.user._id })
     .sort({ createdAt: -1 })
     .then((result) => {
-      res.render("all-projects", { title: "All Projects", projects: result });
+      res.render("dashboard", { title: "Dashboard", projects: result });
     })
     .catch((err) => {
       console.log(err);

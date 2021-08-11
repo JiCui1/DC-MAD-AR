@@ -7,7 +7,7 @@ const router = express.Router();
 const { requireAuth } = require("../middleware/authMiddleware");
 
 //project routes
-router.get("/", projectController.project_index);
+// router.get("/", projectController.project_index);
 
 //multer storage to upload files to server
 const storage = multer.diskStorage({

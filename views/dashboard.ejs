@@ -2,16 +2,39 @@
     <%- include('./partials/head.ejs') %>
 <body>
 
-    <!-- <%- include('./partials/nav.ejs') %> -->
+    <%- include('./partials/nav.ejs') %>
 
     <div class="projects content">
         <h1 class="mainTitle">Dashboard</h1>
         <h2 class="welcome_msg">Welcome, <%= user.email %></h2>
         <button class="decoratingButtons offset-5"><a href="/projects/create"> Create Project </a></button>
-        <button class="decoratingButtons" ><a href="/projects/"> View Project </a></button>
+        <!-- <button class="decoratingButtons" ><a href="/projects/"> View Project </a></button> -->
     
     
     </div>
+    <div class="projects content">
+        <h1 class="mainTitle">All Projects</h1>
+
+        <!-- looping through all projects in db to output them  -->
+        <div class="offset-5 projectDetails">
+        <% if(projects.length > 0){ %>
+
+            <% projects.forEach(project=>{ %>
+                
+                    <h2 class="title"> NAME :: <a class="single" href="/projects/<%= project._id %>/detail"><%= project.title  %> </a></h1>
+                    <h2 class="method"> METHOD :: <a class="single" href="/projects/<%= project._id %>/detail"><%= project.method %></a></h3>
+                    <h3 class="modelPath"> <a class="single" href="/projects/<%= project._id %>/detail"><%= project.modelPath %></a></h3>
+                </a>
+            <% }) %>
+         
+        <% }else{ %>
+                <p>NOTHING TO SHOW</p>
+
+            <% } %>
+        </div>
+        
+
+    
 
     <!-- <%- include('./partials/footer.ejs') %> -->
 </body>
