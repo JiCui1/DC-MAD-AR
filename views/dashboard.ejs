@@ -30,11 +30,24 @@
 
                 %>
                 <div class="project_card">
-                    <h2 class="title"><a class="single" href="/projects/<%= project._id %>/detail"><%= project.title  %> </a></h1>
-                    <h2 class="last_update"> Last modified: <%= month %> <%= date %>, <%= year %></h3>
-                    <div class="btns_container_card">
-                        <button>Edit</button>
-                        <button>Test</button>
+                    <div class='card_left'>
+                        <h2 class="title"><a class="single" href="/projects/<%= project._id %>/detail"><%= project.title  %> </a></h1>
+                        <h2 class="last_update"> Last modified: <%= month %> <%= date %>, <%= year %></h3>
+                        <div class="btns_container_card">
+                            <a href="/projects/<%= project._id%>/detail"><button>Edit</button></a>
+                            <a href="/projects/<%= project._id%>" target="_blank"><button>Test</button></a>
+                        </div>
+                    </div>
+                    <div class="card_right">
+                        <a  class="delete" data-doc="<%= project._id %>" > Delete  </a>
+                        <div class="status">
+                            <h3>Online</h3>
+                            <div class="toggle_btn">
+                                <i class="fas fa-toggle-on"></i>
+                                <!-- <i class="fas fa-toggle-off"></i> -->
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             <% }) %>
@@ -45,7 +58,23 @@
             <% } %>
    
         
+    <script>
+        //delete project request
+        const trashcan = document.querySelector(".delete") 
 
+        trashcan.onclick = () => {
+        
+            const endpoint = `/projects/${trashcan.dataset.doc}`
+
+            fetch(endpoint,{
+                method:"DELETE"
+            })
+            .then((response)=>{return response.json()})
+            .then((data)=>window.location.href = data.redirect)
+            .catch((err)=>console.log(err))
+
+        }
+    </script>
     
 
     <!-- <%- include('./partials/footer.ejs') %> -->

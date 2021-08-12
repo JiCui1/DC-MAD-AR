@@ -346,6 +346,43 @@ select {
   border-radius: 1rem;
   -webkit-box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.07);
   box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.07);
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.card_right {
+  text-align: right;
+}
+
+.card_right .delete {
+  font-family: apotek-extracond, sans-serif;
+  font-weight: 300;
+  font-size: 1.3rem;
+  color: #eb64c8;
+}
+
+.card_right .delete:hover {
+  color: #169ce3;
+}
+
+.card_right .status {
+  display: flex;
+  width: 4rem;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.card_right .status h3 {
+  font-family: open-sans;
+  font-weight: 300;
+  font-size: 0.8rem;
+  color: rgb(49, 196, 0);
+}
+
+.card_right .toggle_btn {
+  color: #eb64c8;
 }
 
 .btns_container_card {
@@ -368,8 +405,17 @@ select {
   padding: 0rem;
 }
 
+.btns_container_card button:hover {
+  color: #169ce3;
+  border: 2px solid #169ce3;
+}
+
 .title {
   color: #eb64c8;
+}
+
+.title a:hover {
+  color: #169ce3;
 }
 
 .last_update {

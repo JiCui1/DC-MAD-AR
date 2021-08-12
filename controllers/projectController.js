@@ -109,8 +109,8 @@ const project_create = (req, res) => {
     .save()
     .then((result) => {
       console.log(result);
-      //once submitted redirect back to all projects page
-      res.redirect("/projects");
+      //once submitted redirect back to dashboard
+      res.redirect("/dashboard");
     })
     .catch((err) => {
       console.log(err);
@@ -287,7 +287,7 @@ const project_delete = (req, res) => {
   //DELETE function for the asset folder inserted .. :- righ now focusing on one image to check if it works
   Project.findByIdAndDelete(id)
     .then((result) => {
-      res.json({ redirect: "/projects" });
+      res.json({ redirect: "/dashboard" });
     })
     .catch((err) => {
       console.log(err);
