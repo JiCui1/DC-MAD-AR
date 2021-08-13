@@ -83,6 +83,10 @@ app.get("/dashboard", requireAuth, (req, res) => {
     });
 });
 
+app.get("/projects/:id/edit", (req, res) => {
+  res.render("edit", { title: "Edit" });
+});
+
 //project routes
 app.use("/projects", requireAuth, projectRoutes);
 app.use(authRoutes);

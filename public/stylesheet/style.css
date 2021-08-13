@@ -353,6 +353,7 @@ select {
 
 .card_right {
   text-align: right;
+  margin-top: 1rem;
 }
 
 .card_right .delete {

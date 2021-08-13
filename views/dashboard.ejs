@@ -34,7 +34,7 @@
                         <h2 class="title"><a class="single" href="/projects/<%= project._id %>/detail"><%= project.title  %> </a></h1>
                         <h2 class="last_update"> Last modified: <%= month %> <%= date %>, <%= year %></h3>
                         <div class="btns_container_card">
-                            <a href="/projects/<%= project._id%>/detail"><button>Edit</button></a>
+                            <a href="/projects/<%= project._id%>/edit"><button>Edit</button></a>
                             <a href="/projects/<%= project._id%>" target="_blank"><button>Test</button></a>
                         </div>
                     </div>
@@ -59,11 +59,14 @@
    
         
     <script>
-        //delete project request
+    
+                    //delete project request
         const trashcan = document.querySelector(".delete") 
 
         trashcan.onclick = () => {
-        
+
+            if(window.confirm("Do you want to delete this project?")){
+
             const endpoint = `/projects/${trashcan.dataset.doc}`
 
             fetch(endpoint,{
@@ -73,7 +76,10 @@
             .then((data)=>window.location.href = data.redirect)
             .catch((err)=>console.log(err))
 
+            }   
+
         }
+
     </script>
     
 
