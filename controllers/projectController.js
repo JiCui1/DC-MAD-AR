@@ -294,6 +294,8 @@ const project_delete = (req, res) => {
     });
 };
 
+
+
 module.exports = {
   project_index,
   project_detail,

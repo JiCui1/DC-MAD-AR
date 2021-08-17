@@ -1,8 +1,34 @@
 <html lang="en">
     <%- include('./partials/head.ejs') %>
-<body>
+<body style="overflow:hidden">
     <%- include('./partials/editNav.ejs') %>
-    <h1>EDIT PAGE</h1>
+    <div class="edit_container">
+
+        <div class="edit_container_left">
+
+            <div class="project_title">
+                <h2>TITLE</h2>
+                <h2>Marker Tracking</h2>
+            </div>
+
+            <div class="asset_section">        
+                <div class="file_upload"></div>
+                <div class="uploaded_assets"></div>
+            </div>
+
+            <div class="pairing_section">
+                <div class="pairing"></div>
+                <div class="all_pairings"></div>
+            </div>
+
+        </div>
+
+        <div class="edit_container_right">
+            <div class="preview"></div>
+            <div class="controls"></div>
+        </div>
+
+    </div>
 
 </body>
 </html>

@@ -449,3 +449,85 @@ select {
 .setButtons {
   margin-top: 1rem;
 }
+
+/* --------------------------------------------- Edit Page -------------------------------------------------*/
+.edit_nav_btn {
+  color: #eb64c8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-left: 1px solid #eb64c8;
+  cursor: pointer;
+  width: 7rem;
+}
+
+.edit_nav_btn:hover {
+  color: #169ce3;
+}
+
+.edit_nav_btn i {
+  font-size: 1.5rem;
+  margin-bottom: 0.2rem;
+}
+
+.publish_btn {
+  font-family: open-sans;
+  font-size: 1rem;
+  width: 7rem;
+  height: 2.5rem;
+  margin-right: 1rem;
+  border: solid 2px #eb64c8;
+  background-color: white;
+  color: #eb64c8;
+  font-weight: 600;
+}
+
+.publish_btn:hover {
+  color: white;
+  background-color: #eb64c8;
+}
+
+/* edit page grid  */
+.edit_container {
+  width: 70rem;
+  height: 45rem;
+  margin: 2rem auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.edit_container_left {
+  width: 40rem;
+  height: 45rem;
+  background-color: white;
+  border-radius: 1rem;
+  -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.16);
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.16);
+}
+
+.edit_container_right {
+  width: 28rem;
+  height: 45rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.preview {
+  width: 28rem;
+  height: 21.5rem;
+  background-color: white;
+  border-radius: 1rem;
+  -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.16);
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.16);
+}
+
+.controls {
+  width: 28rem;
+  height: 21.5rem;
+  background-color: white;
+  border-radius: 1rem;
+  -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.16);
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.16);
+}
