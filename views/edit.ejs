@@ -12,7 +12,19 @@
             </div>
 
             <div class="asset_section">        
-                <div class="file_upload"></div>
+                <div class="file_upload">
+                    <div class="drag_area">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <h2>Drag your files here to upload or</h2>
+                        <button id="upload_trigger" style="border:none; background-color:transparent; color:#eb64c8; outline: none; font-size:1rem; height:1rem;">Browse</button>
+                        <input type="file" value="Browse" name="upload_files" id="upload_files" style="visibility: hidden; height:0rem;" multiple>
+                        <h2>Accepted format: glb, mp4, png, jpg, jpeg</h2>
+                </div>
+                    <div class="convert_text">
+                        <h2>Click here to convert your <span style="color:#eb64c8">glTF</span> files to glb</h2>
+                        <h2>Why?</h2>
+                    </div>
+                </div>
                 <div class="uploaded_assets"></div>
             </div>
 
