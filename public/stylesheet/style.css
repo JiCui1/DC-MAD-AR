@@ -490,7 +490,7 @@ select {
 
 /* edit page grid  */
 .edit_container {
-  width: 70rem;
+  width: 82rem;
   height: 40rem;
   margin: 2rem auto;
   display: flex;
@@ -499,7 +499,7 @@ select {
 
 .edit_container_left {
   padding: 2rem;
-  width: 40rem;
+  width: 50rem;
   height: 100%;
   background-color: white;
   border-radius: 1rem;
@@ -508,7 +508,7 @@ select {
 }
 
 .edit_container_right {
-  width: 28rem;
+  width: 30rem;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -516,7 +516,7 @@ select {
 }
 
 .preview {
-  width: 28rem;
+  width: 30rem;
   height: 19rem;
   background-color: white;
   border-radius: 1rem;
@@ -525,7 +525,7 @@ select {
 }
 
 .controls {
-  width: 28rem;
+  width: 30rem;
   height: 19rem;
   background-color: white;
   border-radius: 1rem;
@@ -540,12 +540,7 @@ select {
   border-bottom: 1px solid #959595;
 }
 
-.edit_container_left .project_title {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  border-bottom: 1px solid #959595;
-}
+
 
 .edit_container_left .project_title #title {
   border: none;
@@ -555,6 +550,7 @@ select {
   font-size: 1.5rem;
   outline: none;
   height: 1.5rem;
+  padding:0;
 }
 
 .edit_container_left .project_title h2 {
@@ -565,8 +561,8 @@ select {
 }
 
 .asset_section {
-  width: 36rem;
-  height: 15rem;
+  width: 46rem;
+  height: 19rem;
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid #959595;
@@ -574,7 +570,7 @@ select {
 }
 
 .asset_section .file_upload {
-  width: 60%;
+  width: 70%;
   height: 100%;
 }
 
@@ -591,7 +587,7 @@ select {
 .asset_section .file_upload .drag_area i {
   color: #fdd0f2;
   font-size: 5rem;
-  margin-top: 1rem;
+  margin-top: 3rem;
 }
 
 .asset_section .file_upload .drag_area h2 {
@@ -603,6 +599,7 @@ select {
 
 .asset_section .file_upload .drag_area input {
   border: none;
+  margin-bottom: 1rem;
 }
 
 .asset_section .file_upload .convert_text {
@@ -619,16 +616,17 @@ select {
 }
 
 .asset_container {
-  width: 13rem;
+  width: 22rem;
   height: 10rem;
   overflow: scroll;
+  margin-left: 2rem;
 }
 
 .single_asset {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 12rem;
+  width: 21rem;
   height: 2rem;
   padding: 0.5rem;
   border: 1px solid #eb64c8;
@@ -641,6 +639,7 @@ select {
   font-weight: 300;
   color: #eb64c8;
   margin-top: 1rem;
+  margin-left: 2rem;
 }
 
 .single_asset .asset_name {
@@ -734,3 +733,91 @@ select {
 .pairing_section {
   display: flex;
 }
+
+.all_pairings{
+  margin-left: 1rem;
+  padding-left: 1rem;
+  margin-top:1rem;
+  border-left: 1px solid #959595;
+  height:15rem;
+  overflow: hidden;
+}
+
+.all_top{
+  display:flex;
+  width:20rem;
+  /* background-color: #169ce3; */
+  justify-content: space-between;
+  align-items: center;
+}
+
+.all_top h2{
+  font-family: apotek-extracond;
+  font-weight: 300;
+  font-size:1.5rem;
+  color:#eb64c8;
+}
+
+.all_top h3{
+  font-family: open-sans;
+  font-weight: 600;
+  font-size: 0.8rem;
+  color:#959595;
+}
+
+.asset_marker_container{
+  overflow: scroll;
+  height: 100%;
+  height: 13rem;
+}
+
+.asset_marker{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eb64c8;
+}
+
+.asset_marker .asset{
+  text-align: center;
+  width: 10rem;
+  height: 5rem;
+  color:#eb64c8;
+  font-family:open-sans;
+  font-weight: 400;
+}
+
+.asset_marker .asset i{
+  margin-top:1rem;
+  font-size:2rem;
+}
+
+.asset_marker .asset h2{
+  font-size: 0.6rem;
+  margin-top:0.3rem;
+}
+
+.asset_marker .marker{
+  text-align: center;
+  width: 10rem;
+  height: 5rem;
+  color:#eb64c8;
+  font-family:open-sans;
+  font-weight: 400;
+}
+
+.asset_marker i{
+  color:#eb64c8;
+}
+
+.asset_marker .marker i{
+  margin-top:1rem;
+  font-size:2rem;
+}
+
+.asset_marker .marker h2{
+  font-size: 0.6rem;
+  margin-top:0.3rem;
+}
+
+
