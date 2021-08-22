@@ -820,4 +820,40 @@ select {
   margin-top:0.3rem;
 }
 
+.control_btns_container button{
+  width:8rem;
+  height:3rem;
+  font-family: apotek-extracond;
+  font-weight: 600;
+  font-size:1.5rem;
+  color:#eb64c8;
+  background:none;
+  border: 1px solid #eb64c8;
+  border-bottom: none;
+}
+
+.controls{
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* background-color:pink; */
+  justify-content: center;
+}
+
+.control_btns_container button i{
+  margin-right:0.3rem;
+  font-size:1.1rem;
+}
+
+.control_btns_container button:hover{
+  color:#169ce3;
+}
+
+.control_panel{
+  height:13rem;
+  width:27rem;
+  border:1px solid #eb64c8;
+  border-radius: 0.7rem;
+}
 
