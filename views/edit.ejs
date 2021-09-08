@@ -123,6 +123,7 @@
     <script>
         let inputFile = document.getElementById("upload_files")
         let assetContainer = document.querySelector(".asset_container")
+        let uploadDelete = document.querySelector(".upload_delete")
         let allFileList = []
         inputFile.onchange = function(e){
             let fileList = e.srcElement.files 
@@ -150,7 +151,7 @@
                     let singleAsset = document.createElement("div")
                     singleAsset.innerHTML = 
                                 `<h2 class="asset_name">${file.name}</h2>
-                                <i class="fas fa-trash-alt"></i>`
+                                <i class="fas fa-trash-alt upload_delete"></i>`
                     singleAsset.classList.add("single_asset")
                     assetContainer.appendChild(singleAsset)
                 }else{
@@ -159,6 +160,10 @@
                 }
             }
             console.log(allFileList)
+        }
+
+        uploadDelete.onclick = function(){
+            console.log(this.parentNode)
         }
     </script>
 
