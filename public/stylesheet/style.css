@@ -616,7 +616,8 @@ select {
 .asset_container {
   width: 22rem;
   height: 10rem;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
   margin-left: 2rem;
 }
 
