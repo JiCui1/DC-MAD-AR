@@ -714,25 +714,23 @@ select {
 
 .pairing_asset select,
 .pairing_marker select {
-  border:none;
-  padding:0;
+  border: none;
+  padding: 0;
   color: #eb64c8;
   font-family: open-sans;
   font-weight: 600;
   font-size: 0.7rem;
 }
 
-select:focus{
-  outline:none;
+select:focus {
+  outline: none;
 }
 
-.delete_pairing {
-  text-align: right;
-}
-
-.delete_pairing i {
+.delete_pair {
   color: #eb64c8;
   cursor: pointer;
+  margin-bottom: -12rem;
+  /* margin-right: -12rem; */
 }
 
 .pairing_section {
@@ -782,6 +780,7 @@ select:focus{
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #eb64c8;
+  cursor: pointer;
 }
 
 .asset_marker .asset {
@@ -956,10 +955,10 @@ input[type="range"]:focus::-ms-fill-upper {
   margin: auto;
   justify-content: space-between;
   align-items: center;
-  display:none;
+  display: none;
 }
 
-.slider_title{
+.slider_title {
   color: #eb64c8;
   font-family: apotek-extracond;
   font-weight: 300;
@@ -978,22 +977,24 @@ input[type="range"]:focus::-ms-fill-upper {
   font-weight: 300;
 }
 
-.position_control_container{
-  width:90%;
-  margin:auto;
-  margin-top:2rem;
-  display:none;
+.position_control_container {
+  width: 90%;
+  margin: auto;
+  margin-top: 2rem;
+  display: none;
 }
 
-.rotation_control_container{
-  width:90%;
-  margin:auto;
-  margin-top:2rem;
+.rotation_control_container {
+  width: 90%;
+  margin: auto;
+  margin-top: 2rem;
 }
 
-.x_slider, .y_slider, .z_slider{
-  display:flex;
+.x_slider,
+.y_slider,
+.z_slider {
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top:1rem;
+  margin-top: 1rem;
 }

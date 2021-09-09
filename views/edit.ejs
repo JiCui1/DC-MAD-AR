@@ -36,11 +36,11 @@
                 <div class="pairing">
                     <div class="pairing_top">
                         <h2>Asset Marker Pairing</h2>
-                        <i class="fas fa-plus-square"></i>
+                        <i class="fas fa-plus-square add_pair"></i>
                     </div>
                     
                     <div class="pairing_container">
-                        <div class="pairing_asset">
+                        <!-- <div class="pairing_asset">
                             <i class="fas fa-file"></i>
                             <select id="asset_select">
                                 <option>burger.glb</option>
@@ -53,10 +53,11 @@
                                 <option>Marker H</option>
                             </select>
                         </div>
+                        
+                        <i class="fas fa-trash-alt delete_pair"></i> -->
+                        
                     </div>
-                    <div class="delete_pairing">
-                        <i class="fas fa-trash-alt"></i>
-                    </div>
+
                 </div>
                 <div class="all_pairings">
                     <div class="all_top">
@@ -64,7 +65,7 @@
                         <h3>download markers</h3>
                     </div>
                     <div class="asset_marker_container">
-                        <div class="asset_marker">
+                        <!-- <div class="asset_marker">
                             <div class="asset">
                                 <i class="fas fa-file"></i>
                                 <h2>burger.glb</h2>
@@ -74,29 +75,7 @@
                                 <i class="fas fa-h-square"></i>
                                 <h2>Marker H</h2>
                             </div>
-                        </div>
-                        <div class="asset_marker">
-                            <div class="asset">
-                                <i class="fas fa-file"></i>
-                                <h2>burger.glb</h2>
-                            </div>
-                            <i class="fas fa-exchange-alt"></i>
-                            <div class="marker">
-                                <i class="fas fa-h-square"></i>
-                                <h2>Marker H</h2>
-                            </div>
-                        </div>
-                        <div class="asset_marker">
-                            <div class="asset">
-                                <i class="fas fa-file"></i>
-                                <h2>burger.glb</h2>
-                            </div>
-                            <i class="fas fa-exchange-alt"></i>
-                            <div class="marker">
-                                <i class="fas fa-h-square"></i>
-                                <h2>Marker H</h2>
-                            </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -158,13 +137,19 @@
     </div>
 
     <script>
-        let inputFile = document.getElementById("upload_files")
-        let assetContainer = document.querySelector(".asset_container")
-        let uploadDelete =  document.querySelectorAll(".upload_delete")
+        let uploadDelete
+        let assetMarkerPairs
+        const pairingContainer = document.querySelector(".pairing_container")
+        const inputFile = document.getElementById("upload_files")
+        const assetContainer = document.querySelector(".asset_container")
+        const addPair = document.querySelector(".add_pair")
+        const assetMarkerContaienr = document.querySelector(".asset_marker_container")
+
 
         let allFileList = []
         inputFile.onchange = function(e){
-            let fileList = e.srcElement.files 
+            console.log(e)
+            let fileList = e.target.files 
             for(let i = 0; i<fileList.length; i++){
                 const file = fileList[i]
                 const ext = file.name.split('.')[1]
@@ -207,6 +192,126 @@
                 }
             }
             console.log(allFileList)
+        }
+
+
+        addPair.onclick = function(){
+            if(allFileList.length<1){
+                alert("You don't have any asset to pair. Please upload first")
+            }else{
+            let assetMarker = document.createElement("div")
+            console.log(allFileList[0])
+            assetMarker.innerHTML = `<div class="asset">
+                                <i class="fas fa-file"></i>
+                                <h2>${allFileList[0].name}</h2>
+                            </div>
+                            <i class="fas fa-exchange-alt"></i>
+                            <div class="marker">
+                                <i class="fas fa-h-square"></i>
+                                <h2>Marker A</h2>
+                            </div>`
+            assetMarker.classList.add("asset_marker")
+            assetMarkerContaienr.appendChild(assetMarker)
+            assetMarkerPairs = document.querySelectorAll('.asset_marker')
+            assetMarkerPairs.forEach(pair=>{
+                pair.onclick = function(){
+                    let clickedOption = this
+                    let selectedAsset = this.querySelector(".asset h2").innerHTML
+                    let selectedMarker = this.querySelector(".marker h2").innerHTML
+                    let assetOptions = ""
+                    let temp = ""
+                    allFileList.forEach(file=>{
+                        let option
+                        if(file.name == selectedAsset){
+                            option = `<option data-value=${file.name.toString()} selected>${file.name}</option>`
+                        }else{
+                            option = `<option data-value=${file.name.toString()}>${file.name}</option>`
+                        }
+                        temp = assetOptions
+                        assetOptions = temp+option
+                    })
+                    let markerOptions = ""
+                    let tempMarker = ""
+                    for(let i = 0; i < 10; i++){
+                        let letter
+                        switch(i){
+                            case 0:
+                                letter = "A"
+                                break
+                            case 1:
+                                letter = "B"
+                                break
+                            case 2:
+                                letter = "C"
+                                break
+                            case 3:
+                                letter = "D"
+                                break
+                            case 4:
+                                letter = "E"
+                                break
+                            case 5:
+                                letter = "F"
+                                break
+                            case 6:
+                                letter = "G"
+                                break
+                            case 7:
+                                letter = "H"
+                                break
+                            case 8:
+                                letter = "I"
+                                break
+                            case 9:
+                                letter = "J"
+                                break
+                        }
+                        let option 
+                        if(selectedMarker == "Marker "+letter){
+                            option = `<option data-value="Marker ${letter}" selected>Marker ${letter}</option>`
+                        }else{
+                            option = `<option data-value="Marker ${letter}">Marker ${letter}</option>`
+                        }
+                        tempMarker = markerOptions
+                        markerOptions = tempMarker + option
+                    }
+                    
+                    pairingContainer.innerHTML = `<div class="pairing_asset">
+                            <i class="fas fa-file"></i>
+                            <select id="asset_select">
+                                ${assetOptions}
+                            </select>
+                        </div>
+                        <i class="fas fa-exchange-alt"></i>
+                        <div class="pairing_marker">
+                            <i class="fas fa-h-square"></i>
+                            <select id="marker_select">
+                                ${markerOptions}
+                            </select>
+                        </div>
+                        
+                        <i class="fas fa-trash-alt delete_pair"></i>`
+                    let assetSelect = document.getElementById('asset_select')
+                    let markerSelect = document.getElementById("marker_select")
+                    let deletePair = document.querySelector(".delete_pair")
+                    assetSelect.onchange = function(e){
+                        let assetName = clickedOption.querySelector(".asset h2")
+                        assetName.innerHTML = assetSelect.value
+                        console.log(assetSelect.value)
+                    }
+                    markerSelect.onchange = function(e){
+                        let markerName = clickedOption.querySelector(".marker h2")
+                        markerName.innerHTML = markerSelect.value
+                        console.log(markerSelect.value)
+                    }
+                    deletePair.onclick = function(){
+                        assetMarkerContaienr.removeChild(clickedOption)
+                        pairingContainer.innerHTML = ""
+                    }
+
+                }
+            })
+            }
         }
 
         
