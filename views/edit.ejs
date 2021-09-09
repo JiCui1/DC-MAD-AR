@@ -17,7 +17,7 @@
                         <i class="fas fa-cloud-upload-alt"></i>
                         <h2>Drag your files here to upload or</h2>
                         <button id="upload_trigger" style="border:none; background-color:transparent; color:#eb64c8; outline: none; font-size:1rem; height:1rem;">Browse</button>
-                        <input type="file" value="Browse" name="upload_files" id="upload_files" style="visibility: hidden; height:0rem;" multiple>
+                        <input type="file" value="Browse" name="upload_files" id="upload_files" style="visibility: visible; height:0rem;" multiple>
                         <h2>Accepted format: glb, mp4, png, jpg, jpeg</h2>
                     </div>
                     <div class="convert_text">
@@ -28,14 +28,6 @@
                 <div class="uploaded_assets">
                     <h2 class="asset_title">Uploaded Assets</h2>
                     <div class="asset_container">
-                        <div class="single_asset">
-                            <h2 class="asset_name">burger_model.glb</h2>
-                            <i class="fas fa-trash-alt"></i>
-                        </div>
-                        <div class="single_asset">
-                            <h2 class="asset_name">burger_model.glb</h2>
-                            <i class="fas fa-trash-alt"></i>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -160,6 +152,64 @@
         </div>
 
     </div>
+
+    <script>
+        let inputFile = document.getElementById("upload_files")
+        let assetContainer = document.querySelector(".asset_container")
+        let uploadDelete =  document.querySelectorAll(".upload_delete")
+
+        let allFileList = []
+        inputFile.onchange = function(e){
+            let fileList = e.srcElement.files 
+            for(let i = 0; i<fileList.length; i++){
+                const file = fileList[i]
+                const ext = file.name.split('.')[1]
+                let valid
+                switch (ext){
+                    case 'jpg':
+                    case 'jpeg': 
+                    case 'png':
+                    case 'mp4':
+                    case 'glb': 
+                        valid = true;
+                        break;
+                    default:
+                        valid = false;
+                }
+                if(file.name.length>32){
+                    alert('file name is too long, please keep it within 32 characters')
+                    inputFile.value = ""
+                }
+                else if(valid){
+                    allFileList.push(file)
+                    let singleAsset = document.createElement("div")
+                    singleAsset.innerHTML = 
+                                `<h2 class="asset_name">${file.name}</h2>
+                                <i class="fas fa-trash-alt upload_delete"></i>`
+                    singleAsset.classList.add("single_asset")
+                    assetContainer.appendChild(singleAsset)
+                    uploadDelete =  document.querySelectorAll(".upload_delete")
+                    //delete button on uploaded assets
+                    uploadDelete.forEach(function(item){
+                        item.onclick = function(){
+                            let fileName = this.previousElementSibling.innerHTML
+                            allFileList = allFileList.filter(item=>item.name!=fileName)
+                            assetContainer.removeChild(this.parentNode)
+                        }
+                    })
+                }else{
+                    alert("File format is not supported, only support glb, jpg, jpeg, png and mp4")
+                    inputFile.value = ""
+                }
+            }
+            console.log(allFileList)
+        }
+
+        
+
+
+        
+    </script>
 
 </body>
 </html>
