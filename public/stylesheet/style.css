@@ -282,6 +282,7 @@ input {
 select {
   padding: 0.7rem;
   font-size: 0.8rem;
+  text-align: center;
 }
 
 .submitButton {
@@ -695,9 +696,9 @@ select {
 
 .pairing_asset,
 .pairing_marker {
-  width: 7rem;
+  width: 15rem;
   height: 7rem;
-  border: 1px solid #eb64c8;
+  /* border: 1px solid #eb64c8; */
   border-radius: 0.5rem;
   text-align: center;
   display: flex;
@@ -714,12 +715,21 @@ select {
 
 .pairing_asset select,
 .pairing_marker select {
+  margin-top: 0.3rem;
   border: none;
   padding: 0;
   color: #eb64c8;
   font-family: open-sans;
   font-weight: 600;
   font-size: 0.7rem;
+}
+
+.pair_active {
+  border-left: 2px solid #eb64c8;
+}
+
+.pairing_asset select {
+  width: 8rem;
 }
 
 select:focus {

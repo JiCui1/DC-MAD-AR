@@ -148,7 +148,6 @@
 
         let allFileList = []
         inputFile.onchange = function(e){
-            console.log(e)
             let fileList = e.target.files 
             for(let i = 0; i<fileList.length; i++){
                 const file = fileList[i]
@@ -191,7 +190,6 @@
                     inputFile.value = ""
                 }
             }
-            console.log(allFileList)
         }
 
 
@@ -200,7 +198,6 @@
                 alert("You don't have any asset to pair. Please upload first")
             }else{
             let assetMarker = document.createElement("div")
-            console.log(allFileList[0])
             assetMarker.innerHTML = `<div class="asset">
                                 <i class="fas fa-file"></i>
                                 <h2>${allFileList[0].name}</h2>
@@ -214,11 +211,22 @@
             assetMarkerContaienr.appendChild(assetMarker)
             assetMarkerPairs = document.querySelectorAll('.asset_marker')
             assetMarkerPairs.forEach(pair=>{
+
+                
+
                 pair.onclick = function(){
+
+                    assetMarkerPairs.forEach(pair=>{
+                        pair.classList.remove("pair_active")
+                    })
+
+                    pair.classList.add("pair_active")
+
+                    let assetOptions = ""
                     let clickedOption = this
                     let selectedAsset = this.querySelector(".asset h2").innerHTML
                     let selectedMarker = this.querySelector(".marker h2").innerHTML
-                    let assetOptions = ""
+                    
                     let temp = ""
                     allFileList.forEach(file=>{
                         let option
@@ -275,7 +283,7 @@
                         tempMarker = markerOptions
                         markerOptions = tempMarker + option
                     }
-                    
+                
                     pairingContainer.innerHTML = `<div class="pairing_asset">
                             <i class="fas fa-file"></i>
                             <select id="asset_select">
@@ -313,6 +321,38 @@
             })
             }
         }
+
+        
+        //monitoring changes on all uploaded assets
+        const config = { attributes: true, childList: true, subtree: true };
+
+        // Callback function to execute when mutations are observed
+        const callback = function(mutationsList, observer) {
+            // Use traditional 'for loops' for IE 11
+            for(const mutation of mutationsList) {
+                if (mutation.type === 'childList') {
+                    if(mutation.removedNodes.length>0){
+                        if(assetMarkerPairs){
+                            assetMarkerPairs.forEach(pair=>{
+                                let deletedAsset = mutation.removedNodes[0].childNodes[0].innerHTML
+                                let assetName = pair.querySelector('.asset h2').innerHTML
+                                if(assetName==deletedAsset){
+                                    assetMarkerContaienr.removeChild(pair)
+                                    pairingContainer.innerHTML = ""
+                                }
+                            })
+                        }
+                    }
+                    
+                }
+            }
+        };
+
+        // Create an observer instance linked to the callback function
+        const observer = new MutationObserver(callback);
+
+        // Start observing the target node for configured mutations
+        observer.observe(assetContainer, config);
 
         
 
