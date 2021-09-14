@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const { render } = require("ejs");
 const Project = require("./models/project");
+const fs = require("fs");
 
 const cookieParser = require("cookie-parser");
 const { requireAuth, checkUser } = require("./middleware/authMiddleware");
@@ -84,7 +85,18 @@ app.get("/dashboard", requireAuth, (req, res) => {
 });
 
 app.get("/projects/:id/edit", (req, res) => {
-  res.render("edit", { title: "Edit" });
+  const id = req.params.id;
+  const dir = "./public/assets/" + id;
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir);
+  }
+  Project.findById(id)
+    .then((result) => {
+      res.render("edit", { title: "Edit", project: result });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 //project routes

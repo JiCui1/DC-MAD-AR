@@ -16,12 +16,16 @@ const storage = multer.diskStorage({
     cb(null, "public");
   },
   filename: (req, file, cb) => {
+    console.log(req.body);
+    const id = req.body.project_id;
     //store the file with the file name
     const ext = path.extname(file.originalname);
-    const fileName = uuidv4() + "-" + file.originalname;
-    let filePath = `assets/${fileName}`;
+    const originalName = file.originalname;
+    // const fileName = uuidv4() + "-" + file.originalname;
+    const fileName = file.originalname;
+    let filePath = `assets/${id}/${fileName}`;
+    console.log(fileName + " 1");
 
-    // const { originalname } = file;
     cb(null, filePath);
   },
 });
@@ -45,10 +49,14 @@ router.get("/:id/detail", projectController.project_detail);
 router.get("/:id", projectController.project_run);
 
 //route to add more triggers to a project
-router.post("/:id/add", multipleUpload, projectController.project_add);
+router.post("/:id/edit", multipleUpload, projectController.project_add);
 
 //route to edit info of a project(rotation,position,scale)
-router.post("/:id/:trigger/edit", projectController.project_edit);
+router.post(
+  "/:id/:trigger/edit",
+  multipleUpload,
+  projectController.project_edit
+);
 
 //route to delete a trigger in a existing project
 router.put("/:id/:trigger/delete", projectController.project_trigger_delete);

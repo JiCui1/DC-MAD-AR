@@ -2,12 +2,14 @@
     <%- include('./partials/head.ejs') %>
 <body style="overflow:hidden">
     <%- include('./partials/editNav.ejs') %>
+    <form action="/projects/<%= project._id %>/edit" method="POST" enctype="multipart/form-data">
     <div class="edit_container">
 
         <div class="edit_container_left">
 
             <div class="project_title">
                 <input type="text" value="Untitled" name="title" id="title">
+                <input type="hidden" name="project_id" value="<%= project._id %>">
                 <h2>Marker Tracking</h2>
             </div>
 
@@ -17,7 +19,7 @@
                         <i class="fas fa-cloud-upload-alt"></i>
                         <h2>Drag your files here to upload or</h2>
                         <button id="upload_trigger" style="border:none; background-color:transparent; color:#eb64c8; outline: none; font-size:1rem; height:1rem;">Browse</button>
-                        <input type="file" value="Browse" name="upload_files" id="upload_files" style="visibility: visible; height:0rem;" multiple>
+                        <input type="file" value="Browse" name="modelFile" id="upload_files" style="visibility: visible; height:0rem;" multiple>
                         <h2>Accepted format: glb, mp4, png, jpg, jpeg</h2>
                     </div>
                     <div class="convert_text">
@@ -40,21 +42,7 @@
                     </div>
                     
                     <div class="pairing_container">
-                        <!-- <div class="pairing_asset">
-                            <i class="fas fa-file"></i>
-                            <select id="asset_select">
-                                <option>burger.glb</option>
-                            </select>
-                        </div>
-                        <i class="fas fa-exchange-alt"></i>
-                        <div class="pairing_marker">
-                            <i class="fas fa-h-square"></i>
-                            <select>
-                                <option>Marker H</option>
-                            </select>
-                        </div>
-                        
-                        <i class="fas fa-trash-alt delete_pair"></i> -->
+
                         
                     </div>
 
@@ -65,17 +53,7 @@
                         <h3>download markers</h3>
                     </div>
                     <div class="asset_marker_container">
-                        <!-- <div class="asset_marker">
-                            <div class="asset">
-                                <i class="fas fa-file"></i>
-                                <h2>burger.glb</h2>
-                            </div>
-                            <i class="fas fa-exchange-alt"></i>
-                            <div class="marker">
-                                <i class="fas fa-h-square"></i>
-                                <h2>Marker H</h2>
-                            </div>
-                        </div> -->
+
                     </div>
                 </div>
             </div>
@@ -135,16 +113,26 @@
         </div>
 
     </div>
+    </form>
 
+    <script src="/js/three.js"></script>
+    <script src="/js/GLTFLoader.js"></script>
+    
     <script>
+        let container
+        let scene
+        let camera
+        let model
+        let renderer
         let uploadDelete
         let assetMarkerPairs
+        const preview = document.querySelector(".preview")
+        const form = document.querySelector("form")
         const pairingContainer = document.querySelector(".pairing_container")
         const inputFile = document.getElementById("upload_files")
         const assetContainer = document.querySelector(".asset_container")
         const addPair = document.querySelector(".add_pair")
         const assetMarkerContaienr = document.querySelector(".asset_marker_container")
-
 
         let allFileList = []
         inputFile.onchange = function(e){
@@ -168,7 +156,12 @@
                     alert('file name is too long, please keep it within 32 characters')
                     inputFile.value = ""
                 }
+                else if(allFileList.includes(file)){
+                    alert("File already exits");
+                    inputFile.value = ""
+                }
                 else if(valid){
+                    console.log(file)
                     allFileList.push(file)
                     let singleAsset = document.createElement("div")
                     singleAsset.innerHTML = 
@@ -190,6 +183,8 @@
                     inputFile.value = ""
                 }
             }
+            form.submit()
+            console.log("/assets/"+fileList[0].name)
         }
 
 
@@ -215,7 +210,6 @@
                 
 
                 pair.onclick = function(){
-
                     assetMarkerPairs.forEach(pair=>{
                         pair.classList.remove("pair_active")
                     })
@@ -226,6 +220,9 @@
                     let clickedOption = this
                     let selectedAsset = this.querySelector(".asset h2").innerHTML
                     let selectedMarker = this.querySelector(".marker h2").innerHTML
+
+                    preview.innerHTML = ""
+                     init('/assets/'+'<%= project._id %>'+"/"+selectedAsset) 
                     
                     let temp = ""
                     allFileList.forEach(file=>{
@@ -304,6 +301,8 @@
                     let deletePair = document.querySelector(".delete_pair")
                     assetSelect.onchange = function(e){
                         let assetName = clickedOption.querySelector(".asset h2")
+                        preview.innerHTML = ""
+                        init('/assets/'+'<%= project._id %>'+"/"+assetSelect.value)
                         assetName.innerHTML = assetSelect.value
                         console.log(assetSelect.value)
                     }
@@ -332,6 +331,7 @@
             for(const mutation of mutationsList) {
                 if (mutation.type === 'childList') {
                     if(mutation.removedNodes.length>0){
+                        preview.innerHTML = ""
                         if(assetMarkerPairs){
                             assetMarkerPairs.forEach(pair=>{
                                 let deletedAsset = mutation.removedNodes[0].childNodes[0].innerHTML
@@ -354,11 +354,68 @@
         // Start observing the target node for configured mutations
         observer.observe(assetContainer, config);
 
+        function init(filePath){
+            container = document.querySelector(".preview")
+
+            //create scene
+            scene = new THREE.Scene()
+
+            //how much camera can see
+            const fieldOfView = 35
+
+            const aspect = container.clientWidth/container.clientHeight
+
+            //range can be seen
+            const near = 0.1
+            const far = 500
+
+            //camera setup
+            camera = new THREE.PerspectiveCamera(fieldOfView, aspect, near, far)
+            camera.position.set(1,-1,13)
+
+            const ambient = new THREE.AmbientLight(0x404040,2)
+            scene.add(ambient)
+
+            const light = new THREE.DirectionalLight(0xffffff, 1)
+            light.position.set(10,10,10)
+            scene.add(light)
+
+            //renderer
+            renderer = new THREE.WebGLRenderer({anitialias:true, alpha:true})
+            renderer.setSize(container.clientWidth,container.clientHeight)
+            renderer.setPixelRatio(window.devicePixelRatio)
+
+            container.appendChild(renderer.domElement)
+
+
+            //load model /3d_model/scene.gltf
+            let loader = new THREE.GLTFLoader()
+            loader.load(filePath, function(gltf){
+                scene.add(gltf.scene)
+                model = gltf.scene.children[0]
+                renderer.render(scene,camera)
+                animate()
+            })
+
+            
+
+
+
+
+        }
+
+        function animate(){
+            requestAnimationFrame(animate)
+            renderer.render(scene, camera)
+        }
+
+
         
 
 
         
     </script>
+
 
 </body>
 </html>

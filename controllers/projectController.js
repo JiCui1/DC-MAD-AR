@@ -156,83 +156,86 @@ const project_run = (req, res) => {
 
 // controller to add trigger in exisiting project
 const project_add = (req, res) => {
-  let projectId = req.params.id;
+  console.log(req.files.modelFile[0].filename);
+  console.log("add function");
+  res.status(204).send();
 
-  if (typeof req.body.trigger_name == "string") {
-    req.body.trigger_name = [req.body.trigger_name];
-  }
-
-  Project.findById(projectId).then((result) => {
-    let triggerArray = result.trigger;
-    for (let i = 0; i < req.body.trigger_name.length; i++) {
-      triggerArray.push({
-        name: req.body.trigger_name[i],
-        // marker_path:req.body.marker_path[i],
-        // descriptor_path: req.body.descriptor_path[i],
-        // asset_path: `/assets/${req.files.modelFile[i]["originalname"]}`,
-        asset_path: `/${req.files.modelFile[i].filename}`,
-        asset_type: `${path.extname(req.files.modelFile[i]["originalname"])}`,
-        asset_scale: {
-          x: req.body.scale_x[i],
-          y: req.body.scale_y[i],
-          z: req.body.scale_z[i],
-        },
-        asset_position: {
-          x: req.body.position_x[i],
-          y: req.body.position_y[i],
-          z: req.body.position_z[i],
-        },
-        asset_rotation: {
-          x: req.body.rotation_x[i],
-          y: req.body.rotation_y[i],
-          z: req.body.rotation_z[i],
-        },
-      });
-    }
-
-    result.trigger = triggerArray;
-    try {
-      result = result.save();
-      console.log("added new trigger");
-      res.redirect(`/projects/${projectId}/detail`);
-    } catch {
-      (err) => {
-        console.log(err);
-      };
-    }
-  });
+  // res.status(200).end();
+  // let projectId = req.params.id;
+  // if (typeof req.body.trigger_name == "string") {
+  //   req.body.trigger_name = [req.body.trigger_name];
+  // }
+  // Project.findById(projectId).then((result) => {
+  //   let triggerArray = result.trigger;
+  //   for (let i = 0; i < req.body.trigger_name.length; i++) {
+  //     triggerArray.push({
+  //       name: req.body.trigger_name[i],
+  //       // marker_path:req.body.marker_path[i],
+  //       // descriptor_path: req.body.descriptor_path[i],
+  //       // asset_path: `/assets/${req.files.modelFile[i]["originalname"]}`,
+  //       asset_path: `/${req.files.modelFile[i].filename}`,
+  //       asset_type: `${path.extname(req.files.modelFile[i]["originalname"])}`,
+  //       asset_scale: {
+  //         x: req.body.scale_x[i],
+  //         y: req.body.scale_y[i],
+  //         z: req.body.scale_z[i],
+  //       },
+  //       asset_position: {
+  //         x: req.body.position_x[i],
+  //         y: req.body.position_y[i],
+  //         z: req.body.position_z[i],
+  //       },
+  //       asset_rotation: {
+  //         x: req.body.rotation_x[i],
+  //         y: req.body.rotation_y[i],
+  //         z: req.body.rotation_z[i],
+  //       },
+  //     });
+  //   }
+  //   result.trigger = triggerArray;
+  //   try {
+  //     result = result.save();
+  //     console.log("added new trigger");
+  //     res.redirect(`/projects/${projectId}/detail`);
+  //   } catch {
+  //     (err) => {
+  //       console.log(err);
+  //     };
+  //   }
+  // });
 };
 
 // controller to edit info in a project
 const project_edit = (req, res) => {
-  let projectId = req.params.id;
-  let triggerId = req.params.trigger;
+  console.log("edit function");
+  // let projectId = req.params.id;
+  // let triggerId = req.params.trigger;
 
-  Project.findById(projectId).then((result) => {
-    let triggerArray = result.trigger;
-    let editIndex = triggerArray.findIndex((x) => x._id == triggerId);
-    result.trigger[editIndex].asset_position.x = req.body.position_x;
-    result.trigger[editIndex].asset_position.y = req.body.position_y;
-    result.trigger[editIndex].asset_position.z = req.body.position_z;
+  // Project.findById(projectId).then((result) => {
+  //   let triggerArray = result.trigger;
+  //   let editIndex = triggerArray.findIndex((x) => x._id == triggerId);
+  //   result.trigger[editIndex].asset_position.x = req.body.position_x;
+  //   result.trigger[editIndex].asset_position.y = req.body.position_y;
+  //   result.trigger[editIndex].asset_position.z = req.body.position_z;
 
-    result.trigger[editIndex].asset_rotation.x = req.body.rotation_x;
-    result.trigger[editIndex].asset_rotation.y = req.body.rotation_y;
-    result.trigger[editIndex].asset_rotation.z = req.body.rotation_z;
+  //   result.trigger[editIndex].asset_rotation.x = req.body.rotation_x;
+  //   result.trigger[editIndex].asset_rotation.y = req.body.rotation_y;
+  //   result.trigger[editIndex].asset_rotation.z = req.body.rotation_z;
 
-    result.trigger[editIndex].asset_size.x = req.body.scale_x;
-    result.trigger[editIndex].asset_size.y = req.body.scale_y;
-    result.trigger[editIndex].asset_size.z = req.body.scale_z;
+  //   result.trigger[editIndex].asset_size.x = req.body.scale_x;
+  //   result.trigger[editIndex].asset_size.y = req.body.scale_y;
+  //   result.trigger[editIndex].asset_size.z = req.body.scale_z;
 
-    try {
-      result = result.save();
-      console.log("info update success");
-      res.redirect(`/projects/${projectId}/detail`);
-    } catch {
-      (err) => {
-        console.log(err);
-      };
-    }
-  });
+  //   try {
+  //     result = result.save();
+  //     console.log("info update success");
+  //     res.redirect(`/projects/${projectId}/detail`);
+  //   } catch {
+  //     (err) => {
+  //       console.log(err);
+  //     };
+  //   }
+  // });
 };
 
 const project_trigger_delete = (req, res) => {
@@ -293,8 +296,6 @@ const project_delete = (req, res) => {
       console.log(err);
     });
 };
-
-
 
 module.exports = {
   project_index,
