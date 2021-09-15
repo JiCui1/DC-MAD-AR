@@ -65,46 +65,47 @@
             <div class="preview"></div>
             <div class="controls">
                 <div class="control_btns_container">
-                    <button><i class="fas fa-expand-alt"></i>Size</button>
-                    <button><i class="fas fa-crosshairs"></i>Position</button>
-                    <button><i class="fas fa-sync-alt"></i>Rotation</button>
+                    <button id="size_btn"><i class="fas fa-expand-alt"></i>Size</button>
+                    <button id="position_btn"><i class="fas fa-crosshairs"></i>Position</button>
+                    <button id="rotation_btn"><i class="fas fa-sync-alt"></i>Rotation</button>
                 </div>
                 <div class="control_panel">
                     <div class="size_slider_container">
                         <label class="slider_title" for="size_num">Size:</label>
-                        <input type="range" name="size_control" id="size_control" class="sliders">
+                        <input type="range" name="size_control" id="size_control" class="sliders" min="0.1" max="10.5" step="0.1">
                         <input type="number" name="size_num" id="size_num" class="control_nums">
                     </div>
                     <div class="position_control_container">
                         <div class="x_slider" for="x_num_pos">
                             <label class="slider_title">X:</label>
-                            <input type="range" name="size_control" id="size_control" class="sliders">
+                            <input type="range" name="size_control" id="position_control_x" class="sliders" min="-10" max="10" step="0.1" value="0">
                             <input type="number" name="x_num_pos" id="x_num_pos" class="control_nums">
                         </div>
                         <div class="y_slider">
                             <label class="slider_title">Y:</label>
-                            <input type="range" name="size_control" id="size_control" class="sliders">
+                            <input type="range" name="size_control" id="position_control_y" class="sliders" min="-10" max="10" step="0.1" value="0">
                             <input type="number" name="y_num_pos" id="y_num_pos" class="control_nums">
                         </div>
                         <div class="z_slider">
                             <label class="slider_title">Z:</label>
-                            <input type="range" name="size_control" id="size_control" class="sliders">
+                            <input type="range" name="size_control" id="position_control_z" class="sliders" min="-10" max="10" step="0.1" value="0">
                             <input type="number" name="z_num_pos" id="z_num_pos" class="control_nums">
                         </div>
-                    </div><div class="rotation_control_container">
+                    </div>
+                    <div class="rotation_control_container">
                         <div class="x_slider" for="x_num_pos">
                             <label class="slider_title">X:</label>
-                            <input type="range" name="size_control" id="size_control" class="sliders">
+                            <input type="range" name="size_control" id="rotation_control_x" class="sliders" min="-3" max="3" step="0.01" value="0">
                             <input type="number" name="x_num_pos" id="x_num_pos" class="control_nums">
                         </div>
                         <div class="y_slider">
                             <label class="slider_title">Y:</label>
-                            <input type="range" name="size_control" id="size_control" class="sliders">
+                            <input type="range" name="size_control" id="rotation_control_y" class="sliders" min="-3" max="3" step="0.01" value="0">
                             <input type="number" name="y_num_pos" id="y_num_pos" class="control_nums">
                         </div>
                         <div class="z_slider">
                             <label class="slider_title">Z:</label>
-                            <input type="range" name="size_control" id="size_control" class="sliders">
+                            <input type="range" name="size_control" id="rotation_control_z" class="sliders" min="-3" max="3" step="0.01" value="0">
                             <input type="number" name="z_num_pos" id="z_num_pos" class="control_nums">
                         </div>
                     </div>
@@ -133,6 +134,23 @@
         const assetContainer = document.querySelector(".asset_container")
         const addPair = document.querySelector(".add_pair")
         const assetMarkerContaienr = document.querySelector(".asset_marker_container")
+        const sizeBtn = document.getElementById("size_btn")
+        const positionBtn = document.getElementById("position_btn")
+        const rotationBtn = document.getElementById("rotation_btn")
+        const sizeContainer = document.querySelector(".size_slider_container")
+        const positionContainer = document.querySelector(".position_control_container")
+        const rotationContainer = document.querySelector(".rotation_control_container")
+        const sizeInput = document.getElementById("size_control")
+        const posInputX = document.getElementById("position_control_x")
+        const posInputY = document.getElementById("position_control_y")
+        const posInputZ = document.getElementById("position_control_z")
+        const rotInputX = document.getElementById("rotation_control_x")
+        const rotInputY = document.getElementById("rotation_control_y")
+        const rotInputZ = document.getElementById("rotation_control_z")
+
+        positionContainer.style.display = 'none'
+        rotationContainer.style.display = 'none'
+        sizeContainer.style.display = 'none'
 
         let allFileList = []
         inputFile.onchange = function(e){
@@ -206,8 +224,6 @@
             assetMarkerContaienr.appendChild(assetMarker)
             assetMarkerPairs = document.querySelectorAll('.asset_marker')
             assetMarkerPairs.forEach(pair=>{
-
-                
 
                 pair.onclick = function(){
                     assetMarkerPairs.forEach(pair=>{
@@ -355,7 +371,9 @@
         observer.observe(assetContainer, config);
 
         function init(filePath){
+
             container = document.querySelector(".preview")
+
 
             //create scene
             scene = new THREE.Scene()
@@ -393,22 +411,91 @@
             loader.load(filePath, function(gltf){
                 scene.add(gltf.scene)
                 model = gltf.scene.children[0]
+                model.scale.set(1, 1, 1)
+                model.position.x = 0
+                model.position.y = 0
+                model.position.z = 0
+                model.rotation.x = 0
+                model.rotation.y = 0
+                model.rotation.z = 0
+                console.log(model.scale,model.position,model.rotation)
                 renderer.render(scene,camera)
                 animate()
             })
 
-            
-
-
-
-
         }
 
         function animate(){
+
+                sizeInput.oninput=function(){
+                    model.scale.set(sizeInput.value, sizeInput.value, sizeInput.value)
+                    console.log(model.scale)
+                }
+                posInputX.oninput=function(){
+                    model.position.x = posInputX.value
+                    console.log(model.position)
+                }
+                posInputY.oninput=function(){
+                    model.position.y = posInputY.value
+                }
+                posInputZ.oninput=function(){
+                    model.position.z = posInputZ.value
+                }
+                rotInputX.oninput=function(){
+                    model.rotation.x = rotInputX.value
+                }
+                rotInputY.oninput=function(){
+                    model.rotation.y = rotInputY.value
+                }
+                rotInputZ.oninput=function(){
+                    model.rotation.z = rotInputZ.value
+                }
             requestAnimationFrame(animate)
             renderer.render(scene, camera)
         }
 
+        sizeBtn.onclick = function(e){
+            e.preventDefault()
+            sizeBtn.style.backgroundColor = "#eb64c8"
+            sizeBtn.style.color = "white"
+            rotationBtn.style.backgroundColor = "white"
+            rotationBtn.style.color = "#eb64c8"
+            positionBtn.style.backgroundColor = "white"
+            positionBtn.style.color = "#eb64c8"
+            rotationContainer.style.display = "none"
+            positionContainer.style.display = "none"
+            sizeContainer.style.display = "flex"
+        }
+
+        rotationBtn.onclick = function(e){
+            e.preventDefault()
+            rotationBtn.style.backgroundColor = "#eb64c8"
+            rotationBtn.style.color = "white"
+            sizeBtn.style.backgroundColor = "white"
+            sizeBtn.style.color = "#eb64c8"
+            positionBtn.style.backgroundColor = "white"
+            positionBtn.style.color = "#eb64c8"
+            rotationContainer.style.display = "block"
+            positionContainer.style.display = "none"
+            sizeContainer.style.display = "none"
+        }
+
+        positionBtn.onclick = function(e){
+            e.preventDefault()
+            positionBtn.style.backgroundColor = "#eb64c8"
+            positionBtn.style.color = "white"
+            sizeBtn.style.backgroundColor = "white"
+            sizeBtn.style.color = "#eb64c8"
+            rotationBtn.style.backgroundColor = "white"
+            rotationBtn.style.color = "#eb64c8"
+            rotationContainer.style.display = "none"
+            positionContainer.style.display = "block"
+            sizeContainer.style.display = "none"
+        }
+
+        sizeInput.oninput = function(e){
+            console.log(sizeInput.value)
+        }
 
         
 

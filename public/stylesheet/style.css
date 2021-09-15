@@ -961,11 +961,10 @@ input[type="range"]:focus::-ms-fill-upper {
 .size_slider_container {
   width: 90%;
   height: 100%;
-  display: flex;
+  display: none;
   margin: auto;
   justify-content: space-between;
   align-items: center;
-  display: none;
 }
 
 .slider_title {
