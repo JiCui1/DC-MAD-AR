@@ -74,7 +74,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/confirm", (req, res) => {
-  res.render("confirm", { title: "Verify", user: "" });
+  res.render("confirm", { title: "Verify" });
 });
 
 //dashboard routes

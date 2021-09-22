@@ -1,6 +1,6 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
-// const nodemailer = require("nodemailer");
+
 const { sendConfirmationEmail } = require("../config/nodemailer.config");
 
 const handleErrors = (err) => {
@@ -9,6 +9,10 @@ const handleErrors = (err) => {
   //login errors
   if (err.message == "incorrect email") {
     errors.email = "the email is not registered";
+  }
+
+  if (err.message == "Email is not confirmed") {
+    errors.email = "Email is not confirmed";
   }
 
   if (err.message == "incorrect password") {
@@ -55,11 +59,10 @@ module.exports.signup_post = async (req, res) => {
     });
 
     sendConfirmationEmail("random person", email, confirmToken);
-    res.redirect(201, "/confirm");
-    // const token = createToken(user._id);
-    // //http only stops jwt accessing from front end
-    // res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
-    // res.status(201).json({ user: user._id });
+    const token = createToken(user._id);
+    //http only stops jwt accessing from front end
+    res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
+    res.status(201).json({ user: user._id });
   } catch (err) {
     console.log(err);
     const errors = handleErrors(err);
@@ -78,8 +81,7 @@ module.exports.login_post = async (req, res) => {
     const user = await User.login(email, password);
     console.log(user);
     if (user.status != "Active") {
-      console.log(user.status);
-      res.redirect("/confirm");
+      throw Error("Email is not confirmed");
     } else {
       const token = createToken(user._id);
       //maxAge * 1000 is maxAge in milliseconds
