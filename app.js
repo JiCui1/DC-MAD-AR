@@ -16,9 +16,14 @@ const app = express();
 const dbURI =
   "mongodb+srv://arproject:9xfdrnhSGBm52WYU@ar-info.ixj1r.mongodb.net/ar-info?retryWrites=true&w=majority";
 mongoose
-  .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(dbURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+  })
   .then((result) => {
     console.log("Connected to db");
+    console.log("App listening at localhost:3000");
 
     //localhost:3000
     app.listen(3000);
@@ -66,6 +71,10 @@ app.get("/", (req, res) => {
     //if user is not logged in, render home page
     res.render("index", { title: "HOME", user: res.locals.user });
   }
+});
+
+app.get("/confirm", (req, res) => {
+  res.render("confirm", { title: "Verify", user: "" });
 });
 
 //dashboard routes

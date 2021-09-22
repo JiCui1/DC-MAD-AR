@@ -15,10 +15,20 @@ const userSchema = new mongoose.Schema({
     required: [true, "Please enter a password"],
     minlength: [6, "Minimum password length is 6 characters"],
   },
+  status: {
+    type: String,
+    enum: ["Pending", "Active"],
+    default: "Pending",
+  },
+  confirmationCode: {
+    type: String,
+    unique: true,
+  },
 });
 
 //hashing password before saving
 userSchema.pre("save", async function (next) {
+  User.find({ username: this.username });
   const salt = await bcrypt.genSalt();
   this.password = await bcrypt.hash(this.password, salt);
   //next to run the next middleware after this

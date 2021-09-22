@@ -1,5 +1,7 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
+// const nodemailer = require("nodemailer");
+const { sendConfirmationEmail } = require("../config/nodemailer.config");
 
 const handleErrors = (err) => {
   let errors = { email: "", password: "" };
@@ -45,11 +47,19 @@ module.exports.signup_post = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const user = await User.create({ email, password });
-    const token = createToken(user._id);
-    //http only stops jwt accessing from front end
-    res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
-    res.status(201).json({ user: user._id });
+    const confirmToken = jwt.sign({ email: req.body.email }, "dc mad secret");
+    const user = await User.create({
+      email,
+      password,
+      confirmationCode: confirmToken,
+    });
+
+    sendConfirmationEmail("random person", email, confirmToken);
+    res.redirect(201, "/confirm");
+    // const token = createToken(user._id);
+    // //http only stops jwt accessing from front end
+    // res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
+    // res.status(201).json({ user: user._id });
   } catch (err) {
     console.log(err);
     const errors = handleErrors(err);
@@ -66,12 +76,18 @@ module.exports.login_post = async (req, res) => {
   console.log(req.body);
   try {
     const user = await User.login(email, password);
-    const token = createToken(user._id);
-    //maxAge * 1000 is maxAge in milliseconds
-    res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
-    console.log("login success");
-    console.log(user._id);
-    res.status(201).json({ user: user._id });
+    console.log(user);
+    if (user.status != "Active") {
+      console.log(user.status);
+      res.redirect("/confirm");
+    } else {
+      const token = createToken(user._id);
+      //maxAge * 1000 is maxAge in milliseconds
+      res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
+      console.log("login success");
+      console.log(user._id);
+      res.status(201).json({ user: user._id });
+    }
   } catch (err) {
     const errors = handleErrors(err);
     res.status(400).json({ errors });
@@ -81,4 +97,24 @@ module.exports.login_post = async (req, res) => {
 module.exports.logout_get = async (req, res) => {
   res.cookie("jwt", "", { maxAge: 1 });
   res.redirect("/");
+};
+
+module.exports.verifyUser = (req, res) => {
+  User.findOneAndUpdate(
+    {
+      confirmationCode: req.params.confirmationCode,
+    },
+    { confirmationCode: req.params.confirmationCode, status: "Active" },
+    (err) => {
+      if (err) {
+        console.log("error", e);
+      }
+    }
+  ).then((user) => {
+    console.log(user);
+    const token = createToken(user._id);
+    res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
+    console.log("login success");
+    res.redirect("/");
+  });
 };
