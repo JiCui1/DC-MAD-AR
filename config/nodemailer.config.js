@@ -27,3 +27,28 @@ module.exports.sendConfirmationEmail = (name, email, confirmationCode) => {
     })
     .catch((err) => console.log(err));
 };
+
+module.exports.sendPasswordResetEmail = (email) => {
+  console.log("Check");
+  transport
+    .sendMail({
+      from: user,
+      to: email,
+      subject: "Reflect AR Account",
+      html: `<h1>Click the following link to reset</h1>
+          <a href=http://localhost:3000/password_reset/${email}> Click here to reset</a>
+          </div>`,
+    })
+    .catch((err) => console.log(err));
+  // transport
+  //   .sendMail({
+  //     from: user,
+  //     to: email,
+  //     subject: "Reflect AR Account Password Reset",
+  //     html: `<h1>Password Reset</h1>
+  //     <h2>Please click on the following link to reset password</h2>
+  //     <a href="http://localhost:3000/password-reset/${email}">Click here to reset your password</a>
+  //     </div>`,
+  //   })
+  //   .catch((err) => console.log(err));
+}

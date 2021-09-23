@@ -1,7 +1,7 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 
-const { sendConfirmationEmail } = require("../config/nodemailer.config");
+const { sendConfirmationEmail, sendPasswordResetEmail } = require("../config/nodemailer.config");
 
 const handleErrors = (err) => {
   let errors = { email: "", password: "" };
@@ -120,3 +120,53 @@ module.exports.verifyUser = (req, res) => {
     res.redirect("/");
   });
 };
+
+//Getting account email
+module.exports.password_reset_get = (req, res) => {
+  res.render("password_reset", { title: "Password Reset" });
+};
+
+//Sending reset email
+module.exports.password_reset_post = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    
+
+    sendPasswordResetEmail(email);
+    //http only stops jwt accessing from front end
+    res.status(201).json({ email })
+  } catch (err) {
+    console.log(err);
+    const errors = handleErrors(err);
+    res.status(400).json({ errors });
+  }
+};
+
+//Page Render for changing password
+module.exports.pass_reset_get = (req,res)=>{
+  const email = req.params.email
+  res.render("reset",{title:"Password Reset", email})
+}
+
+//Post request to set new password
+module.exports.pass_reset_post = async (req,res)=>{
+  User.findOne({
+    email: req.body.email,
+  })
+    .then((user) => {
+      if (!user) {
+        return res.status(404).send({ message: "User Not found." });
+      }
+
+      user.password = req.body.password;
+      user.save((err) => {
+        if (err) {
+          res.status(500).send({ message: err });
+          return;
+        }
+        res.status(201).json({ user: user._id });
+      });
+    })
+    .catch((e) => console.log("error", e));
+}
