@@ -162,6 +162,7 @@ const project_edit = (req, res) => {
   // Project.findById(projectId).then((result) => {
   //   console.log(result);
   // });
+
   // res.status(200).end();
   // let projectId = req.params.id;
   // if (typeof req.body.trigger_name == "string") {

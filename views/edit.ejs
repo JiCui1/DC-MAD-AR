@@ -4,12 +4,12 @@
     <%- include('./partials/editNav.ejs') %>
     <form action="/projects/<%= project._id %>/edit" method="POST" enctype="multipart/form-data">
     <div class="edit_container">
-
         <div class="edit_container_left">
 
             <div class="project_title">
                 <input type="text" value="Untitled" name="title" id="title">
                 <input type="hidden" name="project_id" value="<%= project._id %>">
+                <input type="hidden" name="user_id" value="<%= user._id %>">
                 <h2>Marker Tracking</h2>
             </div>
 
@@ -220,11 +220,13 @@
             assetMarker.innerHTML = `<div class="asset">
                                 <i class="fas fa-file"></i>
                                 <h2>${allFileList[0].name}</h2>
+                                <input type="hidden" name="asset_name" class="input_asset_name" value=${allFileList[0].name} >
                             </div>
                             <i class="fas fa-exchange-alt"></i>
                             <div class="marker">
                                 <i class="fas fa-h-square"></i>
                                 <h2>Marker A</h2>
+                                <input type="hidden" name="marker_name" class="input_marker_name" value="marker_a" >
                             </div>`
             assetMarker.classList.add("asset_marker")
             assetMarkerContaienr.appendChild(assetMarker)
@@ -295,9 +297,9 @@
                         }
                         let option 
                         if(selectedMarker == "Marker "+letter){
-                            option = `<option data-value="Marker ${letter}" selected>Marker ${letter}</option>`
+                            option = `<option data-value="marker_${letter.toLowerCase()}" selected>Marker ${letter}</option>`
                         }else{
-                            option = `<option data-value="Marker ${letter}">Marker ${letter}</option>`
+                            option = `<option data-value="marker_${letter.toLowerCase()}">Marker ${letter}</option>`
                         }
                         tempMarker = markerOptions
                         markerOptions = tempMarker + option
@@ -323,15 +325,17 @@
                     let deletePair = document.querySelector(".delete_pair")
                     assetSelect.onchange = function(e){
                         let assetName = clickedOption.querySelector(".asset h2")
+                        let inputAssetName = clickedOption.querySelector(".asset .input_asset_name")
                         preview.innerHTML = ""
                         init('/assets/'+'<%= project._id %>'+"/"+assetSelect.value)
                         assetName.innerHTML = assetSelect.value
-                        console.log(assetSelect.value)
+                        inputAssetName.value = assetSelect.value
                     }
                     markerSelect.onchange = function(e){
                         let markerName = clickedOption.querySelector(".marker h2")
+                        let inputMarkerName = clickedOption.querySelector(".marker .input_marker_name")
                         markerName.innerHTML = markerSelect.value
-                        console.log(markerSelect.value)
+                        inputMarkerName.value = markerSelect.value
                     }
                     deletePair.onclick = function(){
                         assetMarkerContaienr.removeChild(clickedOption)
