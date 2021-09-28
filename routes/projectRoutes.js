@@ -49,7 +49,7 @@ router.get("/:id/detail", projectController.project_detail);
 router.get("/:id", projectController.project_run);
 
 //route to add more triggers to a project
-router.post("/:id/edit", multipleUpload, projectController.project_add);
+router.post("/:id/edit", multipleUpload, projectController.project_edit);
 
 //route to edit info of a project(rotation,position,scale)
 router.post(

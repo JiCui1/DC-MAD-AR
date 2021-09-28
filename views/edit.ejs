@@ -72,41 +72,41 @@
                 <div class="control_panel">
                     <div class="size_slider_container">
                         <label class="slider_title" for="size_num">Size:</label>
-                        <input type="range" name="size_control" id="size_control" class="sliders" min="0.1" max="10.5" step="0.1">
-                        <input type="number" name="size_num" id="size_num" class="control_nums">
+                        <input type="range" name="size_control" id="size_control" class="sliders" min="0.1" max="10.5" step="0.1" value = "1">
+                        <input type="number" id="size_num" class="control_nums">
                     </div>
                     <div class="position_control_container">
                         <div class="x_slider" for="x_num_pos">
                             <label class="slider_title">X:</label>
-                            <input type="range" name="size_control" id="position_control_x" class="sliders" min="-10" max="10" step="0.1" value="0">
-                            <input type="number" name="x_num_pos" id="x_num_pos" class="control_nums">
+                            <input type="range" name="position_control_x" id="position_control_x" class="sliders" min="-10" max="10" step="0.1" value="0">
+                            <input type="number" id="x_num_pos" class="control_nums">
                         </div>
                         <div class="y_slider">
                             <label class="slider_title">Y:</label>
-                            <input type="range" name="size_control" id="position_control_y" class="sliders" min="-10" max="10" step="0.1" value="0">
-                            <input type="number" name="y_num_pos" id="y_num_pos" class="control_nums">
+                            <input type="range" name="position_control_y" id="position_control_y" class="sliders" min="-10" max="10" step="0.1" value="0">
+                            <input type="number" id="y_num_pos" class="control_nums">
                         </div>
                         <div class="z_slider">
                             <label class="slider_title">Z:</label>
-                            <input type="range" name="size_control" id="position_control_z" class="sliders" min="-10" max="10" step="0.1" value="0">
-                            <input type="number" name="z_num_pos" id="z_num_pos" class="control_nums">
+                            <input type="range" name="position_control_z" id="position_control_z" class="sliders" min="-10" max="10" step="0.1" value="0">
+                            <input type="number" id="z_num_pos" class="control_nums">
                         </div>
                     </div>
                     <div class="rotation_control_container">
                         <div class="x_slider" for="x_num_pos">
                             <label class="slider_title">X:</label>
-                            <input type="range" name="size_control" id="rotation_control_x" class="sliders" min="-3" max="3" step="0.01" value="0">
-                            <input type="number" name="x_num_pos" id="x_num_pos" class="control_nums">
+                            <input type="range" name="rotation_control_x" id="rotation_control_x" class="sliders" min="-3" max="3" step="0.01" value="0">
+                            <input type="number" id="x_num_rot" class="control_nums">
                         </div>
                         <div class="y_slider">
                             <label class="slider_title">Y:</label>
-                            <input type="range" name="size_control" id="rotation_control_y" class="sliders" min="-3" max="3" step="0.01" value="0">
-                            <input type="number" name="y_num_pos" id="y_num_pos" class="control_nums">
+                            <input type="range" name="rotation_control_y" id="rotation_control_y" class="sliders" min="-3" max="3" step="0.01" value="0">
+                            <input type="number" id="y_num_rot" class="control_nums">
                         </div>
                         <div class="z_slider">
                             <label class="slider_title">Z:</label>
-                            <input type="range" name="size_control" id="rotation_control_z" class="sliders" min="-3" max="3" step="0.01" value="0">
-                            <input type="number" name="z_num_pos" id="z_num_pos" class="control_nums">
+                            <input type="range" name="rotation_control_z" id="rotation_control_z" class="sliders" min="-3" max="3" step="0.01" value="0">
+                            <input type="number" id="z_num_rot" class="control_nums">
                         </div>
                     </div>
                 </div>
@@ -127,6 +127,7 @@
         let renderer
         let uploadDelete
         let assetMarkerPairs
+        const saveBtn = document.getElementById("save_btn")
         const preview = document.querySelector(".preview")
         const form = document.querySelector("form")
         const pairingContainer = document.querySelector(".pairing_container")
@@ -147,6 +148,11 @@
         const rotInputX = document.getElementById("rotation_control_x")
         const rotInputY = document.getElementById("rotation_control_y")
         const rotInputZ = document.getElementById("rotation_control_z")
+
+        saveBtn.onclick = function(){
+            form.submit()
+        }
+
 
         positionContainer.style.display = 'none'
         rotationContainer.style.display = 'none'

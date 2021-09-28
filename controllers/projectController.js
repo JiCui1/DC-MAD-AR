@@ -155,11 +155,13 @@ const project_run = (req, res) => {
 };
 
 // controller to add trigger in exisiting project
-const project_add = (req, res) => {
-  console.log(req.files.modelFile[0].filename);
-  console.log("add function");
+const project_edit = (req, res) => {
+  console.log(req.body);
   res.status(204).send();
-
+  let projectId = req.params.id;
+  // Project.findById(projectId).then((result) => {
+  //   console.log(result);
+  // });
   // res.status(200).end();
   // let projectId = req.params.id;
   // if (typeof req.body.trigger_name == "string") {
@@ -196,39 +198,6 @@ const project_add = (req, res) => {
   //   try {
   //     result = result.save();
   //     console.log("added new trigger");
-  //     res.redirect(`/projects/${projectId}/detail`);
-  //   } catch {
-  //     (err) => {
-  //       console.log(err);
-  //     };
-  //   }
-  // });
-};
-
-// controller to edit info in a project
-const project_edit = (req, res) => {
-  console.log("edit function");
-  // let projectId = req.params.id;
-  // let triggerId = req.params.trigger;
-
-  // Project.findById(projectId).then((result) => {
-  //   let triggerArray = result.trigger;
-  //   let editIndex = triggerArray.findIndex((x) => x._id == triggerId);
-  //   result.trigger[editIndex].asset_position.x = req.body.position_x;
-  //   result.trigger[editIndex].asset_position.y = req.body.position_y;
-  //   result.trigger[editIndex].asset_position.z = req.body.position_z;
-
-  //   result.trigger[editIndex].asset_rotation.x = req.body.rotation_x;
-  //   result.trigger[editIndex].asset_rotation.y = req.body.rotation_y;
-  //   result.trigger[editIndex].asset_rotation.z = req.body.rotation_z;
-
-  //   result.trigger[editIndex].asset_size.x = req.body.scale_x;
-  //   result.trigger[editIndex].asset_size.y = req.body.scale_y;
-  //   result.trigger[editIndex].asset_size.z = req.body.scale_z;
-
-  //   try {
-  //     result = result.save();
-  //     console.log("info update success");
   //     res.redirect(`/projects/${projectId}/detail`);
   //   } catch {
   //     (err) => {
@@ -303,7 +272,6 @@ module.exports = {
   project_run,
   project_create_page,
   project_create,
-  project_add,
   project_edit,
   project_trigger_delete,
   project_delete,
