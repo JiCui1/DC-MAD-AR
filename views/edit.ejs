@@ -72,40 +72,40 @@
                 <div class="control_panel">
                     <div class="size_slider_container">
                         <label class="slider_title" for="size_num">Size:</label>
-                        <input type="range" name="size_control" id="size_control" class="sliders" min="0.1" max="10.5" step="0.1" value = "1">
+                        <input type="range" id="size_control" class="sliders" min="0.1" max="10.5" step="0.1" value = "1">
                         <input type="number" id="size_num" class="control_nums">
                     </div>
                     <div class="position_control_container">
                         <div class="x_slider" for="x_num_pos">
                             <label class="slider_title">X:</label>
-                            <input type="range" name="position_control_x" id="position_control_x" class="sliders" min="-10" max="10" step="0.1" value="0">
+                            <input type="range" id="position_control_x" class="sliders" min="-10" max="10" step="0.1" value="0">
                             <input type="number" id="x_num_pos" class="control_nums">
                         </div>
                         <div class="y_slider">
                             <label class="slider_title">Y:</label>
-                            <input type="range" name="position_control_y" id="position_control_y" class="sliders" min="-10" max="10" step="0.1" value="0">
+                            <input type="range" id="position_control_y" class="sliders" min="-10" max="10" step="0.1" value="0">
                             <input type="number" id="y_num_pos" class="control_nums">
                         </div>
                         <div class="z_slider">
                             <label class="slider_title">Z:</label>
-                            <input type="range" name="position_control_z" id="position_control_z" class="sliders" min="-10" max="10" step="0.1" value="0">
+                            <input type="range" id="position_control_z" class="sliders" min="-10" max="10" step="0.1" value="0">
                             <input type="number" id="z_num_pos" class="control_nums">
                         </div>
                     </div>
                     <div class="rotation_control_container">
                         <div class="x_slider" for="x_num_pos">
                             <label class="slider_title">X:</label>
-                            <input type="range" name="rotation_control_x" id="rotation_control_x" class="sliders" min="-3" max="3" step="0.01" value="0">
+                            <input type="range" id="rotation_control_x" class="sliders" min="-3" max="3" step="0.01" value="0">
                             <input type="number" id="x_num_rot" class="control_nums">
                         </div>
                         <div class="y_slider">
                             <label class="slider_title">Y:</label>
-                            <input type="range" name="rotation_control_y" id="rotation_control_y" class="sliders" min="-3" max="3" step="0.01" value="0">
+                            <input type="range" id="rotation_control_y" class="sliders" min="-3" max="3" step="0.01" value="0">
                             <input type="number" id="y_num_rot" class="control_nums">
                         </div>
                         <div class="z_slider">
                             <label class="slider_title">Z:</label>
-                            <input type="range" name="rotation_control_z" id="rotation_control_z" class="sliders" min="-3" max="3" step="0.01" value="0">
+                            <input type="range" id="rotation_control_z" class="sliders" min="-3" max="3" step="0.01" value="0">
                             <input type="number" id="z_num_rot" class="control_nums">
                         </div>
                     </div>
@@ -158,6 +158,7 @@
         rotationContainer.style.display = 'none'
         sizeContainer.style.display = 'none'
 
+        //file format validation
         let allFileList = []
         inputFile.onchange = function(e){
             let fileList = e.target.files 
@@ -212,6 +213,7 @@
         }
 
 
+        //function to create more pairs
         addPair.onclick = function(){
             if(allFileList.length<1){
                 alert("You don't have any asset to pair. Please upload first")
@@ -227,6 +229,13 @@
                                 <i class="fas fa-h-square"></i>
                                 <h2>Marker A</h2>
                                 <input type="hidden" name="marker_name" class="input_marker_name" value="marker_a" >
+                                <input type="hidden" name="pos_control_x" class="pos_control_x" value="0" >
+                                <input type="hidden" name="pos_control_y" class="pos_control_y" value="0" >
+                                <input type="hidden" name="pos_control_z" class="pos_control_z" value="0" >
+                                <input type="hidden" name="rot_control_x" class="rot_control_x" value="0" >
+                                <input type="hidden" name="rot_control_y" class="rot_control_y" value="0" >
+                                <input type="hidden" name="rot_control_z" class="rot_control_z" value="0" >
+                                <input type="hidden" name="size_control" class="size_control" value="1" >
                             </div>`
             assetMarker.classList.add("asset_marker")
             assetMarkerContaienr.appendChild(assetMarker)
@@ -335,7 +344,8 @@
                         let markerName = clickedOption.querySelector(".marker h2")
                         let inputMarkerName = clickedOption.querySelector(".marker .input_marker_name")
                         markerName.innerHTML = markerSelect.value
-                        inputMarkerName.value = markerSelect.value
+                        markerFormat = markerSelect.value.split(' ').join('_').toLowerCase()
+                        inputMarkerName.value = markerFormat
                     }
                     deletePair.onclick = function(){
                         assetMarkerContaienr.removeChild(clickedOption)
@@ -437,27 +447,48 @@
 
         function animate(){
 
+
+
                 sizeInput.oninput=function(){
+                    let activePair = document.querySelector(".pair_active")
+                    let pairSizeInput = activePair.querySelector(".size_control")
+                    pairSizeInput.value = sizeInput.value 
                     model.scale.set(sizeInput.value, sizeInput.value, sizeInput.value)
-                    console.log(model.scale)
                 }
                 posInputX.oninput=function(){
+                    let activePair = document.querySelector(".pair_active")
+                    let pairPosControlX = activePair.querySelector(".pos_control_x")
+                    pairPosControlX.value = posInputX.value
                     model.position.x = posInputX.value
-                    console.log(model.position)
                 }
                 posInputY.oninput=function(){
+                    let activePair = document.querySelector(".pair_active")
+                    let pairPosControlY = activePair.querySelector(".pos_control_y")
+                    pairPosControlY.value = posInputY.value
                     model.position.y = posInputY.value
                 }
                 posInputZ.oninput=function(){
+                    let activePair = document.querySelector(".pair_active")
+                    let pairPosControlZ = activePair.querySelector(".pos_control_z")
+                    pairPosControlZ.value = posInputZ.value
                     model.position.z = posInputZ.value
                 }
                 rotInputX.oninput=function(){
+                    let activePair = document.querySelector(".pair_active")
+                    let pairRotControlX = activePair.querySelector(".rot_control_x")
+                    pairRotControlX.value = rotInputX.value
                     model.rotation.x = rotInputX.value
                 }
                 rotInputY.oninput=function(){
+                    let activePair = document.querySelector(".pair_active")
+                    let pairRotControlY = activePair.querySelector(".rot_control_y")
+                    pairRotControlY.value = rotInputY.value
                     model.rotation.y = rotInputY.value
                 }
                 rotInputZ.oninput=function(){
+                    let activePair = document.querySelector(".pair_active")
+                    let pairRotControlZ = activePair.querySelector(".rot_control_z")
+                    pairRotControlZ.value = rotInputZ.value
                     model.rotation.z = rotInputZ.value
                 }
             requestAnimationFrame(animate)
@@ -466,41 +497,67 @@
 
         sizeBtn.onclick = function(e){
             e.preventDefault()
-            sizeBtn.style.backgroundColor = "#eb64c8"
-            sizeBtn.style.color = "white"
-            rotationBtn.style.backgroundColor = "white"
-            rotationBtn.style.color = "#eb64c8"
-            positionBtn.style.backgroundColor = "white"
-            positionBtn.style.color = "#eb64c8"
-            rotationContainer.style.display = "none"
-            positionContainer.style.display = "none"
-            sizeContainer.style.display = "flex"
+            let activePair = document.querySelector(".pair_active")
+            let sizeSlider = document.getElementById("size_control")
+            if(activePair){
+                sizeSlider.value = activePair.querySelector(".size_control").value
+                sizeBtn.style.backgroundColor = "#eb64c8"
+                sizeBtn.style.color = "white"
+                rotationBtn.style.backgroundColor = "white"
+                rotationBtn.style.color = "#eb64c8"
+                positionBtn.style.backgroundColor = "white"
+                positionBtn.style.color = "#eb64c8"
+                rotationContainer.style.display = "none"
+                positionContainer.style.display = "none"
+                sizeContainer.style.display = "flex"
+            }
         }
 
         rotationBtn.onclick = function(e){
             e.preventDefault()
-            rotationBtn.style.backgroundColor = "#eb64c8"
-            rotationBtn.style.color = "white"
-            sizeBtn.style.backgroundColor = "white"
-            sizeBtn.style.color = "#eb64c8"
-            positionBtn.style.backgroundColor = "white"
-            positionBtn.style.color = "#eb64c8"
-            rotationContainer.style.display = "block"
-            positionContainer.style.display = "none"
-            sizeContainer.style.display = "none"
+            let activePair = document.querySelector(".pair_active")
+            let rotSliderX = document.getElementById("rotation_control_x")
+            let rotSliderY = document.getElementById("rotation_control_y")
+            let rotSliderZ = document.getElementById("rotation_control_z")
+            if(activePair){
+                rotSliderX.value = activePair.querySelector(".rot_control_x").value
+                rotSliderY.value = activePair.querySelector(".rot_control_y").value
+                rotSliderZ.value = activePair.querySelector(".rot_control_z").value
+
+                rotationBtn.style.backgroundColor = "#eb64c8"
+                rotationBtn.style.color = "white"
+                sizeBtn.style.backgroundColor = "white"
+                sizeBtn.style.color = "#eb64c8"
+                positionBtn.style.backgroundColor = "white"
+                positionBtn.style.color = "#eb64c8"
+                rotationContainer.style.display = "block"
+                positionContainer.style.display = "none"
+                sizeContainer.style.display = "none"
+            }
         }
 
         positionBtn.onclick = function(e){
             e.preventDefault()
-            positionBtn.style.backgroundColor = "#eb64c8"
-            positionBtn.style.color = "white"
-            sizeBtn.style.backgroundColor = "white"
-            sizeBtn.style.color = "#eb64c8"
-            rotationBtn.style.backgroundColor = "white"
-            rotationBtn.style.color = "#eb64c8"
-            rotationContainer.style.display = "none"
-            positionContainer.style.display = "block"
-            sizeContainer.style.display = "none"
+            let activePair = document.querySelector(".pair_active")
+            let posSliderX = document.getElementById("position_control_x")
+            let posSliderY = document.getElementById("position_control_y")
+            let posSliderZ = document.getElementById("position_control_z")
+            if(activePair){
+                posSliderX.value = activePair.querySelector(".pos_control_x").value
+                posSliderY.value = activePair.querySelector(".pos_control_y").value
+                posSliderZ.value = activePair.querySelector(".pos_control_z").value
+
+                positionBtn.style.backgroundColor = "#eb64c8"
+                positionBtn.style.color = "white"
+                sizeBtn.style.backgroundColor = "white"
+                sizeBtn.style.color = "#eb64c8"
+                rotationBtn.style.backgroundColor = "white"
+                rotationBtn.style.color = "#eb64c8"
+                rotationContainer.style.display = "none"
+                positionContainer.style.display = "block"
+                sizeContainer.style.display = "none"
+
+            }
         }
 
         sizeInput.oninput = function(e){
