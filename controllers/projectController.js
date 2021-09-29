@@ -159,9 +159,65 @@ const project_edit = (req, res) => {
   console.log(req.body);
   res.status(204).send();
   let projectId = req.params.id;
-  // Project.findById(projectId).then((result) => {
-  //   console.log(result);
-  // });
+  if (req.body.asset_name) {
+    Project.findById(projectId).then((result) => {
+      result.title = req.body.title;
+      result.method = "marker";
+      if (typeof req.body.asset_name == "string") {
+        req.body.asset_name = [req.body.asset_name];
+        req.body.marker_name = [req.body.marker_name];
+        req.body.pos_control_x = [req.body.pos_control_x];
+        req.body.pos_control_y = [req.body.pos_control_y];
+        req.body.pos_control_z = [req.body.pos_control_z];
+        req.body.rot_control_x = [req.body.rot_control_x];
+        req.body.rot_control_y = [req.body.rot_control_y];
+        req.body.rot_control_z = [req.body.rot_control_z];
+        req.body.size_control = [req.body.size_control];
+      }
+      let triggerArray = [];
+      console.log("1");
+      for (let i = 0; i < req.body.asset_name.length; i++) {
+        console.log("2");
+        triggerArray.push({
+          name: i,
+          asset_path: `/assets/${projectId}/${req.body.asset_name[i]}`,
+          asset_type: ".glb",
+          marker_path: `/markers/${req.body.marker_name[i]}.patt`,
+          asset_size: {
+            x: req.body.size_control[i],
+            y: req.body.size_control[i],
+            z: req.body.size_control[i],
+          },
+          asset_rotation: {
+            x: req.body.rot_control_x[i],
+            y: req.body.rot_control_y[i],
+            z: req.body.rot_control_z[i],
+          },
+          asset_position: {
+            x: req.body.pos_control_x[i],
+            y: req.body.pos_control_y[i],
+            z: req.body.pos_control_z[i],
+          },
+        });
+      }
+
+      console.log("3");
+      result.trigger = triggerArray;
+      console.log("4");
+      try {
+        console.log("5");
+        result = result.save();
+
+        console.log("6");
+        console.log("added new trigger");
+        res.status(204).send();
+      } catch {
+        (err) => {
+          console.log(err);
+        };
+      }
+    });
+  }
 
   // res.status(200).end();
   // let projectId = req.params.id;
