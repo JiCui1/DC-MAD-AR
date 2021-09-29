@@ -175,11 +175,9 @@ const project_edit = (req, res) => {
         req.body.size_control = [req.body.size_control];
       }
       let triggerArray = [];
-      console.log("1");
       for (let i = 0; i < req.body.asset_name.length; i++) {
-        console.log("2");
         triggerArray.push({
-          name: i,
+          name: req.body.asset_name[i],
           asset_path: `/assets/${projectId}/${req.body.asset_name[i]}`,
           asset_type: ".glb",
           marker_path: `/markers/${req.body.marker_name[i]}.patt`,
@@ -200,15 +198,9 @@ const project_edit = (req, res) => {
           },
         });
       }
-
-      console.log("3");
       result.trigger = triggerArray;
-      console.log("4");
       try {
-        console.log("5");
         result = result.save();
-
-        console.log("6");
         console.log("added new trigger");
         res.status(204).send();
       } catch {
@@ -218,50 +210,7 @@ const project_edit = (req, res) => {
       }
     });
   }
-
   // res.status(200).end();
-  // let projectId = req.params.id;
-  // if (typeof req.body.trigger_name == "string") {
-  //   req.body.trigger_name = [req.body.trigger_name];
-  // }
-  // Project.findById(projectId).then((result) => {
-  //   let triggerArray = result.trigger;
-  //   for (let i = 0; i < req.body.trigger_name.length; i++) {
-  //     triggerArray.push({
-  //       name: req.body.trigger_name[i],
-  //       // marker_path:req.body.marker_path[i],
-  //       // descriptor_path: req.body.descriptor_path[i],
-  //       // asset_path: `/assets/${req.files.modelFile[i]["originalname"]}`,
-  //       asset_path: `/${req.files.modelFile[i].filename}`,
-  //       asset_type: `${path.extname(req.files.modelFile[i]["originalname"])}`,
-  //       asset_scale: {
-  //         x: req.body.scale_x[i],
-  //         y: req.body.scale_y[i],
-  //         z: req.body.scale_z[i],
-  //       },
-  //       asset_position: {
-  //         x: req.body.position_x[i],
-  //         y: req.body.position_y[i],
-  //         z: req.body.position_z[i],
-  //       },
-  //       asset_rotation: {
-  //         x: req.body.rotation_x[i],
-  //         y: req.body.rotation_y[i],
-  //         z: req.body.rotation_z[i],
-  //       },
-  //     });
-  //   }
-  //   result.trigger = triggerArray;
-  //   try {
-  //     result = result.save();
-  //     console.log("added new trigger");
-  //     res.redirect(`/projects/${projectId}/detail`);
-  //   } catch {
-  //     (err) => {
-  //       console.log(err);
-  //     };
-  //   }
-  // });
 };
 
 const project_trigger_delete = (req, res) => {

@@ -30,6 +30,16 @@
                 <div class="uploaded_assets">
                     <h2 class="asset_title">Uploaded Assets</h2>
                     <div class="asset_container">
+                        <% if(project.trigger.length>0){ %>
+                            <% for(let i = 0; project.trigger.length>i; i++) {%>
+                                <div class="single_asset">
+                                    <h2 class="asset_name"><%= project.trigger[i].asset_name %></h2>
+                                    <i class="fas fa-trash-alt upload_delete"></i>
+                                </div>
+                                
+                                <% } %>
+                            
+                            <% } %>
                     </div>
                 </div>
             </div>
@@ -54,6 +64,35 @@
                     </div>
                     <div class="asset_marker_container">
 
+                        <% if(project.trigger.length>0){ %>
+                            <% for(let i = 0; project.trigger.length>i; i++) {%>
+
+                                <div class="asset_marker">
+                                    <div class="asset">
+                                        <i class="fas fa-file"></i>
+                                        <h2><%= project.trigger[i].asset_name %></h2>
+                                        <input type="hidden" name="asset_name" class="input_asset_name" value="<%= project.trigger[i].asset_name %>" >
+                                    </div>
+                                    <i class="fas fa-exchange-alt"></i>
+                                    <div class="marker">
+                                        <i class="fas fa-h-square"></i>
+                                        <h2><%= project.trigger[i].marker_name %></h2>
+                                        <input type="hidden" name="marker_name" class="input_marker_name" value="<%= project.trigger[i].marker_name %>" >
+                                        <input type="hidden" name="pos_control_x" class="pos_control_x" value="<%= project.trigger[i].asset_position.x %>" >
+                                        <input type="hidden" name="pos_control_y" class="pos_control_y" value="<%= project.trigger[i].asset_position.y %>" >
+                                        <input type="hidden" name="pos_control_z" class="pos_control_z" value="<%= project.trigger[i].asset_position.z %>" >
+                                        <input type="hidden" name="rot_control_x" class="rot_control_x" value="<%= project.trigger[i].asset_rotation.x %>" >
+                                        <input type="hidden" name="rot_control_y" class="rot_control_y" value="<%= project.trigger[i].asset_rotation.y %>" >
+                                        <input type="hidden" name="rot_control_z" class="rot_control_z" value="<%= project.trigger[i].asset_rotation.z %>" >
+                                        <input type="hidden" name="size_control" class="size_control" value="<%= project.trigger[i].asset_size.x %>" >
+                                    </div>
+
+                                </div>
+
+
+                            <% } %>
+                            
+                        <% } %>
                     </div>
                 </div>
             </div>
@@ -120,6 +159,8 @@
     <script src="/js/GLTFLoader.js"></script>
     
     <script>
+
+    window.onload = function(){
         let container
         let scene
         let camera
@@ -160,6 +201,16 @@
 
         //file format validation
         let allFileList = []
+        const allAssetName = document.querySelectorAll('.asset_name')
+        if(allAssetName.length>0){
+            for(let i = 0; i<allAssetName.length; i++){
+                let file = {name:allAssetName[i].innerHTML}
+                allFileList.push(file)
+            }
+            console.log(allFileList)
+        }
+
+
         inputFile.onchange = function(e){
             let fileList = e.target.files 
             for(let i = 0; i<fileList.length; i++){
@@ -212,33 +263,7 @@
             console.log("/assets/"+fileList[0].name)
         }
 
-
-        //function to create more pairs
-        addPair.onclick = function(){
-            if(allFileList.length<1){
-                alert("You don't have any asset to pair. Please upload first")
-            }else{
-            let assetMarker = document.createElement("div")
-            assetMarker.innerHTML = `<div class="asset">
-                                <i class="fas fa-file"></i>
-                                <h2>${allFileList[0].name}</h2>
-                                <input type="hidden" name="asset_name" class="input_asset_name" value=${allFileList[0].name} >
-                            </div>
-                            <i class="fas fa-exchange-alt"></i>
-                            <div class="marker">
-                                <i class="fas fa-h-square"></i>
-                                <h2>Marker A</h2>
-                                <input type="hidden" name="marker_name" class="input_marker_name" value="marker_a" >
-                                <input type="hidden" name="pos_control_x" class="pos_control_x" value="0" >
-                                <input type="hidden" name="pos_control_y" class="pos_control_y" value="0" >
-                                <input type="hidden" name="pos_control_z" class="pos_control_z" value="0" >
-                                <input type="hidden" name="rot_control_x" class="rot_control_x" value="0" >
-                                <input type="hidden" name="rot_control_y" class="rot_control_y" value="0" >
-                                <input type="hidden" name="rot_control_z" class="rot_control_z" value="0" >
-                                <input type="hidden" name="size_control" class="size_control" value="1" >
-                            </div>`
-            assetMarker.classList.add("asset_marker")
-            assetMarkerContaienr.appendChild(assetMarker)
+        function pairOnClick(){
             assetMarkerPairs = document.querySelectorAll('.asset_marker')
             assetMarkerPairs.forEach(pair=>{
 
@@ -354,9 +379,39 @@
 
                 }
             })
-            }
         }
 
+
+        //function to create more pairs
+        addPair.onclick = function(){
+            if(allFileList.length<1){
+                alert("You don't have any asset to pair. Please upload first")
+            }else{
+            let assetMarker = document.createElement("div")
+            assetMarker.innerHTML = `<div class="asset">
+                                <i class="fas fa-file"></i>
+                                <h2>${allFileList[0].name}</h2>
+                                <input type="hidden" name="asset_name" class="input_asset_name" value=${allFileList[0].name} >
+                            </div>
+                            <i class="fas fa-exchange-alt"></i>
+                            <div class="marker">
+                                <i class="fas fa-h-square"></i>
+                                <h2>Marker A</h2>
+                                <input type="hidden" name="marker_name" class="input_marker_name" value="marker_a" >
+                                <input type="hidden" name="pos_control_x" class="pos_control_x" value="0" >
+                                <input type="hidden" name="pos_control_y" class="pos_control_y" value="0" >
+                                <input type="hidden" name="pos_control_z" class="pos_control_z" value="0" >
+                                <input type="hidden" name="rot_control_x" class="rot_control_x" value="0" >
+                                <input type="hidden" name="rot_control_y" class="rot_control_y" value="0" >
+                                <input type="hidden" name="rot_control_z" class="rot_control_z" value="0" >
+                                <input type="hidden" name="size_control" class="size_control" value="1" >
+                            </div>`
+            assetMarker.classList.add("asset_marker")
+            assetMarkerContaienr.appendChild(assetMarker)
+            pairOnClick()
+            }
+        }
+        pairOnClick()
         
         //monitoring changes on all uploaded assets
         const config = { attributes: true, childList: true, subtree: true };
@@ -567,7 +622,7 @@
         
 
 
-        
+    }
     </script>
 
 

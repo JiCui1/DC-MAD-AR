@@ -40,7 +40,8 @@ const projectSchema = new Schema(
 
     trigger: [
       {
-        name: String,
+        asset_name: String,
+        marker_name: String,
         id: String,
         marker_path: String,
         descriptor_path: String,
