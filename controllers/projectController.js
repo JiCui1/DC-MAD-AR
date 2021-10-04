@@ -175,12 +175,18 @@ const project_edit = (req, res) => {
         req.body.size_control = [req.body.size_control];
       }
       let triggerArray = [];
+
       for (let i = 0; i < req.body.asset_name.length; i++) {
+        let markerPath = req.body.marker_name[i]
+          .toLowerCase()
+          .split(" ")
+          .join("_");
         triggerArray.push({
-          name: req.body.asset_name[i],
+          asset_name: req.body.asset_name[i],
+          marker_name: req.body.marker_name[i],
           asset_path: `/assets/${projectId}/${req.body.asset_name[i]}`,
           asset_type: ".glb",
-          marker_path: `/markers/${req.body.marker_name[i]}.patt`,
+          marker_path: `/markers/${markerPath}.patt`,
           asset_size: {
             x: req.body.size_control[i],
             y: req.body.size_control[i],
