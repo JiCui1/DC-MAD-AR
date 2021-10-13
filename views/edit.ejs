@@ -29,8 +29,8 @@
                     <div class="drag_area">
                         <i class="fas fa-cloud-upload-alt"></i>
                         <h2>Drag your files here to upload or</h2>
-                        <button id="upload_trigger" style="border:none; background-color:transparent; color:#eb64c8; outline: none; font-size:1rem; height:1rem;">Browse</button>
-                        <input type="file" value="Browse" name="modelFile" id="upload_files" style="visibility: visible; height:0rem;" multiple>
+                        <button id="upload_trigger" style="border:none; background-color:transparent; color:#eb64c8; outline: none; font-size:1rem; height:1.5rem;">Browse</button>
+                        <input type="file" value="Browse" name="modelFile" id="upload_files" style="visibility: hidden; height:0rem;" multiple >
                         <h2>Accepted format: glb, mp4, png, jpg, jpeg</h2>
                     </div>
                     <div class="convert_text">
@@ -188,6 +188,7 @@
             const inputFile = document.getElementById("upload_files");
             const assetContainer = document.querySelector(".asset_container");
             const addPair = document.querySelector(".add_pair");
+            const uploadTrigger = document.getElementById("upload_trigger")
             const assetMarkerContaienr = document.querySelector(
                 ".asset_marker_container"
             );
@@ -217,6 +218,12 @@
             rotationContainer.style.display = "none";
             sizeContainer.style.display = "none";
             
+            //click browse to trigger input file upload
+            uploadTrigger.onclick = function(e){
+                e.preventDefault()
+                console.log(inputFile)
+                inputFile.click()
+            }
 
             //file format validation
             let allFileList = [];
