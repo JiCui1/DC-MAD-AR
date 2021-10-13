@@ -30,12 +30,12 @@
                 <div class="uploaded_assets">
                     <h2 class="asset_title">Uploaded Assets</h2>
                     <div class="asset_container">
-                        <% if(project.trigger.length>0){ %>
-                            <% for(let i = 0; project.trigger.length>i; i++) {%>
-                                <div class="single_asset">
-                                    <h2 class="asset_name"><%= project.trigger[i].asset_name %></h2>
-                                    <i class="fas fa-trash-alt upload_delete"></i>
-                                </div>
+                            <% if(project.trigger.length>0){ %>
+                                <% for(let i = 0; project.trigger.length>i; i++) {%>
+                                    <div class="single_asset">
+                                        <h2 class="asset_name"><%= project.trigger[i].asset_name %></h2>
+                                        <i class="fas fa-trash-alt upload_delete"></i>
+                                    </div>
                                 
                                 <% } %>
                             
@@ -159,470 +159,468 @@
     <script src="/js/GLTFLoader.js"></script>
     
     <script>
+        window.onload = function () {
+            let container;
+            let scene;
+            let camera;
+            let model;
+            let renderer;
+            let uploadDelete;
+            let assetMarkerPairs;
+            const saveBtn = document.getElementById("save_btn");
+            const preview = document.querySelector(".preview");
+            const form = document.querySelector("form");
+            const pairingContainer = document.querySelector(".pairing_container");
+            const inputFile = document.getElementById("upload_files");
+            const assetContainer = document.querySelector(".asset_container");
+            const addPair = document.querySelector(".add_pair");
+            const assetMarkerContaienr = document.querySelector(
+                ".asset_marker_container"
+            );
+            const sizeBtn = document.getElementById("size_btn");
+            const positionBtn = document.getElementById("position_btn");
+            const rotationBtn = document.getElementById("rotation_btn");
+            const sizeContainer = document.querySelector(".size_slider_container");
+            const positionContainer = document.querySelector(
+                ".position_control_container"
+            );
+            const rotationContainer = document.querySelector(
+                ".rotation_control_container"
+            );
+            const sizeInput = document.getElementById("size_control");
+            const posInputX = document.getElementById("position_control_x");
+            const posInputY = document.getElementById("position_control_y");
+            const posInputZ = document.getElementById("position_control_z");
+            const rotInputX = document.getElementById("rotation_control_x");
+            const rotInputY = document.getElementById("rotation_control_y");
+            const rotInputZ = document.getElementById("rotation_control_z");
 
-    window.onload = function(){
-        let container
-        let scene
-        let camera
-        let model
-        let renderer
-        let uploadDelete
-        let assetMarkerPairs
-        const saveBtn = document.getElementById("save_btn")
-        const preview = document.querySelector(".preview")
-        const form = document.querySelector("form")
-        const pairingContainer = document.querySelector(".pairing_container")
-        const inputFile = document.getElementById("upload_files")
-        const assetContainer = document.querySelector(".asset_container")
-        const addPair = document.querySelector(".add_pair")
-        const assetMarkerContaienr = document.querySelector(".asset_marker_container")
-        const sizeBtn = document.getElementById("size_btn")
-        const positionBtn = document.getElementById("position_btn")
-        const rotationBtn = document.getElementById("rotation_btn")
-        const sizeContainer = document.querySelector(".size_slider_container")
-        const positionContainer = document.querySelector(".position_control_container")
-        const rotationContainer = document.querySelector(".rotation_control_container")
-        const sizeInput = document.getElementById("size_control")
-        const posInputX = document.getElementById("position_control_x")
-        const posInputY = document.getElementById("position_control_y")
-        const posInputZ = document.getElementById("position_control_z")
-        const rotInputX = document.getElementById("rotation_control_x")
-        const rotInputY = document.getElementById("rotation_control_y")
-        const rotInputZ = document.getElementById("rotation_control_z")
+            saveBtn.onclick = function () {
+                form.submit();
+            };
 
-        saveBtn.onclick = function(){
-            form.submit()
-        }
+            positionContainer.style.display = "none";
+            rotationContainer.style.display = "none";
+            sizeContainer.style.display = "none";
 
-
-        positionContainer.style.display = 'none'
-        rotationContainer.style.display = 'none'
-        sizeContainer.style.display = 'none'
-
-        //file format validation
-        let allFileList = []
-        const allAssetName = document.querySelectorAll('.asset_name')
-        if(allAssetName.length>0){
-            for(let i = 0; i<allAssetName.length; i++){
-                let file = {name:allAssetName[i].innerHTML}
-                allFileList.push(file)
+            //file format validation
+            let allFileList = [];
+            const allAssetName = document.querySelectorAll(".asset_name");
+            if (allAssetName.length > 0) {
+                for (let i = 0; i < allAssetName.length; i++) {
+                let file = { name: allAssetName[i].innerHTML };
+                allFileList.push(file);
+                }
+                console.log(allFileList);
             }
-            console.log(allFileList)
-        }
 
-
-        inputFile.onchange = function(e){
-            let fileList = e.target.files 
-            for(let i = 0; i<fileList.length; i++){
-                const file = fileList[i]
-                const ext = file.name.split('.')[1]
-                let valid
-                switch (ext){
-                    case 'jpg':
-                    case 'jpeg': 
-                    case 'png':
-                    case 'mp4':
-                    case 'glb': 
-                        valid = true;
-                        break;
+            inputFile.onchange = function (e) {
+                let fileList = e.target.files;
+                for (let i = 0; i < fileList.length; i++) {
+                const file = fileList[i];
+                const ext = file.name.split(".")[1];
+                let valid;
+                switch (ext) {
+                    case "jpg":
+                    case "jpeg":
+                    case "png":
+                    case "mp4":
+                    case "glb":
+                    valid = true;
+                    break;
                     default:
-                        valid = false;
+                    valid = false;
                 }
-                if(file.name.length>32){
-                    alert('file name is too long, please keep it within 32 characters')
-                    inputFile.value = ""
-                }
-                else if(allFileList.includes(file)){
+                if (file.name.length > 32) {
+                    alert("file name is too long, please keep it within 32 characters");
+                    inputFile.value = "";
+                } else if (allFileList.includes(file)) {
                     alert("File already exits");
-                    inputFile.value = ""
-                }
-                else if(valid){
-                    console.log(file)
-                    allFileList.push(file)
-                    let singleAsset = document.createElement("div")
-                    singleAsset.innerHTML = 
-                                `<h2 class="asset_name">${file.name}</h2>
-                                <i class="fas fa-trash-alt upload_delete"></i>`
-                    singleAsset.classList.add("single_asset")
-                    assetContainer.appendChild(singleAsset)
-                    uploadDelete =  document.querySelectorAll(".upload_delete")
+                    inputFile.value = "";
+                } else if (valid) {
+                    console.log(file);
+                    allFileList.push(file);
+                    let singleAsset = document.createElement("div");
+                    singleAsset.innerHTML = `<h2 class="asset_name">${file.name}</h2>
+                                            <i class="fas fa-trash-alt upload_delete"></i>`;
+                    singleAsset.classList.add("single_asset");
+                    assetContainer.appendChild(singleAsset);
+                    uploadDelete = document.querySelectorAll(".upload_delete");
                     //delete button on uploaded assets
-                    uploadDelete.forEach(function(item){
-                        item.onclick = function(){
-                            let fileName = this.previousElementSibling.innerHTML
-                            allFileList = allFileList.filter(item=>item.name!=fileName)
-                            assetContainer.removeChild(this.parentNode)
-                        }
-                    })
-                }else{
-                    alert("File format is not supported, only support glb, jpg, jpeg, png and mp4")
-                    inputFile.value = ""
+                    uploadDelete.forEach(function (item) {
+                    item.onclick = function () {
+                        let fileName = this.previousElementSibling.innerHTML;
+                        allFileList = allFileList.filter((item) => item.name != fileName);
+                        assetContainer.removeChild(this.parentNode);
+                    };
+                    });
+                } else {
+                    alert(
+                    "File format is not supported, only support glb, jpg, jpeg, png and mp4"
+                    );
+                    inputFile.value = "";
                 }
-            }
-            form.submit()
-            console.log("/assets/"+fileList[0].name)
-        }
-
-        function pairOnClick(){
-            assetMarkerPairs = document.querySelectorAll('.asset_marker')
-            assetMarkerPairs.forEach(pair=>{
-
-                pair.onclick = function(){
-                    assetMarkerPairs.forEach(pair=>{
-                        pair.classList.remove("pair_active")
-                    })
-
-                    pair.classList.add("pair_active")
-
-                    let assetOptions = ""
-                    let clickedOption = this
-                    let selectedAsset = this.querySelector(".asset h2").innerHTML
-                    let selectedMarker = this.querySelector(".marker h2").innerHTML
-
-                    preview.innerHTML = ""
-                     init('/assets/'+'<%= project._id %>'+"/"+selectedAsset) 
-                    
-                    let temp = ""
-                    allFileList.forEach(file=>{
-                        let option
-                        if(file.name == selectedAsset){
-                            option = `<option data-value=${file.name.toString()} selected>${file.name}</option>`
-                        }else{
-                            option = `<option data-value=${file.name.toString()}>${file.name}</option>`
-                        }
-                        temp = assetOptions
-                        assetOptions = temp+option
-                    })
-                    let markerOptions = ""
-                    let tempMarker = ""
-                    for(let i = 0; i < 10; i++){
-                        let letter
-                        switch(i){
-                            case 0:
-                                letter = "A"
-                                break
-                            case 1:
-                                letter = "B"
-                                break
-                            case 2:
-                                letter = "C"
-                                break
-                            case 3:
-                                letter = "D"
-                                break
-                            case 4:
-                                letter = "E"
-                                break
-                            case 5:
-                                letter = "F"
-                                break
-                            case 6:
-                                letter = "G"
-                                break
-                            case 7:
-                                letter = "H"
-                                break
-                            case 8:
-                                letter = "I"
-                                break
-                            case 9:
-                                letter = "J"
-                                break
-                        }
-                        let option 
-                        if(selectedMarker == "Marker "+letter){
-                            option = `<option data-value="marker_${letter.toLowerCase()}" selected>Marker ${letter}</option>`
-                        }else{
-                            option = `<option data-value="marker_${letter.toLowerCase()}">Marker ${letter}</option>`
-                        }
-                        tempMarker = markerOptions
-                        markerOptions = tempMarker + option
-                    }
-                
-                    pairingContainer.innerHTML = `<div class="pairing_asset">
-                            <i class="fas fa-file"></i>
-                            <select id="asset_select">
-                                ${assetOptions}
-                            </select>
-                        </div>
-                        <i class="fas fa-exchange-alt"></i>
-                        <div class="pairing_marker">
-                            <i class="fas fa-h-square"></i>
-                            <select id="marker_select">
-                                ${markerOptions}
-                            </select>
-                        </div>
-                        
-                        <i class="fas fa-trash-alt delete_pair"></i>`
-                    let assetSelect = document.getElementById('asset_select')
-                    let markerSelect = document.getElementById("marker_select")
-                    let deletePair = document.querySelector(".delete_pair")
-                    assetSelect.onchange = function(e){
-                        let assetName = clickedOption.querySelector(".asset h2")
-                        let inputAssetName = clickedOption.querySelector(".asset .input_asset_name")
-                        preview.innerHTML = ""
-                        init('/assets/'+'<%= project._id %>'+"/"+assetSelect.value)
-                        assetName.innerHTML = assetSelect.value
-                        inputAssetName.value = assetSelect.value
-                    }
-                    markerSelect.onchange = function(e){
-                        let markerName = clickedOption.querySelector(".marker h2")
-                        let inputMarkerName = clickedOption.querySelector(".marker .input_marker_name")
-                        markerName.innerHTML = markerSelect.value
-                        markerFormat = markerSelect.value.split(' ').join('_').toLowerCase()
-                        inputMarkerName.value = markerFormat
-                    }
-                    deletePair.onclick = function(){
-                        assetMarkerContaienr.removeChild(clickedOption)
-                        pairingContainer.innerHTML = ""
-                    }
-
                 }
-            })
-        }
+                form.submit();
+                console.log("/assets/" + fileList[0].name);
+            };
 
+            //load the according 3d model when an asset-marker pair is clicked
+            function pairOnClick() {
+                assetMarkerPairs = document.querySelectorAll(".asset_marker");
+                assetMarkerPairs.forEach((pair) => {
+                pair.onclick = function () {
+                    assetMarkerPairs.forEach((pair) => {
+                    pair.classList.remove("pair_active");
+                    });
 
-        //function to create more pairs
-        addPair.onclick = function(){
-            if(allFileList.length<1){
-                alert("You don't have any asset to pair. Please upload first")
-            }else{
-            let assetMarker = document.createElement("div")
-            assetMarker.innerHTML = `<div class="asset">
-                                <i class="fas fa-file"></i>
-                                <h2>${allFileList[0].name}</h2>
-                                <input type="hidden" name="asset_name" class="input_asset_name" value=${allFileList[0].name} >
-                            </div>
-                            <i class="fas fa-exchange-alt"></i>
-                            <div class="marker">
-                                <i class="fas fa-h-square"></i>
-                                <h2>Marker A</h2>
-                                <input type="hidden" name="marker_name" class="input_marker_name" value="marker_a" >
-                                <input type="hidden" name="pos_control_x" class="pos_control_x" value="0" >
-                                <input type="hidden" name="pos_control_y" class="pos_control_y" value="0" >
-                                <input type="hidden" name="pos_control_z" class="pos_control_z" value="0" >
-                                <input type="hidden" name="rot_control_x" class="rot_control_x" value="0" >
-                                <input type="hidden" name="rot_control_y" class="rot_control_y" value="0" >
-                                <input type="hidden" name="rot_control_z" class="rot_control_z" value="0" >
-                                <input type="hidden" name="size_control" class="size_control" value="1" >
-                            </div>`
-            assetMarker.classList.add("asset_marker")
-            assetMarkerContaienr.appendChild(assetMarker)
-            pairOnClick()
-            }
-        }
-        pairOnClick()
-        
-        //monitoring changes on all uploaded assets
-        const config = { attributes: true, childList: true, subtree: true };
+                    pair.classList.add("pair_active");
 
-        // Callback function to execute when mutations are observed
-        const callback = function(mutationsList, observer) {
-            // Use traditional 'for loops' for IE 11
-            for(const mutation of mutationsList) {
-                if (mutation.type === 'childList') {
-                    if(mutation.removedNodes.length>0){
-                        preview.innerHTML = ""
-                        if(assetMarkerPairs){
-                            assetMarkerPairs.forEach(pair=>{
-                                let deletedAsset = mutation.removedNodes[0].childNodes[0].innerHTML
-                                let assetName = pair.querySelector('.asset h2').innerHTML
-                                if(assetName==deletedAsset){
-                                    assetMarkerContaienr.removeChild(pair)
-                                    pairingContainer.innerHTML = ""
-                                }
-                            })
-                        }
+                    let assetOptions = "";
+                    let clickedOption = this;
+                    let selectedAsset = this.querySelector(".asset h2").innerHTML;
+                    let selectedMarker = this.querySelector(".marker h2").innerHTML;
+
+                    preview.innerHTML = "";
+                    init("/assets/" + "<%= project._id %>" + "/" + selectedAsset);
+
+                    let temp = "";
+                    allFileList.forEach((file) => {
+                    let option;
+                    if (file.name == selectedAsset) {
+                        option = `<option data-value=${file.name.toString()} selected>${
+                        file.name
+                        }</option>`;
+                    } else {
+                        option = `<option data-value=${file.name.toString()}>${
+                        file.name
+                        }</option>`;
                     }
-                    
-                }
+                    temp = assetOptions;
+                    assetOptions = temp + option;
+                    });
+                    let markerOptions = "";
+                    let tempMarker = "";
+                    for (let i = 0; i < 10; i++) {
+                    let letter;
+                    switch (i) {
+                        case 0:
+                        letter = "A";
+                        break;
+                        case 1:
+                        letter = "B";
+                        break;
+                        case 2:
+                        letter = "C";
+                        break;
+                        case 3:
+                        letter = "D";
+                        break;
+                        case 4:
+                        letter = "E";
+                        break;
+                        case 5:
+                        letter = "F";
+                        break;
+                        case 6:
+                        letter = "G";
+                        break;
+                        case 7:
+                        letter = "H";
+                        break;
+                        case 8:
+                        letter = "I";
+                        break;
+                        case 9:
+                        letter = "J";
+                        break;
+                    }
+                    let option;
+                    if (selectedMarker == "Marker " + letter) {
+                        option = `<option data-value="marker_${letter.toLowerCase()}" selected>Marker ${letter}</option>`;
+                    } else {
+                        option = `<option data-value="marker_${letter.toLowerCase()}">Marker ${letter}</option>`;
+                    }
+                    tempMarker = markerOptions;
+                    markerOptions = tempMarker + option;
+                    }
+
+                    pairingContainer.innerHTML = `
+                                    <div class="pairing_asset">
+                                        <i class="fas fa-file"></i>
+                                        <select id="asset_select">
+                                            ${assetOptions}
+                                        </select>
+                                    </div>
+                                    <i class="fas fa-exchange-alt"></i>
+                                    <div class="pairing_marker">
+                                        <i class="fas fa-h-square"></i>
+                                        <select id="marker_select">
+                                            ${markerOptions}
+                                        </select>
+                                    </div>
+                                    <i class="fas fa-trash-alt delete_pair"></i>`;
+                    let assetSelect = document.getElementById("asset_select");
+                    let markerSelect = document.getElementById("marker_select");
+                    let deletePair = document.querySelector(".delete_pair");
+                    assetSelect.onchange = function (e) {
+                    let assetName = clickedOption.querySelector(".asset h2");
+                    let inputAssetName = clickedOption.querySelector(
+                        ".asset .input_asset_name"
+                    );
+                    preview.innerHTML = "";
+                    init("/assets/" + "<%= project._id %>" + "/" + assetSelect.value);
+                    assetName.innerHTML = assetSelect.value;
+                    inputAssetName.value = assetSelect.value;
+                    };
+                    markerSelect.onchange = function (e) {
+                    let markerName = clickedOption.querySelector(".marker h2");
+                    let inputMarkerName = clickedOption.querySelector(
+                        ".marker .input_marker_name"
+                    );
+                    markerName.innerHTML = markerSelect.value;
+                    markerFormat = markerSelect.value.split(" ").join("_").toLowerCase();
+                    inputMarkerName.value = markerFormat;
+                    };
+                    deletePair.onclick = function () {
+                    assetMarkerContaienr.removeChild(clickedOption);
+                    pairingContainer.innerHTML = "";
+                    };
+                };
+                });
             }
+
+            //function to create more pairs
+            addPair.onclick = function () {
+                if (allFileList.length < 1) {
+                alert("You don't have any asset to pair. Please upload first");
+                } else {
+                let assetMarker = document.createElement("div");
+                assetMarker.innerHTML = `<div class="asset">
+                                            <i class="fas fa-file"></i>
+                                            <h2>${allFileList[0].name}</h2>
+                                            <input type="hidden" name="asset_name" class="input_asset_name" value=${allFileList[0].name} >
+                                        </div>
+                                        <i class="fas fa-exchange-alt"></i>
+                                        <div class="marker">
+                                            <i class="fas fa-h-square"></i>
+                                            <h2>Marker A</h2>
+                                            <input type="hidden" name="marker_name" class="input_marker_name" value="marker_a" >
+                                            <input type="hidden" name="pos_control_x" class="pos_control_x" value="0" >
+                                            <input type="hidden" name="pos_control_y" class="pos_control_y" value="0" >
+                                            <input type="hidden" name="pos_control_z" class="pos_control_z" value="0" >
+                                            <input type="hidden" name="rot_control_x" class="rot_control_x" value="0" >
+                                            <input type="hidden" name="rot_control_y" class="rot_control_y" value="0" >
+                                            <input type="hidden" name="rot_control_z" class="rot_control_z" value="0" >
+                                            <input type="hidden" name="size_control" class="size_control" value="1" >
+                                        </div>`;
+                assetMarker.classList.add("asset_marker");
+                assetMarkerContaienr.appendChild(assetMarker);
+                pairOnClick();
+                }
+            };
+
+            pairOnClick();
+
+            //monitoring changes on all uploaded assets
+            const config = { attributes: true, childList: true, subtree: true };
+
+            // Callback function to execute when mutations are observed
+            const callback = function (mutationsList, observer) {
+                // Use traditional 'for loops' for IE 11
+                for (const mutation of mutationsList) {
+                if (mutation.type === "childList") {
+                    if (mutation.removedNodes.length > 0) {
+                    preview.innerHTML = "";
+                    if (assetMarkerPairs) {
+                        assetMarkerPairs.forEach((pair) => {
+                        let deletedAsset =
+                            mutation.removedNodes[0].childNodes[0].innerHTML;
+                        let assetName = pair.querySelector(".asset h2").innerHTML;
+                        if (assetName == deletedAsset) {
+                            assetMarkerContaienr.removeChild(pair);
+                            pairingContainer.innerHTML = "";
+                        }
+                        });
+                    }
+                    }
+                }
+                }
+            };
+
+            // Create an observer instance linked to the callback function
+            const observer = new MutationObserver(callback);
+
+            // Start observing the target node for configured mutations
+            observer.observe(assetContainer, config);
+
+            //function to initialize 3d Model
+            function init(filePath) {
+                container = document.querySelector(".preview");
+
+                //create scene
+                scene = new THREE.Scene();
+
+                //how much camera can see
+                const fieldOfView = 35;
+
+                const aspect = container.clientWidth / container.clientHeight;
+
+                //range can be seen
+                const near = 0.1;
+                const far = 500;
+
+                //camera setup
+                camera = new THREE.PerspectiveCamera(fieldOfView, aspect, near, far);
+                camera.position.set(1, -1, 13);
+
+                const ambient = new THREE.AmbientLight(0x404040, 2);
+                scene.add(ambient);
+
+                const light = new THREE.DirectionalLight(0xffffff, 1);
+                light.position.set(10, 10, 10);
+                scene.add(light);
+
+                //renderer
+                renderer = new THREE.WebGLRenderer({ anitialias: true, alpha: true });
+                renderer.setSize(container.clientWidth, container.clientHeight);
+                renderer.setPixelRatio(window.devicePixelRatio);
+
+                container.appendChild(renderer.domElement);
+
+                //load model /3d_model/scene.gltf
+                let loader = new THREE.GLTFLoader();
+                loader.load(filePath, function (gltf) {
+                scene.add(gltf.scene);
+                model = gltf.scene.children[0];
+                model.scale.set(1, 1, 1);
+                model.position.x = 0;
+                model.position.y = 0;
+                model.position.z = 0;
+                model.rotation.x = 0;
+                model.rotation.y = 0;
+                model.rotation.z = 0;
+                console.log(model.scale, model.position, model.rotation);
+                renderer.render(scene, camera);
+                animate();
+                });
+            }
+
+            //function to move model when control value changes
+            function animate() {
+                sizeInput.oninput = function () {
+                let activePair = document.querySelector(".pair_active");
+                let pairSizeInput = activePair.querySelector(".size_control");
+                pairSizeInput.value = sizeInput.value;
+                model.scale.set(sizeInput.value, sizeInput.value, sizeInput.value);
+                };
+                posInputX.oninput = function () {
+                let activePair = document.querySelector(".pair_active");
+                let pairPosControlX = activePair.querySelector(".pos_control_x");
+                pairPosControlX.value = posInputX.value;
+                model.position.x = posInputX.value;
+                };
+                posInputY.oninput = function () {
+                let activePair = document.querySelector(".pair_active");
+                let pairPosControlY = activePair.querySelector(".pos_control_y");
+                pairPosControlY.value = posInputY.value;
+                model.position.y = posInputY.value;
+                };
+                posInputZ.oninput = function () {
+                let activePair = document.querySelector(".pair_active");
+                let pairPosControlZ = activePair.querySelector(".pos_control_z");
+                pairPosControlZ.value = posInputZ.value;
+                model.position.z = posInputZ.value;
+                };
+                rotInputX.oninput = function () {
+                let activePair = document.querySelector(".pair_active");
+                let pairRotControlX = activePair.querySelector(".rot_control_x");
+                pairRotControlX.value = rotInputX.value;
+                model.rotation.x = rotInputX.value;
+                };
+                rotInputY.oninput = function () {
+                let activePair = document.querySelector(".pair_active");
+                let pairRotControlY = activePair.querySelector(".rot_control_y");
+                pairRotControlY.value = rotInputY.value;
+                model.rotation.y = rotInputY.value;
+                };
+                rotInputZ.oninput = function () {
+                let activePair = document.querySelector(".pair_active");
+                let pairRotControlZ = activePair.querySelector(".rot_control_z");
+                pairRotControlZ.value = rotInputZ.value;
+                model.rotation.z = rotInputZ.value;
+                };
+                requestAnimationFrame(animate);
+                renderer.render(scene, camera);
+            }
+
+            //function to load size control panel
+            sizeBtn.onclick = function (e) {
+                e.preventDefault();
+                let activePair = document.querySelector(".pair_active");
+                let sizeSlider = document.getElementById("size_control");
+                if (activePair) {
+                sizeSlider.value = activePair.querySelector(".size_control").value;
+                sizeBtn.style.backgroundColor = "#eb64c8";
+                sizeBtn.style.color = "white";
+                rotationBtn.style.backgroundColor = "white";
+                rotationBtn.style.color = "#eb64c8";
+                positionBtn.style.backgroundColor = "white";
+                positionBtn.style.color = "#eb64c8";
+                rotationContainer.style.display = "none";
+                positionContainer.style.display = "none";
+                sizeContainer.style.display = "flex";
+                }
+            };
+
+            //function to load rotation control panel
+            rotationBtn.onclick = function (e) {
+                e.preventDefault();
+                let activePair = document.querySelector(".pair_active");
+                let rotSliderX = document.getElementById("rotation_control_x");
+                let rotSliderY = document.getElementById("rotation_control_y");
+                let rotSliderZ = document.getElementById("rotation_control_z");
+                if (activePair) {
+                rotSliderX.value = activePair.querySelector(".rot_control_x").value;
+                rotSliderY.value = activePair.querySelector(".rot_control_y").value;
+                rotSliderZ.value = activePair.querySelector(".rot_control_z").value;
+
+                rotationBtn.style.backgroundColor = "#eb64c8";
+                rotationBtn.style.color = "white";
+                sizeBtn.style.backgroundColor = "white";
+                sizeBtn.style.color = "#eb64c8";
+                positionBtn.style.backgroundColor = "white";
+                positionBtn.style.color = "#eb64c8";
+                rotationContainer.style.display = "block";
+                positionContainer.style.display = "none";
+                sizeContainer.style.display = "none";
+                }
+            };
+
+            //function to load position control panel
+            positionBtn.onclick = function (e) {
+                e.preventDefault();
+                let activePair = document.querySelector(".pair_active");
+                let posSliderX = document.getElementById("position_control_x");
+                let posSliderY = document.getElementById("position_control_y");
+                let posSliderZ = document.getElementById("position_control_z");
+                if (activePair) {
+                posSliderX.value = activePair.querySelector(".pos_control_x").value;
+                posSliderY.value = activePair.querySelector(".pos_control_y").value;
+                posSliderZ.value = activePair.querySelector(".pos_control_z").value;
+
+                positionBtn.style.backgroundColor = "#eb64c8";
+                positionBtn.style.color = "white";
+                sizeBtn.style.backgroundColor = "white";
+                sizeBtn.style.color = "#eb64c8";
+                rotationBtn.style.backgroundColor = "white";
+                rotationBtn.style.color = "#eb64c8";
+                rotationContainer.style.display = "none";
+                positionContainer.style.display = "block";
+                sizeContainer.style.display = "none";
+                }
+            };
         };
-
-        // Create an observer instance linked to the callback function
-        const observer = new MutationObserver(callback);
-
-        // Start observing the target node for configured mutations
-        observer.observe(assetContainer, config);
-
-        function init(filePath){
-
-            container = document.querySelector(".preview")
-
-
-            //create scene
-            scene = new THREE.Scene()
-
-            //how much camera can see
-            const fieldOfView = 35
-
-            const aspect = container.clientWidth/container.clientHeight
-
-            //range can be seen
-            const near = 0.1
-            const far = 500
-
-            //camera setup
-            camera = new THREE.PerspectiveCamera(fieldOfView, aspect, near, far)
-            camera.position.set(1,-1,13)
-
-            const ambient = new THREE.AmbientLight(0x404040,2)
-            scene.add(ambient)
-
-            const light = new THREE.DirectionalLight(0xffffff, 1)
-            light.position.set(10,10,10)
-            scene.add(light)
-
-            //renderer
-            renderer = new THREE.WebGLRenderer({anitialias:true, alpha:true})
-            renderer.setSize(container.clientWidth,container.clientHeight)
-            renderer.setPixelRatio(window.devicePixelRatio)
-
-            container.appendChild(renderer.domElement)
-
-
-            //load model /3d_model/scene.gltf
-            let loader = new THREE.GLTFLoader()
-            loader.load(filePath, function(gltf){
-                scene.add(gltf.scene)
-                model = gltf.scene.children[0]
-                model.scale.set(1, 1, 1)
-                model.position.x = 0
-                model.position.y = 0
-                model.position.z = 0
-                model.rotation.x = 0
-                model.rotation.y = 0
-                model.rotation.z = 0
-                console.log(model.scale,model.position,model.rotation)
-                renderer.render(scene,camera)
-                animate()
-            })
-
-        }
-
-        function animate(){
-
-
-
-                sizeInput.oninput=function(){
-                    let activePair = document.querySelector(".pair_active")
-                    let pairSizeInput = activePair.querySelector(".size_control")
-                    pairSizeInput.value = sizeInput.value 
-                    model.scale.set(sizeInput.value, sizeInput.value, sizeInput.value)
-                }
-                posInputX.oninput=function(){
-                    let activePair = document.querySelector(".pair_active")
-                    let pairPosControlX = activePair.querySelector(".pos_control_x")
-                    pairPosControlX.value = posInputX.value
-                    model.position.x = posInputX.value
-                }
-                posInputY.oninput=function(){
-                    let activePair = document.querySelector(".pair_active")
-                    let pairPosControlY = activePair.querySelector(".pos_control_y")
-                    pairPosControlY.value = posInputY.value
-                    model.position.y = posInputY.value
-                }
-                posInputZ.oninput=function(){
-                    let activePair = document.querySelector(".pair_active")
-                    let pairPosControlZ = activePair.querySelector(".pos_control_z")
-                    pairPosControlZ.value = posInputZ.value
-                    model.position.z = posInputZ.value
-                }
-                rotInputX.oninput=function(){
-                    let activePair = document.querySelector(".pair_active")
-                    let pairRotControlX = activePair.querySelector(".rot_control_x")
-                    pairRotControlX.value = rotInputX.value
-                    model.rotation.x = rotInputX.value
-                }
-                rotInputY.oninput=function(){
-                    let activePair = document.querySelector(".pair_active")
-                    let pairRotControlY = activePair.querySelector(".rot_control_y")
-                    pairRotControlY.value = rotInputY.value
-                    model.rotation.y = rotInputY.value
-                }
-                rotInputZ.oninput=function(){
-                    let activePair = document.querySelector(".pair_active")
-                    let pairRotControlZ = activePair.querySelector(".rot_control_z")
-                    pairRotControlZ.value = rotInputZ.value
-                    model.rotation.z = rotInputZ.value
-                }
-            requestAnimationFrame(animate)
-            renderer.render(scene, camera)
-        }
-
-        sizeBtn.onclick = function(e){
-            e.preventDefault()
-            let activePair = document.querySelector(".pair_active")
-            let sizeSlider = document.getElementById("size_control")
-            if(activePair){
-                sizeSlider.value = activePair.querySelector(".size_control").value
-                sizeBtn.style.backgroundColor = "#eb64c8"
-                sizeBtn.style.color = "white"
-                rotationBtn.style.backgroundColor = "white"
-                rotationBtn.style.color = "#eb64c8"
-                positionBtn.style.backgroundColor = "white"
-                positionBtn.style.color = "#eb64c8"
-                rotationContainer.style.display = "none"
-                positionContainer.style.display = "none"
-                sizeContainer.style.display = "flex"
-            }
-        }
-
-        rotationBtn.onclick = function(e){
-            e.preventDefault()
-            let activePair = document.querySelector(".pair_active")
-            let rotSliderX = document.getElementById("rotation_control_x")
-            let rotSliderY = document.getElementById("rotation_control_y")
-            let rotSliderZ = document.getElementById("rotation_control_z")
-            if(activePair){
-                rotSliderX.value = activePair.querySelector(".rot_control_x").value
-                rotSliderY.value = activePair.querySelector(".rot_control_y").value
-                rotSliderZ.value = activePair.querySelector(".rot_control_z").value
-
-                rotationBtn.style.backgroundColor = "#eb64c8"
-                rotationBtn.style.color = "white"
-                sizeBtn.style.backgroundColor = "white"
-                sizeBtn.style.color = "#eb64c8"
-                positionBtn.style.backgroundColor = "white"
-                positionBtn.style.color = "#eb64c8"
-                rotationContainer.style.display = "block"
-                positionContainer.style.display = "none"
-                sizeContainer.style.display = "none"
-            }
-        }
-
-        positionBtn.onclick = function(e){
-            e.preventDefault()
-            let activePair = document.querySelector(".pair_active")
-            let posSliderX = document.getElementById("position_control_x")
-            let posSliderY = document.getElementById("position_control_y")
-            let posSliderZ = document.getElementById("position_control_z")
-            if(activePair){
-                posSliderX.value = activePair.querySelector(".pos_control_x").value
-                posSliderY.value = activePair.querySelector(".pos_control_y").value
-                posSliderZ.value = activePair.querySelector(".pos_control_z").value
-
-                positionBtn.style.backgroundColor = "#eb64c8"
-                positionBtn.style.color = "white"
-                sizeBtn.style.backgroundColor = "white"
-                sizeBtn.style.color = "#eb64c8"
-                rotationBtn.style.backgroundColor = "white"
-                rotationBtn.style.color = "#eb64c8"
-                rotationContainer.style.display = "none"
-                positionContainer.style.display = "block"
-                sizeContainer.style.display = "none"
-
-            }
-        }
-
-        sizeInput.oninput = function(e){
-            console.log(sizeInput.value)
-        }
-
-        
-
-
-    }
     </script>
 
 

@@ -19,7 +19,26 @@ const project_index = (req, res) => {
 // controller to get to create page
 const project_create_page = (req, res) => {
   console.log(res.locals.user);
-  res.render("create", { title: "CREATE", userID: res.locals.user._id });
+  const project = new Project({
+    title: "Untitled",
+    method: "Marker",
+    lat: 0,
+    long: 0,
+    gpsRange: 0,
+    trigger: [],
+    author: res.locals.user._id,
+  });
+
+  project
+    .save()
+    .then((result) => {
+      console.log(result);
+      //once submitted redirect back to dashboard
+      res.redirect("/projects/" + project._id + "/edit");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 // controller to post info to db
@@ -255,18 +274,18 @@ const project_trigger_delete = (req, res) => {
 const project_delete = (req, res) => {
   const id = req.params.id;
 
-  Project.findById(id).then((result) => {
-    for (let i = 0; i < result.trigger.length; i++) {
-      deleteModelPath = `public/${result.trigger[i].asset_path}`;
-      fs.unlink(deleteModelPath, (err) => {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log("file delete sucess");
-        }
-      });
-    }
-  });
+  // Project.findById(id).then((result) => {
+  //   for (let i = 0; i < result.trigger.length; i++) {
+  //     deleteModelPath = `public/${result.trigger[i].asset_path}`;
+  //     fs.unlink(deleteModelPath, (err) => {
+  //       if (err) {
+  //         console.log(err);
+  //       } else {
+  //         console.log("file delete sucess");
+  //       }
+  //     });
+  //   }
+  // });
 
   //DELETE function for the asset folder inserted .. :- righ now focusing on one image to check if it works
   Project.findByIdAndDelete(id)

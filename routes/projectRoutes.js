@@ -58,6 +58,9 @@ router.post(
   projectController.project_edit
 );
 
+//route to create new project
+// router.get("/create", projectController.project_create_page);
+
 //route to delete a trigger in a existing project
 router.put("/:id/:trigger/delete", projectController.project_trigger_delete);
 
