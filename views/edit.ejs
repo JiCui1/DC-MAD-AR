@@ -18,7 +18,7 @@
         <div class="edit_container_left">
 
             <div class="project_title">
-                <input type="text" value="Untitled" name="title" id="title">
+                <input type="text" value="<%= project.title %>" name="title" id="title">
                 <input type="hidden" name="project_id" value="<%= project._id %>">
                 <input type="hidden" name="user_id" value="<%= user._id %>">
                 <h2>Marker Tracking</h2>
@@ -45,11 +45,9 @@
                                 <% for(let i = 0; project.trigger.length>i; i++) {%>
                                     <div class="single_asset">
                                         <h2 class="asset_name"><%= project.trigger[i].asset_name %></h2>
-                                        <i class="fas fa-trash-alt upload_delete"></i>
+                                        <i class="fas fa-trash-alt upload_delete" onclick="deleteAsset(this)"></i>
                                     </div>
-                                
                                 <% } %>
-                            
                             <% } %>
                     </div>
                 </div>
@@ -81,13 +79,15 @@
                                 <div class="asset_marker">
                                     <div class="asset">
                                         <i class="fas fa-file"></i>
-                                        <h2><%= project.trigger[i].asset_name %></h2>
+                                        <h2 class="container_asset_name"><%= project.trigger[i].asset_name %></h2>
                                         <input type="hidden" name="asset_name" class="input_asset_name" value="<%= project.trigger[i].asset_name %>" >
                                     </div>
                                     <i class="fas fa-exchange-alt"></i>
                                     <div class="marker">
                                         <i class="fas fa-h-square"></i>
-                                        <h2><%= project.trigger[i].marker_name %></h2>
+                                        <% let markerName = project.trigger[i].marker_name.split('_').join(' ') %>
+                                        <h2><%= markerName %></h2>
+                                        
                                         <input type="hidden" name="marker_name" class="input_marker_name" value="<%= project.trigger[i].marker_name %>" >
                                         <input type="hidden" name="pos_control_x" class="pos_control_x" value="<%= project.trigger[i].asset_position.x %>" >
                                         <input type="hidden" name="pos_control_y" class="pos_control_y" value="<%= project.trigger[i].asset_position.y %>" >
@@ -171,6 +171,7 @@
     <script src="/js/gltf-glb.js"></script>
     
     <script>
+        let deleteAsset
         window.onload = function () {
             let container;
             let scene;
@@ -183,6 +184,7 @@
             const preview = document.querySelector(".preview");
             const form = document.querySelector("form");
             const pairingContainer = document.querySelector(".pairing_container");
+            const dragUpload = document.querySelector(".drag_area");
             const inputFile = document.getElementById("upload_files");
             const assetContainer = document.querySelector(".asset_container");
             const addPair = document.querySelector(".add_pair");
@@ -214,6 +216,7 @@
             positionContainer.style.display = "none";
             rotationContainer.style.display = "none";
             sizeContainer.style.display = "none";
+            
 
             //file format validation
             let allFileList = [];
@@ -226,8 +229,48 @@
                 console.log(allFileList);
             }
 
+            dragUpload.ondrop = function(e){
+                e.stopPropagation()
+                e.preventDefault()
+                let listFile = []
+                let items = event.dataTransfer.items
+                console.log(items, items.length)
+                for (var i = 0; i < items.length; i++) {
+                    let file = items[i].getAsFile()
+                    console.log(file)
+                    listFile.push(file)
+                }
+                handleUpload(listFile)
+            }
+
+            dragUpload.ondragover = function(e){
+                // console.log(e)
+                e.stopPropagation()
+                e.preventDefault()
+                event.dataTransfer.dropEffect = "copy"
+            }
+
             inputFile.onchange = function (e) {
                 let fileList = e.target.files;
+                handleUpload(fileList)
+            };
+
+            deleteAsset = function(item){
+                let fileName = item.previousElementSibling.innerHTML
+                console.log(fileName)
+                item.parentNode.parentNode.removeChild(item.parentNode)
+                let containerAssets = document.querySelectorAll(".container_asset_name")
+
+                console.log(containerAssets)
+                containerAssets.forEach((assetName)=>{if(assetName.innerHTML == fileName){
+                    console.log(assetName)
+                    let pair = assetName.parentNode.parentNode
+                    pair.parentNode.removeChild(pair)
+                }})
+            }
+
+            function handleUpload(uploadFileList){
+                let fileList = uploadFileList;
                 for (let i = 0; i < fileList.length; i++) {
                 const file = fileList[i];
                 const ext = file.name.split(".")[1];
@@ -254,18 +297,14 @@
                     allFileList.push(file);
                     let singleAsset = document.createElement("div");
                     singleAsset.innerHTML = `<h2 class="asset_name">${file.name}</h2>
-                                            <i class="fas fa-trash-alt upload_delete"></i>`;
+                                            <i class="fas fa-trash-alt upload_delete" onclick="deleteAsset(this)"></i>`;
                     singleAsset.classList.add("single_asset");
                     assetContainer.appendChild(singleAsset);
-                    uploadDelete = document.querySelectorAll(".upload_delete");
-                    //delete button on uploaded assets
-                    uploadDelete.forEach(function (item) {
-                    item.onclick = function () {
-                        let fileName = this.previousElementSibling.innerHTML;
-                        allFileList = allFileList.filter((item) => item.name != fileName);
-                        assetContainer.removeChild(this.parentNode);
-                    };
-                    });
+                    // uploadDelete = document.querySelectorAll(".upload_delete");
+                    // //delete button on uploaded assets
+                    // uploadDelete.forEach(function (item) {
+                    // item.onclick = deleteAsset()
+                    // });
                 } else {
                     alert(
                     "File format is not supported, only support glb, jpg, jpeg, png and mp4"
@@ -275,7 +314,12 @@
                 }
                 form.submit();
                 console.log("/assets/" + fileList[0].name);
-            };
+            }
+
+            // function deletAsset(){
+            //     let fileName = this.previousElementSibling.innerHTML;
+            //             assetContainer.removeChild(this.parentNode);
+            // }
 
             //load the according 3d model when an asset-marker pair is clicked
             function pairOnClick() {
@@ -410,7 +454,7 @@
                 let assetMarker = document.createElement("div");
                 assetMarker.innerHTML = `<div class="asset">
                                             <i class="fas fa-file"></i>
-                                            <h2>${allFileList[0].name}</h2>
+                                            <h2  class="container_asset_name">${allFileList[0].name}</h2>
                                             <input type="hidden" name="asset_name" class="input_asset_name" value=${allFileList[0].name} >
                                         </div>
                                         <i class="fas fa-exchange-alt"></i>
@@ -433,38 +477,6 @@
             };
 
             pairOnClick();
-
-            //monitoring changes on all uploaded assets
-            const config = { attributes: true, childList: true, subtree: true };
-
-            // Callback function to execute when mutations are observed
-            const callback = function (mutationsList, observer) {
-                // Use traditional 'for loops' for IE 11
-                for (const mutation of mutationsList) {
-                if (mutation.type === "childList") {
-                    if (mutation.removedNodes.length > 0) {
-                    preview.innerHTML = "";
-                    if (assetMarkerPairs) {
-                        assetMarkerPairs.forEach((pair) => {
-                        let deletedAsset =
-                            mutation.removedNodes[0].childNodes[0].innerHTML;
-                        let assetName = pair.querySelector(".asset h2").innerHTML;
-                        if (assetName == deletedAsset) {
-                            assetMarkerContaienr.removeChild(pair);
-                            pairingContainer.innerHTML = "";
-                        }
-                        });
-                    }
-                    }
-                }
-                }
-            };
-
-            // Create an observer instance linked to the callback function
-            const observer = new MutationObserver(callback);
-
-            // Start observing the target node for configured mutations
-            observer.observe(assetContainer, config);
 
             //function to initialize 3d Model
             function init(filePath) {
