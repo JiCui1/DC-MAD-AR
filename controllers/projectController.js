@@ -234,6 +234,23 @@ const project_edit = (req, res) => {
         };
       }
     });
+  } else {
+    Project.findById(projectId).then((result) => {
+      result.title = req.body.title;
+      result.method = "marker";
+
+      let triggerArray = [];
+      result.trigger = triggerArray;
+      try {
+        result = result.save();
+        console.log("no asset");
+        res.status(204).send();
+      } catch {
+        (err) => {
+          console.log(err);
+        };
+      }
+    });
   }
   // res.status(200).end();
 };
