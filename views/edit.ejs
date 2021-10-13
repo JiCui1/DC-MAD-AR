@@ -234,19 +234,82 @@
                 e.preventDefault()
                 let listFile = []
                 let items = event.dataTransfer.items
-                console.log(items, items.length)
+                dragUpload.style.backgroundColor = "#fff4f4"
                 for (var i = 0; i < items.length; i++) {
                     let file = items[i].getAsFile()
-                    console.log(file)
-                    listFile.push(file)
+
+                    const ext = file.name.split(".")[1];
+                    let valid;
+                    switch (ext) {
+                        case "jpg":
+                        case "jpeg":
+                        case "png":
+                        case "mp4":
+                        case "glb":
+                        valid = true;
+                        break;
+                        default:
+                        valid = false;
+                    }
+                    if (file.name.length > 32) {
+                        alert("file name is too long, please keep it within 32 characters");
+                        items = "";
+                    } else if (allFileList.includes(file)) {
+                        alert("File already exits");
+                        items = "";
+                    } else if (valid) {
+                        console.log(file);
+
+                        allFileList.push(file);
+                        listFile.push(file);
+                        let singleAsset = document.createElement("div");
+                        singleAsset.innerHTML = `<h2 class="asset_name">${file.name}</h2>
+                                                <i class="fas fa-trash-alt upload_delete" onclick="deleteAsset(this)"></i>`;
+                        singleAsset.classList.add("single_asset");
+                        assetContainer.appendChild(singleAsset);
+                    } else {
+                        alert(
+                        "File format is not supported, only support glb, jpg, jpeg, png and mp4"
+                        );
+                        items = "";
+                    }
+
+                    // listFile.push(file)
                 }
-                handleUpload(listFile)
+                // handleUpload(listFile)
+                ([...listFile]).forEach(uploadFile)
+                function uploadFile(file){
+                    console.log(file,2)
+                    let formData = new FormData(form)
+                    let id = "<%= project._id %>"
+                    console.log(id)
+                    formData.append('modelFile', file)
+                    console.log(formData.get("project_id"))
+                    
+                    let url = '/projects/'+"<%= project._id %>"+"/edit"
+                    fetch(url, {
+                        method:"POST",
+                        body: formData
+                    }).then(()=>{console.log("uploaded assets")})
+                    .catch((err)=>console.log(err))
+
+                    // form.submit()
+                }
+
             }
 
             dragUpload.ondragover = function(e){
                 e.stopPropagation()
                 e.preventDefault()
                 event.dataTransfer.dropEffect = "copy"
+                dragUpload.style.backgroundColor = "#ff9be4"
+            }
+
+            dragUpload.ondragleave = function(e){
+
+                e.stopPropagation()
+                e.preventDefault()
+                dragUpload.style.backgroundColor = "#fff4f4"
             }
 
             inputFile.onchange = function (e) {
@@ -256,11 +319,12 @@
 
             deleteAsset = function(item){
                 let fileName = item.previousElementSibling.innerHTML
-                console.log(fileName)
                 item.parentNode.parentNode.removeChild(item.parentNode)
                 let containerAssets = document.querySelectorAll(".container_asset_name")
-
-                console.log(containerAssets)
+                let pairingContainer = document.querySelector(".pairing_container")
+                let preview = document.querySelector(".preview")
+                preview.innerHTML = ""
+                pairingContainer.innerHTML = ""
                 containerAssets.forEach((assetName)=>{if(assetName.innerHTML == fileName){
                     console.log(assetName)
                     let pair = assetName.parentNode.parentNode
@@ -299,11 +363,6 @@
                                             <i class="fas fa-trash-alt upload_delete" onclick="deleteAsset(this)"></i>`;
                     singleAsset.classList.add("single_asset");
                     assetContainer.appendChild(singleAsset);
-                    // uploadDelete = document.querySelectorAll(".upload_delete");
-                    // //delete button on uploaded assets
-                    // uploadDelete.forEach(function (item) {
-                    // item.onclick = deleteAsset()
-                    // });
                 } else {
                     alert(
                     "File format is not supported, only support glb, jpg, jpeg, png and mp4"

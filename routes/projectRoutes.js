@@ -16,8 +16,9 @@ const storage = multer.diskStorage({
     cb(null, "public");
   },
   filename: (req, file, cb) => {
-    console.log(req.body);
+    console.log(req.body, 100);
     const id = req.body.project_id;
+    console.log(id);
     //store the file with the file name
     const ext = path.extname(file.originalname);
     const originalName = file.originalname;
