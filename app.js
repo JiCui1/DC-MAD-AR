@@ -77,6 +77,7 @@ app.get("/confirm", (req, res) => {
   res.render("confirm", { title: "Verify" });
 });
 
+
 //dashboard routes
 app.get("/dashboard", requireAuth, (req, res) => {
   Project.find({ author: res.locals.user._id })
