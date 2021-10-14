@@ -29,7 +29,7 @@
                     <div class="drag_area">
                         <i class="fas fa-cloud-upload-alt"></i>
                         <h2>Drag your files here to upload or</h2>
-                        <button id="upload_trigger" style="border:none; background-color:transparent; color:#eb64c8; outline: none; font-size:1rem; height:1.5rem;">Browse</button>
+                        <h2 id="upload_trigger" style="border:none; background-color:transparent; color:#eb64c8; outline: none; font-size:1rem; height:1.5rem; cursor:pointer">Browse</h2>
                         <input type="file" value="Browse" name="modelFile" id="upload_files" style="visibility: hidden; height:0rem;" multiple >
                         <h2>Accepted format: glb, mp4, png, jpg, jpeg</h2>
                     </div>
@@ -217,6 +217,19 @@
             const rotInputY = document.getElementById("rotation_control_y");
             const rotInputZ = document.getElementById("rotation_control_z");
 
+            window.onkeypress = function(e){
+                if(e.keyCode==13){
+                    if(e.target.type=="number"){
+                        let newVal = e.target.value
+                        setTimeout(function(){
+                            e.target.value=newVal
+                            slider = e.target.previousElementSibling
+                            slider.value = newVal
+                        },1)
+                    }
+                }
+            }
+
             saveBtn.onclick = function () {
                 form.submit();
             };
@@ -228,7 +241,6 @@
             //click browse to trigger input file upload
             uploadTrigger.onclick = function(e){
                 e.preventDefault()
-                console.log(inputFile)
                 inputFile.click()
             }
 
@@ -240,7 +252,6 @@
                 let file = { name: allAssetName[i].innerHTML };
                 allFileList.push(file);
                 }
-                console.log(allFileList);
             }
 
             dragUpload.ondrop = function(e){
@@ -272,8 +283,6 @@
                         alert("File already exits");
                         items = "";
                     } else if (valid) {
-                        console.log(file);
-
                         allFileList.push(file);
                         listFile.push(file);
                         let singleAsset = document.createElement("div");
@@ -293,12 +302,9 @@
                 // handleUpload(listFile)
                 ([...listFile]).forEach(uploadFile)
                 function uploadFile(file){
-                    console.log(file,2)
                     let formData = new FormData(form)
                     let id = "<%= project._id %>"
-                    console.log(id)
                     formData.append('modelFile', file)
-                    console.log(formData.get("project_id"))
                     
                     let url = '/projects/'+"<%= project._id %>"+"/edit"
                     fetch(url, {
@@ -306,8 +312,6 @@
                         body: formData
                     }).then(()=>{console.log("uploaded assets")})
                     .catch((err)=>console.log(err))
-
-                    // form.submit()
                 }
 
             }
@@ -340,7 +344,6 @@
                 preview.innerHTML = ""
                 pairingContainer.innerHTML = ""
                 containerAssets.forEach((assetName)=>{if(assetName.innerHTML == fileName){
-                    console.log(assetName)
                     let pair = assetName.parentNode.parentNode
                     pair.parentNode.removeChild(pair)
                 }})
@@ -370,7 +373,6 @@
                     alert("File already exits");
                     inputFile.value = "";
                 } else if (valid) {
-                    console.log(file);
                     allFileList.push(file);
                     let singleAsset = document.createElement("div");
                     singleAsset.innerHTML = `<h2 class="asset_name">${file.name}</h2>
@@ -385,7 +387,6 @@
                 }
                 }
                 form.submit();
-                console.log("/assets/" + fileList[0].name);
             }
 
 
@@ -592,7 +593,6 @@
                 model.rotation.x = document.querySelector(".pair_active").querySelector(".rot_control_x").value;
                 model.rotation.y = document.querySelector(".pair_active").querySelector(".rot_control_y").value;
                 model.rotation.z = document.querySelector(".pair_active").querySelector(".rot_control_z").value;
-                console.log(model.scale, model.position, model.rotation);
                 renderer.render(scene, camera);
                 animate();
                 });
