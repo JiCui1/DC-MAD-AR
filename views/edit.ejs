@@ -123,40 +123,40 @@
                     <div class="size_slider_container">
                         <label class="slider_title" for="size_num">Size:</label>
                         <input type="range" id="size_control" class="sliders" min="0.1" max="10.5" step="0.1" value = "1">
-                        <input type="number" id="size_num" class="control_nums">
+                        <input type="number" id="size_num" class="control_nums" step="0.1">
                     </div>
                     <div class="position_control_container">
                         <div class="x_slider" for="x_num_pos">
                             <label class="slider_title">X:</label>
                             <input type="range" id="position_control_x" class="sliders" min="-10" max="10" step="0.1" value="0">
-                            <input type="number" id="x_num_pos" class="control_nums">
+                            <input type="number" id="x_num_pos" class="control_nums" step="0.1">
                         </div>
                         <div class="y_slider">
                             <label class="slider_title">Y:</label>
                             <input type="range" id="position_control_y" class="sliders" min="-10" max="10" step="0.1" value="0">
-                            <input type="number" id="y_num_pos" class="control_nums">
+                            <input type="number" id="y_num_pos" class="control_nums" step="0.1">
                         </div>
                         <div class="z_slider">
                             <label class="slider_title">Z:</label>
                             <input type="range" id="position_control_z" class="sliders" min="-10" max="10" step="0.1" value="0">
-                            <input type="number" id="z_num_pos" class="control_nums">
+                            <input type="number" id="z_num_pos" class="control_nums" step="0.1">
                         </div>
                     </div>
                     <div class="rotation_control_container">
                         <div class="x_slider" for="x_num_pos">
                             <label class="slider_title">X:</label>
                             <input type="range" id="rotation_control_x" class="sliders" min="-3" max="3" step="0.01" value="0">
-                            <input type="number" id="x_num_rot" class="control_nums">
+                            <input type="number" id="x_num_rot" class="control_nums" step="0.01">
                         </div>
                         <div class="y_slider">
                             <label class="slider_title">Y:</label>
                             <input type="range" id="rotation_control_y" class="sliders" min="-3" max="3" step="0.01" value="0">
-                            <input type="number" id="y_num_rot" class="control_nums">
+                            <input type="number" id="y_num_rot" class="control_nums" step="0.01">
                         </div>
                         <div class="z_slider">
                             <label class="slider_title">Z:</label>
                             <input type="range" id="rotation_control_z" class="sliders" min="-3" max="3" step="0.01" value="0">
-                            <input type="number" id="z_num_rot" class="control_nums">
+                            <input type="number" id="z_num_rot" class="control_nums" step="0.01">
                         </div>
                     </div>
                 </div>
@@ -180,6 +180,13 @@
             let renderer;
             let uploadDelete;
             let assetMarkerPairs;
+            const sizeNum = document.getElementById("size_num")
+            const xNumPos = document.getElementById("x_num_pos")
+            const yNumPos = document.getElementById("y_num_pos")
+            const zNumPos = document.getElementById("z_num_pos")
+            const xNumRot = document.getElementById("x_num_rot")
+            const yNumRot = document.getElementById("y_num_rot")
+            const zNumRot = document.getElementById("z_num_rot")
             const saveBtn = document.getElementById("save_btn");
             const preview = document.querySelector(".preview");
             const form = document.querySelector("form");
@@ -381,10 +388,6 @@
                 console.log("/assets/" + fileList[0].name);
             }
 
-            // function deletAsset(){
-            //     let fileName = this.previousElementSibling.innerHTML;
-            //             assetContainer.removeChild(this.parentNode);
-            // }
 
             //load the according 3d model when an asset-marker pair is clicked
             function pairOnClick() {
@@ -583,12 +586,12 @@
                 scene.add(gltf.scene);
                 model = gltf.scene.children[0];
                 model.scale.set(1, 1, 1);
-                model.position.x = 0;
-                model.position.y = 0;
-                model.position.z = 0;
-                model.rotation.x = 0;
-                model.rotation.y = 0;
-                model.rotation.z = 0;
+                model.position.x = document.querySelector(".pair_active").querySelector(".pos_control_x").value;
+                model.position.y = document.querySelector(".pair_active").querySelector(".pos_control_y").value;
+                model.position.z = document.querySelector(".pair_active").querySelector(".pos_control_z").value;
+                model.rotation.x = document.querySelector(".pair_active").querySelector(".rot_control_x").value;
+                model.rotation.y = document.querySelector(".pair_active").querySelector(".rot_control_y").value;
+                model.rotation.z = document.querySelector(".pair_active").querySelector(".rot_control_z").value;
                 console.log(model.scale, model.position, model.rotation);
                 renderer.render(scene, camera);
                 animate();
@@ -601,42 +604,49 @@
                 let activePair = document.querySelector(".pair_active");
                 let pairSizeInput = activePair.querySelector(".size_control");
                 pairSizeInput.value = sizeInput.value;
+                sizeNum.value = sizeInput.value
                 model.scale.set(sizeInput.value, sizeInput.value, sizeInput.value);
                 };
                 posInputX.oninput = function () {
                 let activePair = document.querySelector(".pair_active");
                 let pairPosControlX = activePair.querySelector(".pos_control_x");
                 pairPosControlX.value = posInputX.value;
+                xNumPos.value = posInputX.value
                 model.position.x = posInputX.value;
                 };
                 posInputY.oninput = function () {
                 let activePair = document.querySelector(".pair_active");
                 let pairPosControlY = activePair.querySelector(".pos_control_y");
                 pairPosControlY.value = posInputY.value;
+                yNumPos.value = posInputY.value
                 model.position.y = posInputY.value;
                 };
                 posInputZ.oninput = function () {
                 let activePair = document.querySelector(".pair_active");
                 let pairPosControlZ = activePair.querySelector(".pos_control_z");
                 pairPosControlZ.value = posInputZ.value;
+                zNumPos.value = posInputZ.value
                 model.position.z = posInputZ.value;
                 };
                 rotInputX.oninput = function () {
                 let activePair = document.querySelector(".pair_active");
                 let pairRotControlX = activePair.querySelector(".rot_control_x");
                 pairRotControlX.value = rotInputX.value;
+                xNumRot.value = rotInputX.value
                 model.rotation.x = rotInputX.value;
                 };
                 rotInputY.oninput = function () {
                 let activePair = document.querySelector(".pair_active");
                 let pairRotControlY = activePair.querySelector(".rot_control_y");
                 pairRotControlY.value = rotInputY.value;
+                yNumRot.value = rotInputY.value
                 model.rotation.y = rotInputY.value;
                 };
                 rotInputZ.oninput = function () {
                 let activePair = document.querySelector(".pair_active");
                 let pairRotControlZ = activePair.querySelector(".rot_control_z");
                 pairRotControlZ.value = rotInputZ.value;
+                zNumRot.value = rotInputZ.value
                 model.rotation.z = rotInputZ.value;
                 };
                 requestAnimationFrame(animate);
@@ -649,16 +659,22 @@
                 let activePair = document.querySelector(".pair_active");
                 let sizeSlider = document.getElementById("size_control");
                 if (activePair) {
-                sizeSlider.value = activePair.querySelector(".size_control").value;
-                sizeBtn.style.backgroundColor = "#eb64c8";
-                sizeBtn.style.color = "white";
-                rotationBtn.style.backgroundColor = "white";
-                rotationBtn.style.color = "#eb64c8";
-                positionBtn.style.backgroundColor = "white";
-                positionBtn.style.color = "#eb64c8";
-                rotationContainer.style.display = "none";
-                positionContainer.style.display = "none";
-                sizeContainer.style.display = "flex";
+                    sizeSlider.value = activePair.querySelector(".size_control").value;
+                    sizeNum.value = sizeSlider.value
+                    sizeBtn.style.backgroundColor = "#eb64c8";
+                    sizeBtn.style.color = "white";
+                    rotationBtn.style.backgroundColor = "white";
+                    rotationBtn.style.color = "#eb64c8";
+                    positionBtn.style.backgroundColor = "white";
+                    positionBtn.style.color = "#eb64c8";
+                    rotationContainer.style.display = "none";
+                    positionContainer.style.display = "none";
+                    sizeContainer.style.display = "flex";
+
+                    sizeNum.onchange = function(){
+                        sizeSlider.value = sizeNum.value
+                        model.scale.set(sizeNum.value, sizeNum.value, sizeNum.value)
+                    }
                 }
             };
 
@@ -670,19 +686,34 @@
                 let rotSliderY = document.getElementById("rotation_control_y");
                 let rotSliderZ = document.getElementById("rotation_control_z");
                 if (activePair) {
-                rotSliderX.value = activePair.querySelector(".rot_control_x").value;
-                rotSliderY.value = activePair.querySelector(".rot_control_y").value;
-                rotSliderZ.value = activePair.querySelector(".rot_control_z").value;
+                    rotSliderX.value = activePair.querySelector(".rot_control_x").value;
+                    xNumRot.value = rotSliderX.value
+                    rotSliderY.value = activePair.querySelector(".rot_control_y").value;
+                    yNumRot.value = rotSliderY.value
+                    rotSliderZ.value = activePair.querySelector(".rot_control_z").value;
+                    zNumRot.value = rotSliderZ.value
 
-                rotationBtn.style.backgroundColor = "#eb64c8";
-                rotationBtn.style.color = "white";
-                sizeBtn.style.backgroundColor = "white";
-                sizeBtn.style.color = "#eb64c8";
-                positionBtn.style.backgroundColor = "white";
-                positionBtn.style.color = "#eb64c8";
-                rotationContainer.style.display = "block";
-                positionContainer.style.display = "none";
-                sizeContainer.style.display = "none";
+                    rotationBtn.style.backgroundColor = "#eb64c8";
+                    rotationBtn.style.color = "white";
+                    sizeBtn.style.backgroundColor = "white";
+                    sizeBtn.style.color = "#eb64c8";
+                    positionBtn.style.backgroundColor = "white";
+                    positionBtn.style.color = "#eb64c8";
+                    rotationContainer.style.display = "block";
+                    positionContainer.style.display = "none";
+                    sizeContainer.style.display = "none";
+                    xNumRot.onchange = function(){
+                        rotSliderX.value = xNumRot.value
+                        model.rotation.x = rotSliderX.value
+                    }
+                    yNumRot.onchange = function(){
+                        rotSliderY.value = yNumRot.value
+                        model.rotation.y = rotSliderY.value
+                    }
+                    zNumRot.onchange = function(){
+                        rotSliderZ.value = zNumRot.value
+                        model.rotation.z = rotSliderZ.value
+                    }
                 }
             };
 
@@ -694,19 +725,34 @@
                 let posSliderY = document.getElementById("position_control_y");
                 let posSliderZ = document.getElementById("position_control_z");
                 if (activePair) {
-                posSliderX.value = activePair.querySelector(".pos_control_x").value;
-                posSliderY.value = activePair.querySelector(".pos_control_y").value;
-                posSliderZ.value = activePair.querySelector(".pos_control_z").value;
+                    posSliderX.value = activePair.querySelector(".pos_control_x").value;
+                    xNumPos.value = posSliderX.value
+                    posSliderY.value = activePair.querySelector(".pos_control_y").value;
+                    yNumPos.value = posSliderY.value
+                    posSliderZ.value = activePair.querySelector(".pos_control_z").value;
+                    zNumPos.value = posSliderZ.value
 
-                positionBtn.style.backgroundColor = "#eb64c8";
-                positionBtn.style.color = "white";
-                sizeBtn.style.backgroundColor = "white";
-                sizeBtn.style.color = "#eb64c8";
-                rotationBtn.style.backgroundColor = "white";
-                rotationBtn.style.color = "#eb64c8";
-                rotationContainer.style.display = "none";
-                positionContainer.style.display = "block";
-                sizeContainer.style.display = "none";
+                    positionBtn.style.backgroundColor = "#eb64c8";
+                    positionBtn.style.color = "white";
+                    sizeBtn.style.backgroundColor = "white";
+                    sizeBtn.style.color = "#eb64c8";
+                    rotationBtn.style.backgroundColor = "white";
+                    rotationBtn.style.color = "#eb64c8";
+                    rotationContainer.style.display = "none";
+                    positionContainer.style.display = "block";
+                    sizeContainer.style.display = "none";
+                    xNumPos.onchange = function(){
+                        posSliderX.value = xNumPos.value
+                        model.position.x = posSliderX.value
+                    }
+                    yNumPos.onchange = function(){
+                        posSliderY.value = yNumPos.value
+                        model.position.y = posSliderY.value
+                    }
+                    zNumPos.onchange = function(){
+                        posSliderZ.value = zNumPos.value
+                        model.position.z = posSliderZ.value
+                    }
                 }
             };
         };

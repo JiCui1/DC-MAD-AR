@@ -871,6 +871,19 @@ select:focus {
   border-radius: 0.7rem;
 }
 
+/* input number style removal */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 /* range slider styles start */
 input[type="range"] {
   width: 100%;
