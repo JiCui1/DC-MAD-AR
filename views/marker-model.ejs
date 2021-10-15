@@ -6,42 +6,49 @@
     <h1><%= project.trigger[0].asset_rotation.x %> <%= project.trigger[0].asset_rotation.y %> <%= project.trigger[0].asset_rotation.z %></h1>
     <h1><%= project.trigger[0].asset_size.x %> <%= project.trigger[0].asset_size.y %> <%= project.trigger[0].asset_size.z %></h1>
     <h1><%= project.trigger[0].asset_path %></h1> -->
-
         <!-- arjs marker 3d model  -->
+    <% if(project.public == "true" || project.author == user._id){ %>
+      <a-scene embedded arjs>
 
-    <a-scene embedded arjs>
-
-
-      <% for(i=0;project.trigger.length>i;i++){ %>
-        <% if(project.trigger[i].asset_type==".glb" || project.trigger[i].asset_type==".gltf") { %>
-          <!-- preset="hiro" -->
-          <!-- url="<%= project.trigger[i].marker_path %>" -->
-          <!-- type="pattern" patternUrl="/markers/pattern-a.patt" -->
-          <a-marker preset="custom" type="pattern" url="<%= project.trigger[i].marker_path %>" >
-          <a-entity
-            position="<%= project.trigger[i].asset_position.x %> <%= project.trigger[i].asset_position.y %> <%= project.trigger[i].asset_position.z %>"
-            rotation="<%= project.trigger[i].asset_rotation.x %> <%= project.trigger[i].asset_rotation.y %> <%= project.trigger[i].asset_rotation.z %>"
-            scale="<%= project.trigger[i].asset_size.x %> <%= project.trigger[i].asset_size.y %> <%= project.trigger[i].asset_size.z %>"
-            gltf-model="<%= project.trigger[i].asset_path %>"
-          ></a-entity>
-        </a-marker>
-
-        <% }else if(project.trigger[i].asset_type==".mp4"){ %>
-          <a-assets>
-            <video crossOrigin="anonymous" id="vid" autoplay loop muted="true" type="video/mp4" src="<%= project.trigger[i].asset_path %>">
-          </a-assets>
-          <a-marker preset="custom" type="pattern" url="<%= project.trigger[i].marker_path %>" >
-            <a-video src="#vid" width="1.69" height="1" rotation="270 0 0" play="true"></a-video>
+        <% if(project.author == user._id){ %>
+          <h3>creator test mode</h3>  
+        <% } %>
+        <% for(i=0;project.trigger.length>i;i++){ %>
+          <% if(project.trigger[i].asset_type==".glb" || project.trigger[i].asset_type==".gltf") { %>
+            <!-- preset="hiro" -->
+            <!-- url="<%= project.trigger[i].marker_path %>" -->
+            <!-- type="pattern" patternUrl="/markers/pattern-a.patt" -->
+            <a-marker preset="custom" type="pattern" url="<%= project.trigger[i].marker_path %>" >
+            <a-entity
+              position="<%= project.trigger[i].asset_position.x %> <%= project.trigger[i].asset_position.y %> <%= project.trigger[i].asset_position.z %>"
+              rotation="<%= project.trigger[i].asset_rotation.x %> <%= project.trigger[i].asset_rotation.y %> <%= project.trigger[i].asset_rotation.z %>"
+              scale="<%= project.trigger[i].asset_size.x %> <%= project.trigger[i].asset_size.y %> <%= project.trigger[i].asset_size.z %>"
+              gltf-model="<%= project.trigger[i].asset_path %>"
+            ></a-entity>
           </a-marker>
 
+          <% }else if(project.trigger[i].asset_type==".mp4"){ %>
+            <a-assets>
+              <video crossOrigin="anonymous" id="vid" autoplay loop muted="true" type="video/mp4" src="<%= project.trigger[i].asset_path %>">
+            </a-assets>
+            <a-marker preset="custom" type="pattern" url="<%= project.trigger[i].marker_path %>" >
+              <a-video src="#vid" width="1.69" height="1" rotation="270 0 0" play="true"></a-video>
+            </a-marker>
 
 
-          <% } %>
-      <% } %>
 
-      <a-entity camera></a-entity> 
+            <% } %>
+        <% } %>
 
-    </a-scene>
+        <a-entity camera></a-entity> 
+
+      </a-scene>
+
+    <% }else{ %>
+
+        <h3>The project is not shared to public yet</h3>
+
+    <% } %>
 
 
   </body>

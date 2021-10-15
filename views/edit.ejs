@@ -21,6 +21,7 @@
                 <input type="text" value="<%= project.title %>" name="title" id="title">
                 <input type="hidden" name="project_id" value="<%= project._id %>">
                 <input type="hidden" name="user_id" value="<%= user._id %>">
+                <input type="hidden" name="public" id="public_input" value="<%= project.public %>" />
                 <h2>Marker Tracking</h2>
             </div>
 
@@ -180,6 +181,8 @@
             let renderer;
             let uploadDelete;
             let assetMarkerPairs;
+            const publicBtn = document.getElementById("public_btn")
+            const publicInput = document.getElementById("public_input")
             const sizeNum = document.getElementById("size_num")
             const xNumPos = document.getElementById("x_num_pos")
             const yNumPos = document.getElementById("y_num_pos")
@@ -227,6 +230,18 @@
                             slider.value = newVal
                         },1)
                     }
+                }
+            }
+
+            publicBtn.onclick = function(){
+                if(publicBtn.innerHTML == "Publish"){
+                    publicBtn.innerHTML = "Unshare"
+                    publicInput.value = "true"
+                    console.log(publicInput)
+                }else{
+                    publicBtn.innerHTML = "Publish"
+                    publicInput.value = "false"
+                    console.log(publicInput)
                 }
             }
 

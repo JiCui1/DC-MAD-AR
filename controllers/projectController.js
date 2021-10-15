@@ -40,6 +40,7 @@ const project_create_page = (req, res) => {
       }
       //top level domain placeholder
       const tld = "localhost:3000";
+
       //create qrcode for this project
       const url = "jiahuacui.com/projects/" + project._id;
       console.log("worked", 1);
@@ -175,12 +176,21 @@ const project_detail = (req, res) => {
 // running/testing the ar project
 const project_run = (req, res) => {
   const id = req.params.id;
+  console.log(res.locals.user);
+  let user = { _id: "no user" };
+  if (res.locals.user) {
+    user = res.locals.user;
+  }
   Project.findById(id)
     .then((result) => {
       //choosing render file based on result method
       switch (result.method) {
         case "marker":
-          res.render("marker-model", { project: result, title: "marker demo" });
+          res.render("marker-model", {
+            project: result,
+            title: "marker demo",
+            user,
+          });
           break;
 
         case "gps":
@@ -204,6 +214,7 @@ const project_edit = (req, res) => {
   let projectId = req.params.id;
   if (req.body.asset_name) {
     Project.findById(projectId).then((result) => {
+      result.public = req.body.public;
       result.title = req.body.title;
       result.method = "marker";
       if (typeof req.body.asset_name == "string") {

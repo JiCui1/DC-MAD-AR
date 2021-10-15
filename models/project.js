@@ -21,6 +21,11 @@ const projectSchema = new Schema(
       default: Date.now,
     },
 
+    public: {
+      type: String,
+      default: false,
+    },
+
     method: {
       type: String,
       required: true,
