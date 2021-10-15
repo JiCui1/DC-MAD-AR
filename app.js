@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const { render } = require("ejs");
 const Project = require("./models/project");
 const fs = require("fs");
+const qr = require("qrcode");
+const QRCode = require("easyqrcodejs-nodejs");
 
 const cookieParser = require("cookie-parser");
 const { requireAuth, checkUser } = require("./middleware/authMiddleware");
@@ -77,7 +79,6 @@ app.get("/confirm", (req, res) => {
   res.render("confirm", { title: "Verify" });
 });
 
-
 //dashboard routes
 app.get("/dashboard", requireAuth, (req, res) => {
   Project.find({ author: res.locals.user._id })
@@ -107,6 +108,30 @@ app.get("/projects/:id/edit", (req, res) => {
     .catch((err) => {
       console.log(err);
     });
+});
+
+app.get("/qr", (req, res) => {
+  res.render("qr", { title: "qr code" });
+});
+
+app.post("/scan", (req, res) => {
+  console.log(req);
+  console.log(req.body);
+  const url = req.body.url;
+  // If the input is null return "Empty Data" error
+  if (url.length === 0) res.send("Empty Data!");
+
+  let options = {
+    text: url,
+  };
+
+  let qrcode = new QRCode(options);
+
+  qrcode
+    .saveImage({
+      path: "./public/assets/qrcode.png",
+    })
+    .then((data) => res.send("image saved"));
 });
 
 //project routes

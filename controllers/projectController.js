@@ -3,6 +3,7 @@ const makeDes = require("../modules/descriptor");
 const path = require("path");
 const fs = require("fs");
 const { render } = require("ejs");
+const QRCode = require("easyqrcodejs-nodejs");
 
 //controller to display all projects sorted by time created
 const project_index = (req, res) => {
@@ -33,7 +34,30 @@ const project_create_page = (req, res) => {
     .save()
     .then((result) => {
       console.log(result);
-      //once submitted redirect back to dashboard
+      const dir = "./public/assets/" + project._id;
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+      //top level domain placeholder
+      const tld = "localhost:3000";
+      //create qrcode for this project
+      const url = "jiahuacui.com/projects/" + project._id;
+      console.log("worked", 1);
+      let options = {
+        text: url,
+      };
+      console.log("worked", 2);
+      let qrcode = new QRCode(options);
+
+      console.log("worked", 3);
+      qrcode
+        .saveImage({
+          path: "./public/assets/" + project._id + "/qrcode.png",
+        })
+        //once submitted redirect back to dashboard;
+        .then(() => console.log("worked", 4))
+        .catch((err) => console.log(err));
+
       res.redirect("/projects/" + project._id + "/edit");
     })
     .catch((err) => {
