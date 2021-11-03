@@ -13,6 +13,8 @@ const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 
+const PORT = process.env.PORT || 3000;
+
 //URI to connect to mongoDB
 const dbURI =
   "mongodb+srv://arproject:9xfdrnhSGBm52WYU@ar-info.ixj1r.mongodb.net/ar-info?retryWrites=true&w=majority";
@@ -24,10 +26,10 @@ mongoose
   })
   .then((result) => {
     console.log("Connected to db");
-    console.log("App listening at localhost:3000");
+    console.log("App listening at " + PORT);
 
     //localhost:3000
-    app.listen(3000);
+    app.listen(PORT);
   })
   .catch((err) => {
     console.log(err);
