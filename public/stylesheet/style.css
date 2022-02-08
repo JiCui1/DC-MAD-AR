@@ -27,7 +27,7 @@ textgrey: #959595  */
 }
 
 body {
-  background-color: #f0f0f0;
+  background-color: #0a192f;
 }
 
 .delete {
@@ -42,25 +42,74 @@ button {
 
 /* --------------------------------------------- HOME PAGE -------------------------------------------------*/
 .mainTitle {
-  color: white;
+  color: #60f2d3;
   font-family: apotek-extracond, sans-serif;
   font-weight: 600;
   font-style: normal;
-  font-size: 2.5rem;
+  font-size: 4rem;
   position: relative;
   z-index: 1;
-  margin-left: 4rem;
+  margin-left: 5rem;
   margin-top: 2rem;
 }
 
 .home_page {
   width: 100%;
   height: 100vh;
-  background-image: url(../images/home_bg.jpg);
+  background-image: url(../images/bg.png);
   background-size: cover;
   background-position: bottom;
   position: relative;
   overflow: hidden;
+}
+
+.home_top {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.home_top img {
+  width: 65rem;
+}
+
+.home_mid {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.home_bot {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: -4rem;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.home_bot img {
+  width: 30rem;
+}
+
+.reality_container {
+  width: 20rem;
+  height: 10rem;
+  margin-top: -5rem;
+  background-color: #ffffff24;
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(5deg);
+}
+
+.reality_container img {
+  width: 20rem;
 }
 
 .text_container {
@@ -81,7 +130,7 @@ button {
   font-family: apotek-extracond, sans-serif;
   font-weight: 700;
   font-style: normal;
-  color: #eb64c8;
+  color: #60f2d3;
   font-size: 4rem;
   line-height: 3.3rem;
 }
@@ -90,7 +139,7 @@ button {
   font-family: apotek-extracond, sans-serif;
   font-weight: 700;
   font-style: normal;
-  color: #eb64c8;
+  color: #60f2d3;
   font-size: 2rem;
   line-height: 3.3rem;
 }
@@ -112,7 +161,7 @@ button {
   font-weight: 700;
   font-style: normal;
   color: white;
-  background-color: #eb64c8;
+  background-color: #60f2d3;
   outline: none;
   border: none;
   border-radius: 2rem;
@@ -134,7 +183,7 @@ button {
 nav {
   width: 100%;
   height: 3rem;
-  background-color: white;
+  background-color: #172a46;
   -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.16);
   box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.16);
   display: flex;
@@ -149,7 +198,7 @@ nav {
   font-family: apotek-extracond, sans-serif;
   font-weight: 300;
   font-style: normal;
-  color: #eb64c8;
+  color: #60f2d3;
   font-size: 1.5rem;
 }
 
@@ -167,17 +216,17 @@ nav {
 }
 
 .nav_btn_auth li {
-  color: #eb64c8;
+  color: #60f2d3;
   font-family: apotek-extracond;
   font-weight: 300;
   font-size: 1.5rem;
   padding: 1rem;
-  border-right: 1px solid #eb64c8;
-  border-left: 1px solid #eb64c8;
+  border-right: 1px solid #60f2d3;
+  border-left: 1px solid #60f2d3;
 }
 
 .nav_btn_auth {
-  color: #eb64c8;
+  color: #60f2d3;
   font-family: apotek-extracond;
   font-weight: 300;
   font-size: 1.5rem;
@@ -214,7 +263,7 @@ a:hover {
   margin-top: 2rem;
   width: 30rem;
   height: 30rem;
-  background-color: white;
+  background-color: #172a46;
   border-radius: 2rem;
   display: flex;
   flex-direction: column;
@@ -223,25 +272,25 @@ a:hover {
   margin: auto;
   margin-top: 5rem;
   padding: 2rem;
-  -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.16);
-  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.16);
 }
 
 .auth_form h2 {
   font-family: apotek-extracond, sans-serif;
   font-weight: 600;
   font-style: normal;
-  color: #eb64c8;
+  color: #60f2d3;
   font-size: 3rem;
 }
 
 .auth_form input {
   width: 25rem;
-  border: 2px solid #eb64c8;
+  border: 2px solid #60f2d3;
   outline: none;
   font-family: open-sans, sans-serif;
   font-weight: 300;
   font-style: normal;
+  background-color: #0a192f;
+  color: white;
 }
 
 ::placeholder {
@@ -252,18 +301,18 @@ a:hover {
   font-family: open-sans, sans-serif;
   font-weight: 300;
   font-style: normal;
-  color: #959595;
+  color: #ffffff;
 }
 
 .auth_form a {
-  color: #eb64c8;
+  color: #60f2d3;
   font-weight: 600;
 }
 
 .auth_form button {
-  background-color: #eb64c8;
+  background-color: #60f2d3;
   border: none;
-  color: white;
+  color: rgb(0, 0, 0);
   width: 24rem;
   height: 3.5rem;
   border-radius: 2rem;
@@ -277,12 +326,14 @@ label {
 input {
   padding: 0.7rem;
   font-size: 1.1rem;
+  background-color: #172a46;
 }
 
 select {
   padding: 0.7rem;
   font-size: 0.8rem;
   text-align: center;
+  background-color: #172a46;
 }
 
 .submitButton {
@@ -293,7 +344,7 @@ select {
 
 .btns_container {
   display: flex;
-  margin-top: 5rem;
+  margin-top: 2rem;
   margin-left: 5rem;
   width: 50%;
   justify-content: space-between;
@@ -302,21 +353,22 @@ select {
 }
 
 .project_btns button {
-  border: 2px solid #eb64c8;
+  border: 2px solid #60f2d3;
   font-family: apotek-extracond, sans-serif;
   font-weight: 600;
   font-style: normal;
   padding: 0.5rem 1.5rem;
-  color: #eb64c8;
+  background: none;
+  color: #60f2d3;
 }
 
 .project_btns button:hover {
-  color: #169ce3;
+  color: white;
 }
 
 .btns_container .create_btn {
-  color: white;
-  background-color: #eb64c8;
+  color: rgb(0, 0, 0);
+  background-color: #60f2d3;
   border: none;
   font-family: apotek-extracond, sans-serif;
   font-weight: 600;
@@ -330,8 +382,8 @@ select {
 }
 
 .active {
-  background-color: #eb64c8;
-  color: white !important;
+  background-color: #60f2d3 !important;
+  color: black !important;
 }
 
 .all_projects {
@@ -342,7 +394,7 @@ select {
 .project_card {
   width: 53%;
   height: 10rem;
-  background-color: white;
+  background-color: #172a46;
   padding: 2rem;
   border-radius: 1rem;
   -webkit-box-shadow: 0px 2px 7px 0px rgba(0, 0, 0, 0.07);
@@ -361,11 +413,11 @@ select {
   font-family: apotek-extracond, sans-serif;
   font-weight: 300;
   font-size: 1.3rem;
-  color: #eb64c8;
+  color: #60f2d3;
 }
 
 .card_right .delete:hover {
-  color: #169ce3;
+  color: red;
 }
 
 .card_right .status {
@@ -384,7 +436,7 @@ select {
 }
 
 .card_right .toggle_btn {
-  color: #eb64c8;
+  color: #60f2d3;
 }
 
 .btns_container_card {
@@ -395,11 +447,11 @@ select {
 }
 
 .btns_container_card button {
-  border: 2px solid #eb64c8;
+  border: 2px solid #60f2d3;
   font-family: apotek-extracond, sans-serif;
   font-weight: 300;
-  background-color: white;
-  color: #eb64c8;
+  background-color: #172a46;
+  color: #60f2d3;
   font-size: 1.2rem;
   width: 5rem;
   height: 2rem;
@@ -408,22 +460,22 @@ select {
 }
 
 .btns_container_card button:hover {
-  color: #169ce3;
-  border: 2px solid #169ce3;
+  color: white;
+  border: 2px solid white;
 }
 
 .title {
-  color: #eb64c8;
+  color: #60f2d3;
 }
 
 .title a:hover {
-  color: #169ce3;
+  color: white;
 }
 
 .last_update {
   font-family: open-sans;
   font-weight: 300;
-  color: #959595;
+  color: white;
   font-size: 1rem;
 }
 
@@ -432,7 +484,7 @@ select {
 }
 
 .single {
-  color: #eb64c8;
+  color: #60f2d3;
 }
 
 /* --------------------------------------------- SINGLE PROJECTS -------------------------------------------------*/
@@ -453,18 +505,18 @@ select {
 
 /* --------------------------------------------- Edit Page -------------------------------------------------*/
 .edit_nav_btn {
-  color: #eb64c8;
+  color: #60f2d3;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-left: 1px solid #eb64c8;
+  border-left: 1px solid #60f2d3;
   cursor: pointer;
   width: 7rem;
 }
 
 .edit_nav_btn:hover {
-  color: #169ce3;
+  color: white;
 }
 
 .edit_nav_btn i {
@@ -478,15 +530,15 @@ select {
   width: 7rem;
   height: 2.5rem;
   margin-right: 1rem;
-  border: solid 2px #eb64c8;
-  background-color: white;
-  color: #eb64c8;
+  border: solid 2px #60f2d3;
+  background-color: #172a46;
+  color: #60f2d3;
   font-weight: 600;
 }
 
 .publish_btn:hover {
-  color: white;
-  background-color: #eb64c8;
+  color: rgb(0, 0, 0);
+  background-color: #60f2d3;
 }
 
 /* edit page grid  */
@@ -502,7 +554,7 @@ select {
   padding: 2rem;
   width: 50rem;
   height: 100%;
-  background-color: white;
+  background-color: #172a46;
   border-radius: 1rem;
   -webkit-box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.16);
   box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.16);
@@ -519,7 +571,7 @@ select {
 .preview {
   width: 30rem;
   height: 19rem;
-  background-color: white;
+  background-color: #172a46;
   border-radius: 1rem;
   -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.16);
   box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.16);
@@ -528,7 +580,7 @@ select {
 .controls {
   width: 30rem;
   height: 19rem;
-  background-color: white;
+  background-color: #172a46;
   border-radius: 1rem;
   -webkit-box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.16);
   box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.16);
@@ -538,24 +590,28 @@ select {
   display: flex;
   width: 100%;
   justify-content: space-between;
-  border-bottom: 1px solid #959595;
+  border-bottom: 1px solid white;
 }
 
 .edit_container_left .project_title #title {
   border: none;
   font-family: apotek-extracond;
   font-weight: 600;
-  color: #eb64c8;
+  color: #60f2d3;
   font-size: 1.5rem;
   outline: none;
   height: 1.5rem;
   padding: 0;
 }
 
+.project_title input {
+  background-color: none !important;
+}
+
 .edit_container_left .project_title h2 {
   font-family: apotek-extracond;
   font-weight: 600;
-  color: #eb64c8;
+  color: #60f2d3;
   font-size: 1.5rem;
 }
 
@@ -564,7 +620,7 @@ select {
   height: 19rem;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #959595;
+  border-bottom: 1px solid white;
   padding-bottom: 0.5rem;
 }
 
@@ -576,9 +632,9 @@ select {
 .asset_section .file_upload .drag_area {
   width: 100%;
   height: 80%;
-  border: 2px dashed #eb64c8;
+  border: 2px dashed #60f2d3;
   border-radius: 1rem;
-  background-color: #fff4f4;
+  background-color: #2b4d80;
   margin-top: 1rem;
   text-align: center;
 }
@@ -590,7 +646,7 @@ select {
 }
 
 .asset_section .file_upload .drag_area h2 {
-  color: #959595;
+  color: white;
   font-family: open-sans;
   font-weight: 400;
   font-size: 0.8rem;
@@ -611,7 +667,7 @@ select {
   font-family: open-sans;
   font-weight: 400;
   font-size: 0.8rem;
-  color: #959595;
+  color: white;
 }
 
 .asset_container {
@@ -629,7 +685,7 @@ select {
   width: 21rem;
   height: 2rem;
   padding: 0.5rem;
-  border: 1px solid #eb64c8;
+  border: 1px solid #60f2d3;
   border-radius: 0.3rem;
   margin-top: 0.3rem;
 }
@@ -637,7 +693,7 @@ select {
 .asset_title {
   font-family: apotek-extracond;
   font-weight: 300;
-  color: #eb64c8;
+  color: #60f2d3;
   margin-top: 1rem;
   margin-left: 2rem;
 }
@@ -646,11 +702,11 @@ select {
   font-family: open-sans;
   font-weight: 600;
   font-size: 0.8rem;
-  color: #eb64c8;
+  color: #60f2d3;
 }
 
 .single_asset {
-  color: #eb64c8;
+  color: #60f2d3;
   font-size: 0.8rem;
 }
 
@@ -674,11 +730,11 @@ select {
   font-family: apotek-extracond;
   font-weight: 300;
   font-size: 1.5rem;
-  color: #eb64c8;
+  color: #60f2d3;
 }
 
 .pairing_top i {
-  color: #eb64c8;
+  color: #60f2d3;
   font-size: 1.5rem;
   cursor: pointer;
 }
@@ -691,7 +747,7 @@ select {
 }
 
 .pairing_container i {
-  color: #eb64c8;
+  color: #60f2d3;
 }
 
 .pairing_asset,
@@ -709,7 +765,7 @@ select {
 
 .pairing_asset i,
 .pairing_marker i {
-  color: #eb64c8;
+  color: #60f2d3;
   font-size: 2.5rem;
 }
 
@@ -718,14 +774,14 @@ select {
   margin-top: 0.3rem;
   border: none;
   padding: 0;
-  color: #eb64c8;
+  color: #60f2d3;
   font-family: open-sans;
   font-weight: 600;
   font-size: 0.7rem;
 }
 
 .pair_active {
-  border-left: 2px solid #eb64c8;
+  border-left: 2px solid #60f2d3;
 }
 
 .pairing_asset select {
@@ -737,7 +793,7 @@ select:focus {
 }
 
 .delete_pair {
-  color: #eb64c8;
+  color: #60f2d3;
   cursor: pointer;
   margin-bottom: -12rem;
   /* margin-right: -12rem; */
@@ -768,14 +824,14 @@ select:focus {
   font-family: apotek-extracond;
   font-weight: 300;
   font-size: 1.5rem;
-  color: #eb64c8;
+  color: #60f2d3;
 }
 
 .all_top h3 {
   font-family: open-sans;
   font-weight: 600;
   font-size: 0.8rem;
-  color: #959595;
+  color: white;
 }
 
 .asset_marker_container {
@@ -789,7 +845,7 @@ select:focus {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #eb64c8;
+  border-bottom: 1px solid #60f2d3;
   cursor: pointer;
 }
 
@@ -797,7 +853,7 @@ select:focus {
   text-align: center;
   width: 10rem;
   height: 5rem;
-  color: #eb64c8;
+  color: #60f2d3;
   font-family: open-sans;
   font-weight: 400;
 }
@@ -816,13 +872,13 @@ select:focus {
   text-align: center;
   width: 10rem;
   height: 5rem;
-  color: #eb64c8;
+  color: #60f2d3;
   font-family: open-sans;
   font-weight: 400;
 }
 
 .asset_marker i {
-  color: #eb64c8;
+  color: #60f2d3;
 }
 
 .asset_marker .marker i {
@@ -841,9 +897,9 @@ select:focus {
   font-family: apotek-extracond;
   font-weight: 600;
   font-size: 1.5rem;
-  color: #eb64c8;
+  color: #60f2d3;
   background: none;
-  border: 1px solid #eb64c8;
+  border: 1px solid #60f2d3;
   border-bottom: none;
 }
 
@@ -867,7 +923,7 @@ select:focus {
 .control_panel {
   height: 13rem;
   width: 27rem;
-  border: 1px solid #eb64c8;
+  border: 1px solid #60f2d3;
   border-radius: 0.7rem;
 }
 
@@ -895,7 +951,7 @@ input[type="range"]:focus {
   outline: none;
 }
 input[type="range"]::-webkit-slider-runnable-track {
-  background: #eb64c8;
+  background: #60f2d3;
   border: 0;
   border-radius: 25px;
   width: 100%;
@@ -906,19 +962,19 @@ input[type="range"]::-webkit-slider-thumb {
   margin-top: -4.95px;
   width: 16px;
   height: 16px;
-  background: #ffffff;
-  border: 1px solid #eb64c8;
-  -webkit-box-shadow: 0px 0px 5px 1px #eb64c8;
-  box-shadow: 0px 0px 5px 1px #eb64c8;
+  background: #172a46;
+  border: 1px solid #60f2d3;
+  -webkit-box-shadow: 0px 0px 5px 1px #60f2d3;
+  box-shadow: 0px 0px 5px 1px #60f2d3;
   border-radius: 11px;
   cursor: pointer;
   -webkit-appearance: none;
 }
 input[type="range"]:focus::-webkit-slider-runnable-track {
-  background: #eb64c8;
+  background: #60f2d3;
 }
 input[type="range"]::-moz-range-track {
-  background: #eb64c8;
+  background: #60f2d3;
   border: 0;
   border-radius: 25px;
   width: 100%;
@@ -928,8 +984,8 @@ input[type="range"]::-moz-range-track {
 input[type="range"]::-moz-range-thumb {
   width: 16px;
   height: 16px;
-  background: #ffffff;
-  border: 1px solid #eb64c8;
+  background: #172a46;
+  border: 1px solid #60f2d3;
   border-radius: 11px;
   cursor: pointer;
 }
@@ -943,30 +999,30 @@ input[type="range"]::-ms-track {
   cursor: pointer;
 }
 input[type="range"]::-ms-fill-lower {
-  background: #eb64c8;
+  background: #60f2d3;
   border: 0;
   border-radius: 50px;
 }
 input[type="range"]::-ms-fill-upper {
-  background: #eb64c8;
+  background: #60f2d3;
   border: 0;
   border-radius: 50px;
 }
 input[type="range"]::-ms-thumb {
   width: 16px;
   height: 16px;
-  background: #ffffff;
-  border: 1px solid #eb64c8;
+  background: #172a46;
+  border: 1px solid #60f2d3;
   border-radius: 11px;
   cursor: pointer;
   margin-top: 0px;
   /*Needed to keep the Edge thumb centred*/
 }
 input[type="range"]:focus::-ms-fill-lower {
-  background: #eb64c8;
+  background: #60f2d3;
 }
 input[type="range"]:focus::-ms-fill-upper {
-  background: #eb64c8;
+  background: #60f2d3;
 }
 
 /* range slider styles end */
@@ -981,17 +1037,17 @@ input[type="range"]:focus::-ms-fill-upper {
 }
 
 .slider_title {
-  color: #eb64c8;
+  color: #60f2d3;
   font-family: apotek-extracond;
   font-weight: 300;
   font-size: 1.5rem;
 }
 
 .control_nums {
-  border: 1px solid #eb64c8;
+  border: 1px solid #60f2d3;
   width: 3rem;
   height: 1.5rem;
-  color: #eb64c8;
+  color: #60f2d3;
   padding: 5px;
   font-size: 1rem;
   outline: none;
@@ -1025,7 +1081,7 @@ input[type="range"]:focus::-ms-fill-upper {
 .gltf_converter {
   width: 100%;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.16);
+  background-color: rgba(0, 0, 0, 0.7);
   position: absolute;
   left: 0;
   top: 0;
@@ -1042,7 +1098,7 @@ input[type="range"]:focus::-ms-fill-upper {
   height: 20rem;
   padding: 15px;
   /* border: 1px solid #333; */
-  background: #fff4f4;
+  background-color: #172a46;
 }
 
 #downloadBtn {
@@ -1053,9 +1109,9 @@ input[type="range"]:focus::-ms-fill-upper {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: white;
+  background-color: #172a46;
   border-radius: 30px;
-  color: #eb64c8;
+  color: #60f2d3;
   font-weight: 700;
   font-family: apotek-extracond, sans-serif;
   border: none;
@@ -1072,12 +1128,12 @@ input[type="range"]:focus::-ms-fill-upper {
   justify-content: center;
   align-items: center;
   height: 18rem;
-  border: 2px dashed #eb64c8;
+  border: 2px dashed #60f2d3;
   -webkit-border-radius: 10px;
   border-radius: 10px;
   padding: 50px;
   text-align: center;
   font-family: sans-serif;
   font-size: 1.5rem;
-  color: #959595;
+  color: white;
 }

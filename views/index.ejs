@@ -4,97 +4,21 @@
 
     <div class="home_page">
         <%- include('./partials/nav.ejs') %>
-        <div class="text_container">
-            <h2> Easy to use</h2>
-            <h1>FREE Web AR</h1>
-            <p>Create the experience that people want to <br>talk to their friends about today</p>
-            <a href="/signup"><button>Start Creating</button></a>
-        </div>  
-        <div class="scene"></div>
+        <div class="home_top">
+            <img src="images/augmented.png">
+        </div>
+        <div class="home_mid">
+            <div class="reality_container">
+                <img src="images/reality.png">
+            </div>
+        </div>
+        <div class="home_bot">
+            <img src="images/hand-phone.png">
+        </div>
     
     </div>
 
-    <script src="/js/three.js"></script>
-    <script src="/js/GLTFLoader.js"></script>
-
-    <script>
-        let container
-        let scene
-        let camera
-        let model
-        let renderer
-
-        function init(){
-            container = document.querySelector(".scene")
-
-            //create scene
-            scene = new THREE.Scene()
-
-            //how much camera can see
-            const fieldOfView = 35
-
-            const aspect = container.clientWidth/container.clientHeight
-
-            //range can be seen
-            const near = 0.1
-            const far = 500
-
-            //camera setup
-            camera = new THREE.PerspectiveCamera(fieldOfView, aspect, near, far)
-            camera.position.set(1,-1,13)
-
-            const ambient = new THREE.AmbientLight(0x404040,2)
-            scene.add(ambient)
-
-            const light = new THREE.DirectionalLight(0xffffff, 1)
-            light.position.set(10,10,10)
-            scene.add(light)
-
-            //renderer
-            renderer = new THREE.WebGLRenderer({anitialias:true, alpha:true})
-            renderer.setSize(container.clientWidth,container.clientHeight)
-            renderer.setPixelRatio(window.devicePixelRatio)
-
-            container.appendChild(renderer.domElement)
-
-            //load model /3d_model/scene.gltf
-            let loader = new THREE.GLTFLoader()
-            loader.load("/3d_model/scene.gltf", function(gltf){
-                scene.add(gltf.scene)
-                model = gltf.scene.children[0]
-                model.rotation.x = 5
-                renderer.render(scene,camera)
-                animate()
-            })
-
-        }
-
-        function animate(){
-            requestAnimationFrame(animate)
-            model.rotation.z += 0.003
-            renderer.render(scene, camera)
-        }
-
-        function rotateOnMouse(mouse){
-            model.rotation.x += mouse.movementX/10000
-            model.rotation.y -= mouse.movementY/10000
-            console.log(mouse)
-        }
-
-        init()
-
-        function onWindowResize(){
-            camera.aspect = container.clientWidth/container.clientHeight
-            camera.updateProjectionMatrix()
-
-            renderer.setSize(container.clientWidth,container.clientHeight)
-        }
-
-        window.addEventListener('resize', onWindowResize)
-
-        window.addEventListener('mousemove', rotateOnMouse)
-    </script>
-
+   
     <!-- <%- include('./partials/footer.ejs') %> -->
 </body>
 </html>
